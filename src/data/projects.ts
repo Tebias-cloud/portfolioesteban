@@ -64,7 +64,7 @@ export const myProjects: Project[] = [
       { name: 'Mercado Pago', icon: 'CreditCard' },
       { name: 'Supabase', icon: 'Database' }
     ],
-    images: ['/img/joyas1.PNG', '/img/joyas2.PNG', '/img/joyas3.PNG'],
+    images: ['/img/joyas1.webp', '/img/joyas2.webp', '/img/joyas3.webp'],
     link: 'https://joyas-fran.vercel.app/',
     github: 'https://github.com/Tebias-cloud/joyas-fran'
   },
