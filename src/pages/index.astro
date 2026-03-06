@@ -1,17 +1,218 @@
 ---
+import Layout from '../layouts/Layout.astro';
+import { ProjectDetail } from '../components/ProjectDetail.tsx';
+import { Reveal } from '../components/Reveal.tsx';
+import { myProjects } from '../data/projects.ts';
+import { Particles } from '../components/ui/particles.tsx';
+import { Meteors } from '../components/ui/meteors.tsx';
+import { Navbar } from '../components/Navbar.tsx';
+import { HeroInfo } from '../components/HeroInfo.tsx';
+import { ProjectsHeader, StackHeader, FooterContent } from '../components/PageSections.tsx';
+import { ExperienceList } from '../components/ExperienceList.tsx';
 
+import { useStore } from '@nanostores/react';
+import { $lang } from '../store/ui';
+
+// Iconos esenciales
+import { 
+    Rocket, Globe, Atom, FileCode2, Palette, Database, 
+    Flame, Server, Coffee, Terminal, Cpu, GitBranch, 
+    Figma, Triangle, Bot, Copy, Check, Linkedin, ArrowUpRight 
+} from 'lucide-react';
+
+const frontendStack = [
+    { name: 'Next.js', Icon: Globe },
+    { name: 'React', Icon: Atom },
+    { name: 'Tailwind CSS', Icon: Palette },
+    { name: 'Astro', Icon: Rocket },
+    { name: 'Figma', Icon: Figma }
+];
+
+const backendStack = [
+    { name: 'PostgreSQL', Icon: Server },
+    { name: 'Supabase', Icon: Database },
+    { name: 'Firebase', Icon: Flame },
+    { name: 'Vercel', Icon: Triangle }
+];
+
+const coreStack = [
+    { name: 'TypeScript', Icon: FileCode2 },
+    { name: 'Python', Icon: Terminal },
+    { name: 'Java', Icon: Coffee },
+    { name: 'C', Icon: Cpu },
+    { name: 'Git / GitHub', Icon: GitBranch },
+    { name: 'AI Automation', Icon: Bot }
+];
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Esteban Vidal | Software Engineer">
+    <Navbar client:load />
+
+    <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-zinc-100 dark:bg-[#0a0a0a] transition-colors duration-500">
+        
+        <Particles 
+            client:load 
+            className="absolute inset-0 opacity-40 dark:opacity-90" 
+            quantity={60}
+            ease={100}
+            color="#a855f7" 
+            refresh={true}
+        />
+        
+        <div class="absolute inset-0 z-0">
+            <div class="absolute -top-[25%] -left-[20%] w-[80%] h-[80%] rounded-full bg-purple-500/10 dark:bg-purple-500/5 blur-[120px] pointer-events-none"></div>
+            
+            <div class="absolute -bottom-[25%] -right-[20%] w-[80%] h-[80%] rounded-full bg-cyan-500/10 dark:bg-cyan-500/5 blur-[120px] pointer-events-none"></div>
+        </div>
+
+        <Meteors client:load number={10} />
+
+        <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(228,228,231,0.8)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,10,0.9)_100%)]"></div>
+    </div>
+
+    <main id="top" class="relative z-10 max-w-5xl mx-auto px-6 py-12 md:py-20 mt-16">
+        
+        <header class="mb-24 md:mb-32 mt-10">
+            <Reveal client:load>
+                <HeroInfo client:load />
+            </Reveal>
+        </header>
+
+        <section id="projects" class="scroll-mt-32">
+            <ProjectsHeader client:load />
+            <ProjectDetail projects={myProjects} client:load />
+        </section>
+
+        <section id="experience" class="mt-32 scroll-mt-32">
+            <Reveal client:visible>
+                <ExperienceList client:load />
+            </Reveal>
+        </section>
+
+        <section id="stack" class="mt-32 scroll-mt-32">
+            <Reveal client:visible>
+                <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
+                    <StackHeader client:load />
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 w-full">
+                        {[
+                            { title: { ES: 'Frontend', EN: 'Frontend' }, color: 'bg-purple-500', shadow: 'rgba(168,85,247,0.4)', items: frontendStack },
+                            { title: { ES: 'Backend', EN: 'Backend' }, color: 'bg-emerald-500', shadow: 'rgba(16,185,129,0.4)', items: backendStack },
+                            { title: { ES: 'Ingeniería', EN: 'Engineering' }, color: 'bg-zinc-400', shadow: 'rgba(161,161,170,0.4)', items: coreStack }
+                        ].map((category) => (
+                            <div class="flex flex-col gap-4">
+                                <h4 class="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-400 dark:text-zinc-500 flex items-center gap-2">
+                                    <span class={`w-1.5 h-1.5 rounded-full ${category.color}`} style={`box-shadow: 0 0 8px ${category.shadow}`}></span> 
+                                    <span class="category-title" data-es={category.title.ES} data-en={category.title.EN}>
+                                        {category.title.ES}
+                                    </span>
+                                </h4>
+                                <div class="flex flex-wrap gap-2.5">
+                                    {category.items.map(({ name, Icon }) => (
+                                        <span class="group flex items-center gap-2 px-3.5 py-2 rounded-xl border border-zinc-200/80 dark:border-white/5 bg-white/60 dark:bg-white/5 text-zinc-600 dark:text-zinc-400 text-xs font-medium backdrop-blur-sm transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:scale-[1.05] hover:bg-white dark:hover:bg-white/10 hover:border-zinc-400 dark:hover:border-white/20 hover:text-zinc-950 dark:hover:text-white cursor-default">
+                                            <Icon size={14} strokeWidth={2} className="text-zinc-400 dark:text-zinc-500 group-hover:text-zinc-900 dark:group-hover:text-white transition-all duration-300 group-hover:scale-110" />
+                                            {name}
+                                        </span>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Reveal>
+        </section>
+
+        <section id="contact" class="mt-40 mb-20 border-t border-zinc-200 dark:border-white/5 pt-20">
+            <Reveal client:visible>
+                <div class="flex flex-col gap-8">
+                    <div class="flex flex-col gap-2">
+                        <h2 class="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100" id="contact-title">
+                            ¿Quieres trabajar juntos?
+                        </h2>
+                        <p class="text-zinc-500 dark:text-zinc-400 font-light max-w-lg" id="contact-desc">
+                            Escríbeme para explorar colaboraciones técnicas o discutir nuevas oportunidades estratégicas.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-wrap items-center gap-x-10 gap-y-6">
+                        <div class="group flex items-center gap-2.5">
+                            <span class="text-zinc-600 dark:text-zinc-300 text-sm font-medium tracking-wide select-all hover:text-zinc-900 dark:hover:text-white transition-colors cursor-text">
+                                esteban.vidal.valencia@gmail.com
+                            </span>
+                            <button 
+                                id="copy-email-bottom"
+                                class="flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer active:scale-90" 
+                                aria-label="Copiar correo"
+                            >
+                                <div class="relative w-4 h-4">
+                                    <Copy size={15} id="copy-icon-bottom" className="absolute inset-0 transition-opacity duration-300 opacity-100" />
+                                    <Check size={15} id="check-icon-bottom" className="absolute inset-0 transition-opacity duration-300 opacity-0 text-emerald-500" />
+                                </div>
+                            </button>
+                        </div>
+
+                        <a 
+                            href="https://www.linkedin.com/in/esteban-vidal-/" 
+                            target="_blank" 
+                            class="flex items-center gap-2 text-zinc-500 hover:text-[#0a66c2] dark:hover:text-[#3b82f6] transition-all group"
+                        >
+                            <Linkedin size={16} strokeWidth={1.5} />
+                            <span class="text-sm font-medium">LinkedIn</span>
+                            <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-0.5" />
+                        </a>
+
+                        <div class="flex items-center gap-2.5 ml-auto md:ml-0">
+                            <span class="relative flex h-1.5 w-1.5">
+                                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                                <span class="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                            </span>
+                            <span class="text-zinc-500 dark:text-zinc-500 text-[10px] font-bold uppercase tracking-[0.2em]" id="contact-status">
+                                Open to new collaborations
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </Reveal>
+        </section>
+
+        <footer class="pb-12 pt-4 flex flex-col md:flex-row justify-between items-center gap-4 transition-colors duration-500">
+            <FooterContent client:load />
+        </footer>
+    </main>
+</Layout>
+
+<script>
+    import { $lang } from '../store/ui';
+
+    const btnBottom = document.getElementById('copy-email-bottom');
+    const copyIconBottom = document.getElementById('copy-icon-bottom');
+    const checkIconBottom = document.getElementById('check-icon-bottom');
+    const title = document.getElementById('contact-title');
+    const desc = document.getElementById('contact-desc');
+    const status = document.getElementById('contact-status');
+    const categoryTitles = document.querySelectorAll('.category-title');
+
+    $lang.subscribe(lang => {
+        if (title && desc && status) {
+            title.innerText = lang === 'ES' ? '¿Quieres trabajar juntos?' : 'Want to work together?';
+            desc.innerText = lang === 'ES' 
+                ? 'Escríbeme para explorar colaboraciones técnicas o discutir nuevas oportunidades estratégicas.' 
+                : 'Reach out to explore technical collaborations or discuss new strategic opportunities.';
+            status.innerText = lang === 'ES' ? 'Abierto a nuevas colaboraciones' : 'Open to new collaborations';
+        }
+
+        categoryTitles.forEach(titleEl => {
+            const el = titleEl as HTMLElement;
+            el.innerText = lang === 'ES' ? el.dataset.es! : el.dataset.en!;
+        });
+    });
+
+    btnBottom?.addEventListener('click', () => {
+        navigator.clipboard.writeText("esteban.vidal.valencia@gmail.com");
+        copyIconBottom?.classList.replace('opacity-100', 'opacity-0');
+        checkIconBottom?.classList.replace('opacity-0', 'opacity-100');
+        setTimeout(() => {
+            copyIconBottom?.classList.replace('opacity-0', 'opacity-100');
+            checkIconBottom?.classList.replace('opacity-100', 'opacity-0');
+        }, 2000);
+    });
+</script>

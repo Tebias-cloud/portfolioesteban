@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+/* HABILITA EL MODO OSCURO MANUAL EN TAILWIND V4 */
+@custom-variant dark (&:is(.dark *));
+
+@layer utilities {
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .render-hd {
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  .animate-meteor {
+    animation: meteor 5s linear infinite;
+  }
+}
+
+@keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;
+  }
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: rotate(var(--angle)) translateX(-1000px);
+    opacity: 0;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+  /* El fondo ahora lo controla Layout.astro, ¡no lo pongas aquí! */
+}
+
+/* Animaciones para el Theme Toggler (View Transitions) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+::view-transition-new(root) {
+  z-index: 9999;
+}
