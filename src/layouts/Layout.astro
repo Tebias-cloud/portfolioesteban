@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css'
+import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
     title: string;
@@ -40,5 +41,11 @@ const { title } = Astro.props;
     </head>
     <body class="bg-zinc-50 dark:bg-[#0a0a0a] text-zinc-900 dark:text-zinc-100 font-['Inter',sans-serif] selection:bg-purple-500/30 overflow-x-hidden transition-colors duration-500">
         <slot />
+        <SpeedInsights />
+        
+        <script>
+          import { inject } from '@vercel/analytics';
+          inject();
+        </script>
     </body>
 </html>
