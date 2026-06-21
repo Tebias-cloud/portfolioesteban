@@ -67,14 +67,27 @@ export const ProjectList = () => {
             transition={{
               duration: 0.5,
               ease: [0.25, 0.46, 0.45, 0.94],
-              delay: index * 0.08, // staggered entrance
+              delay: index * 0.08,
             }}
-            whileHover={{ y: -4 }}
             onClick={() => setSelectedId(project.id)}
-            className="group cursor-pointer relative flex flex-col h-full bg-white/60 dark:bg-[#070707]/80 backdrop-blur-sm border border-zinc-200/50 dark:border-white/5 shadow-sm hover:shadow-lg dark:shadow-none overflow-hidden rounded-[24px] transition-shadow duration-300"
+            className="group cursor-pointer relative flex flex-col h-full
+              bg-white/80 dark:bg-[#0a0a0a]/90
+              border border-zinc-200/50 dark:border-white/5
+              shadow-sm hover:shadow-lg
+              overflow-hidden rounded-[24px]
+              transition-shadow duration-300
+              /* ⬇️ whileHover movido a CSS puro + will-change */
+              hover:-translate-y-1 transition-transform duration-300 ease-out
+              will-change-transform"
           >
-            {/* Purple glow on hover */}
-            <div className="absolute inset-0 bg-purple-500/0 group-hover:bg-purple-500/5 dark:group-hover:bg-purple-500/10 blur-2xl transition-colors duration-500 rounded-[inherit] pointer-events-none"></div>
+            {/* Glow púrpura animado solo con opacidad (no background-color) */}
+            <div
+              className="absolute inset-0 rounded-[inherit] pointer-events-none
+                bg-purple-500/20 dark:bg-purple-500/30 blur-xl
+                opacity-0 group-hover:opacity-100
+                transition-opacity duration-500
+                will-change-[opacity]"
+            />
 
             {/* Thumbnail */}
             <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-[#0a0a0a] z-10">
@@ -123,14 +136,14 @@ export const ProjectList = () => {
         ))}
       </div>
 
-      {/* Modal with AnimatePresence for smooth enter/exit */}
+      {/* Modal con AnimatePresence para entrada/salida suaves */}
       <AnimatePresence>
         {selectedId && selectedProject && (
           <div
             key={`modal-${selectedId}`}
             className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-8"
           >
-            {/* Overlay */}
+            {/* Overlay: blur reducido y animación solo de opacidad */}
             <motion.div
               key="overlay"
               initial={{ opacity: 0 }}
@@ -138,16 +151,17 @@ export const ProjectList = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setSelectedId(null)}
-              className="absolute inset-0 bg-zinc-50/80 dark:bg-black/90 backdrop-blur-2xl"
+              className="absolute inset-0 bg-zinc-50/80 dark:bg-black/90 backdrop-blur-xl"
             />
 
-            {/* Modal content */}
+            {/* Contenido del modal con will-change forzado */}
             <motion.div
               key="modal-content"
               initial={{ opacity: 0, scale: 0.95, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
+              style={{ willChange: "transform, opacity" }}
               className="relative w-full max-w-[72rem] h-[90vh] md:h-auto md:max-h-[90vh] bg-white dark:bg-[#070707] border border-zinc-200 dark:border-white/5 rounded-[32px] shadow-2xl overflow-hidden flex flex-col z-10"
             >
               <div className="flex flex-col h-full p-8 md:p-10 relative">
@@ -192,9 +206,9 @@ export const ProjectList = () => {
 
                 <div className="grid lg:grid-cols-2 gap-10 min-h-0 flex-1 relative z-10">
                   <div className="flex flex-col gap-6 relative">
-                    {/* Main image */}
+                    {/* Imagen principal con glow optimizado (blur reducido) */}
                     <div className="relative w-full aspect-video rounded-2xl overflow-hidden flex items-center justify-center group shadow-xl border border-zinc-200/50 dark:border-white/5 bg-zinc-100 dark:bg-black/50">
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-purple-500/10 dark:bg-purple-500/5 blur-[80px] rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0"></div>
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-purple-500/10 dark:bg-purple-500/5 blur-3xl rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0 will-change-[opacity]" />
                       <img
                         src={selectedProject.images[activeImg]}
                         alt={`${selectedProject.title} screenshot ${activeImg + 1}`}
@@ -202,13 +216,13 @@ export const ProjectList = () => {
                       />
                     </div>
 
-                    {/* Thumbnails */}
+                    {/* Miniaturas con transiciones acotadas */}
                     <div className="grid grid-cols-3 gap-4 shrink-0 pb-1 px-1">
                       {selectedProject.images.map((img, idx) => (
                         <button
                           key={idx}
                           onClick={() => setActiveImg(idx)}
-                          className={`relative aspect-video rounded-xl overflow-hidden focus:outline-none transition-all duration-300 ${
+                          className={`relative aspect-video rounded-xl overflow-hidden focus:outline-none transition-[opacity,transform,border-color,box-shadow] duration-300 will-change-transform ${
                             activeImg === idx
                               ? "border border-purple-500/70 shadow-[0_0_15px_rgba(168,85,247,0.3)] opacity-100 scale-[1.02]"
                               : "border border-zinc-200 dark:border-white/5 opacity-40 hover:opacity-100 hover:-translate-y-0.5"
