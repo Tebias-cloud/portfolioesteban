@@ -1,6 +1,7 @@
-"use client";
 import React, { useEffect, useRef, useState, type ComponentPropsWithoutRef } from "react";
 import { cn } from "../../lib/utils";
+import { useStore } from "@nanostores/react";
+import { $isModalOpen } from "../../store/ui";
 
 interface MousePosition { x: number; y: number; }
 function MousePosition(): MousePosition {
@@ -24,9 +25,10 @@ type Circle = { x: number; y: number; translateX: number; translateY: number; si
 
 interface ParticlesProps extends ComponentPropsWithoutRef<"div"> {
   className?: string; quantity?: number; staticity?: number; ease?: number; size?: number; refresh?: boolean; color?: string; vx?: number; vy?: number;
+  paused?: boolean;
 }
 
-export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity = 100, staticity = 50, ease = 50, size = 0.4, refresh = false, color = "#ffffff", vx = 0, vy = 0, ...props }) => {
+export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity = 100, staticity = 50, ease = 50, size = 0.4, refresh = false, color = "#ffffff", vx = 0, vy = 0, paused: propsPaused = false, ...props }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const canvasContainerRef = useRef<HTMLDivElement>(null);
   const context = useRef<CanvasRenderingContext2D | null>(null);
@@ -38,10 +40,15 @@ export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity =
   const rafID = useRef<number | null>(null);
   const resizeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
+  const isModalOpen = useStore($isModalOpen);
+  const paused = propsPaused || isModalOpen;
+
   useEffect(() => {
     if (canvasRef.current) context.current = canvasRef.current.getContext("2d");
     initCanvas();
-    animate();
+    if (!paused) {
+      animate();
+    }
     const handleResize = () => {
       if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
       resizeTimeout.current = setTimeout(() => { initCanvas(); }, 200);
@@ -52,7 +59,7 @@ export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity =
       if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
       window.removeEventListener("resize", handleResize);
     };
-  }, [color]);
+  }, [color, paused]);
 
   useEffect(() => { onMouseMove(); }, [mousePosition.x, mousePosition.y]);
   useEffect(() => { initCanvas(); }, [refresh]);
@@ -117,6 +124,7 @@ export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity =
   };
 
   const animate = () => {
+    if (paused) return;
     clearContext();
     circles.current.forEach((circle: Circle, i: number) => {
       const edge = [
@@ -142,7 +150,7 @@ export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity =
   };
 
   return (
-    <div className={cn("pointer-events-none", className)} ref={canvasContainerRef} aria-hidden="true" {...props}>
+    <div className={cn("pointer-events-none transition-opacity duration-500", paused && "opacity-20", className)} ref={canvasContainerRef} aria-hidden="true" {...props}>
       <canvas ref={canvasRef} className="size-full" />
     </div>
   );

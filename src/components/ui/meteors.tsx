@@ -2,6 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import { cn } from "../../lib/utils";
+import { useStore } from "@nanostores/react";
+import { $isModalOpen } from "../../store/ui";
 
 export const Meteors = ({
   number = 12,
@@ -11,8 +13,11 @@ export const Meteors = ({
   maxDuration = 10,
   angle = 215,
   className,
-}: { number?: number; minDelay?: number; maxDelay?: number; minDuration?: number; maxDuration?: number; angle?: number; className?: string; }) => {
+  paused: propsPaused = false,
+}: { number?: number; minDelay?: number; maxDelay?: number; minDuration?: number; maxDuration?: number; angle?: number; className?: string; paused?: boolean; }) => {
   const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>([]);
+  const isModalOpen = useStore($isModalOpen);
+  const paused = propsPaused || isModalOpen;
 
   useEffect(() => {
     const styles = [...new Array(number)].map(() => ({
@@ -30,7 +35,7 @@ export const Meteors = ({
       {meteorStyles.map((style, idx) => (
         <span
           key={idx}
-          style={{ ...style }}
+          style={{ ...style, animationPlayState: paused ? "paused" : "running" }}
           className={cn("animate-meteor pointer-events-none absolute rotate-[var(--angle)]", className)}
         >
           {/* La línea ahora tiene color morado/fucsia coherente */}

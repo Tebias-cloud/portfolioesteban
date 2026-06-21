@@ -7,7 +7,12 @@ import { $lang } from '../store/ui';
 
 export const Navbar = () => {
   const currentLang = useStore($lang);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(() => {
+    if (typeof window !== 'undefined') {
+      return document.documentElement.classList.contains('dark');
+    }
+    return true;
+  });
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -51,18 +56,18 @@ export const Navbar = () => {
 
   return (
     <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]">
-      <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/5 bg-white/80 dark:bg-zinc-900/60 backdrop-blur-xl shadow-md dark:shadow-2xl transition-colors duration-500">
+      <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm shadow-md dark:shadow-2xl transition-[color,background-color] duration-300">
         <div className="flex items-center">
-          <a href="#top" title="Perfil" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-all"><User size={18} /></a>
-          <a href="#projects" title="Proyectos" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-all"><FolderCode size={18} /></a>
-          <a href="#experience" title="Experiencia" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-all"><Briefcase size={18} /></a>
+          <a href="#top" title="Perfil" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><User size={18} /></a>
+          <a href="#projects" title="Proyectos" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><FolderCode size={18} /></a>
+          <a href="#experience" title="Experiencia" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><Briefcase size={18} /></a>
         </div>
-        <div className="w-px h-4 bg-zinc-200 dark:bg-white/10 mx-1 transition-colors duration-500" />
+        <div className="w-px h-4 bg-zinc-200 dark:bg-white/10 mx-1 transition-[color,background-color] duration-300" />
         <div className="flex items-center gap-0.5">
-          <button onClick={toggleLang} className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors">
+          <button onClick={toggleLang} className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
             {currentLang}
           </button>
-          <button ref={buttonRef} onClick={toggleTheme} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors">
+          <button ref={buttonRef} onClick={toggleTheme} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
             {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
         </div>

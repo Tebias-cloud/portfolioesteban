@@ -1,3 +1,4 @@
+import React from 'react';
 import { useStore } from '@nanostores/react';
 import { $lang } from '../store/ui';
 
@@ -22,14 +23,14 @@ export const t = {
   }
 };
 
-export const ProjectsHeader = () => {
+export const ProjectsHeader = React.memo(() => {
   const lang = useStore($lang);
   return (
     <div className="flex flex-col mb-12">
       <div className="flex items-center gap-3 mb-2">
         {/* Nodo con brillo sutil para guiar la vista */}
         <div className="w-2 h-2 rounded-sm bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.4)]"></div>
-        <h2 className="text-xs uppercase tracking-[0.3em] text-zinc-900 dark:text-zinc-300 font-bold transition-colors duration-500">
+        <h2 className="text-xs uppercase tracking-[0.3em] text-zinc-900 dark:text-zinc-300 font-bold transition-[color,background-color] duration-300">
             {t[lang].selectedWorks}
         </h2>
       </div>
@@ -38,15 +39,15 @@ export const ProjectsHeader = () => {
       </p>
     </div>
   );
-};
+});
 
-export const StackHeader = () => {
+export const StackHeader = React.memo(() => {
   const lang = useStore($lang);
   return (
     <div className="shrink-0">
       <div className="flex items-center gap-3 mb-2">
         <div className="w-2 h-2 rounded-sm bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.4)] md:hidden"></div>
-        <h2 className="text-xs uppercase tracking-[0.3em] text-zinc-900 dark:text-zinc-500 font-bold transition-colors duration-500">
+        <h2 className="text-xs uppercase tracking-[0.3em] text-zinc-900 dark:text-zinc-500 font-bold transition-[color,background-color] duration-300">
             {t[lang].stack}
         </h2>
       </div>
@@ -55,9 +56,9 @@ export const StackHeader = () => {
       </p>
     </div>
   );
-};
+});
 
-export const FooterContent = () => {
+export const FooterContent = React.memo(() => {
   const lang = useStore($lang);
   return (
     <>
@@ -71,4 +72,4 @@ export const FooterContent = () => {
       </div>
     </>
   );
-};
+});

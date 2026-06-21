@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Icons from "lucide-react";
 import { useStore } from "@nanostores/react";
-import { $lang } from "../store/ui";
+import { $lang, $isModalOpen } from "../store/ui";
 import { myProjects } from "../data/portfolio";
 import type { Project } from "../data/portfolio";
 
@@ -28,11 +28,15 @@ export const ProjectList = () => {
     return () => window.removeEventListener("keydown", handleEsc);
   }, []);
 
-  // Lock body scroll when modal is open
+  // Lock body scroll and handle modal open state
   useEffect(() => {
     document.body.style.overflow = selectedId ? "hidden" : "";
+    document.body.classList.toggle('modal-open', !!selectedId);
+    $isModalOpen.set(!!selectedId);
     return () => {
       document.body.style.overflow = "";
+      document.body.classList.remove('modal-open');
+      $isModalOpen.set(false);
     };
   }, [selectedId]);
 
@@ -94,6 +98,8 @@ export const ProjectList = () => {
               <img
                 src={project.images[0]}
                 alt={project.title}
+                width="640"
+                height="360"
                 loading="lazy"
                 decoding="async"
                 className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
@@ -151,7 +157,7 @@ export const ProjectList = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.3 }}
               onClick={() => setSelectedId(null)}
-              className="absolute inset-0 bg-zinc-50/80 dark:bg-black/90 backdrop-blur-xl"
+              className="absolute inset-0 bg-zinc-50/90 dark:bg-black/95"
             />
 
             {/* Contenido del modal con will-change forzado */}
@@ -162,6 +168,7 @@ export const ProjectList = () => {
               exit={{ opacity: 0, scale: 0.95, y: 20 }}
               transition={{ duration: 0.3, ease: "easeOut" }}
               style={{ willChange: "transform, opacity" }}
+              onClick={(e) => e.stopPropagation()}
               className="relative w-full max-w-[72rem] h-[90vh] md:h-auto md:max-h-[90vh] bg-white dark:bg-[#070707] border border-zinc-200 dark:border-white/5 rounded-[32px] shadow-2xl overflow-hidden flex flex-col z-10"
             >
               <div className="flex flex-col h-full p-8 md:p-10 relative">
@@ -208,7 +215,7 @@ export const ProjectList = () => {
                   <div className="flex flex-col gap-6 relative">
                     {/* Imagen principal con glow optimizado (blur reducido) */}
                     <div className="relative w-full aspect-video rounded-2xl overflow-hidden flex items-center justify-center group shadow-xl border border-zinc-200/50 dark:border-white/5 bg-zinc-100 dark:bg-black/50">
-                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-purple-500/10 dark:bg-purple-500/5 blur-3xl rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0 will-change-[opacity]" />
+                      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-purple-500/10 dark:bg-purple-500/5 blur-2xl rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0 will-change-[opacity]" />
                       <img
                         src={selectedProject.images[activeImg]}
                         alt={`${selectedProject.title} screenshot ${activeImg + 1}`}

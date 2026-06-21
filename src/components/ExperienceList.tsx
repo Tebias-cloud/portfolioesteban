@@ -1,7 +1,8 @@
+import React from 'react';
 import { useStore } from '@nanostores/react';
 import { $lang } from '../store/ui';
 
-export const ExperienceList = () => {
+export const ExperienceList = React.memo(() => {
   const currentLang = useStore($lang);
 
   const labels = {
@@ -89,4 +90,4 @@ export const ExperienceList = () => {
       </div>
     </div>
   );
-};
+});

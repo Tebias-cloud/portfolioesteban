@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useStore } from '@nanostores/react';
 import { $lang } from '../store/ui';
 import { Copy, Check, Download, Github, Linkedin } from 'lucide-react';
 
-export const HeroInfo = () => {
+export const HeroInfo = React.memo(() => {
   const currentLang = useStore($lang);
   const lang = currentLang as "ES" | "EN";
   const [copied, setCopied] = useState(false);
@@ -97,4 +97,4 @@ export const HeroInfo = () => {
       </div>
     </>
   );
-};
+});
