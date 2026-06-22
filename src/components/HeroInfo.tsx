@@ -10,13 +10,13 @@ export const HeroInfo = React.memo(() => {
 
   const content = {
     ES: {
-      bio: "Ingeniero Civil Informático. Desarrollo software con énfasis en arquitectura, integridad de datos y escalabilidad de las soluciones. Construyo sistemas funcionales adaptándome a las tecnologías necesarias, con experiencia práctica en ecosistemas como TypeScript, Next.js y PostgreSQL.",
+      bio: "Ingeniero Civil en Informática. Me dedico al desarrollo de software, con énfasis en la arquitectura, la integridad de los datos y la escalabilidad de las soluciones. Construyo sistemas funcionales adaptándome a las tecnologías necesarias, con experiencia práctica en ecosistemas como TypeScript, Next.js y PostgreSQL.",
       country: "Iquique, Chile",
       cvTitle: "Descargar CV",
       cvFile: "/Esteban_Vidal_CV_ES.pdf"
     },
     EN: {
-      bio: "Civil Informatics Engineer. I develop software with an emphasis on architecture, data integrity, and solution scalability. I build functional systems, adapting to the technologies required, with practical experience in ecosystems such as TypeScript, Next.js, and PostgreSQL.",
+      bio: "Civil Informatics Engineer. I dedicate myself to software development, with an emphasis on architecture, data integrity, and solution scalability. I build functional systems, adapting to the technologies required, with practical experience in ecosystems such as TypeScript, Next.js, and PostgreSQL.",
       country: "Iquique, Chile",
       cvTitle: "Download CV",
       cvFile: "/Esteban_Vidal_CV_EN.pdf"
@@ -26,7 +26,7 @@ export const HeroInfo = React.memo(() => {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-tighter leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300">
+        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-tight leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300">
           Esteban Vidal.
         </h1>
         <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed font-light transition-[color,background-color] duration-300">
