@@ -26,7 +26,7 @@ export const HeroInfo = React.memo(() => {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-normal leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300 -ml-[0.02em]">
+        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-normal leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300 -ml-[0.03em]">
           Esteban Vidal.
         </h1>
         <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed font-light transition-[color,background-color] duration-300">
@@ -60,7 +60,7 @@ export const HeroInfo = React.memo(() => {
             className="group flex items-center gap-1 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] hover:-translate-y-0.5 duration-300"
           >
             <span className="text-sm font-bold tracking-[0.2em]">CV</span>
-            <Download size={18} strokeWidth={1.5} className="group-hover:translate-y-0.5 transition-transform duration-300" />
+            <Download size={18} strokeWidth={1.5} />
           </a>
         </div>
 

@@ -39,9 +39,9 @@ export const ContactSection = React.memo(() => {
           href="https://www.linkedin.com/in/esteban-vidal-/" 
           target="_blank" 
           rel="noopener noreferrer"
-          className="flex items-center gap-2 text-zinc-500 hover:text-[#0a66c2] dark:hover:text-[#3b82f6] transition-[color,transform] duration-300 group"
+          className="flex items-center gap-2 text-zinc-500 hover:text-[#0a66c2] dark:hover:text-[#3b82f6] transition-[color,transform] hover:-translate-y-0.5 duration-300 group"
         >
-          <Linkedin size={16} strokeWidth={1.5} />
+          <Linkedin size={18} strokeWidth={1.5} />
           <span className="text-sm font-medium">LinkedIn</span>
           <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-0.5" />
         </a>
