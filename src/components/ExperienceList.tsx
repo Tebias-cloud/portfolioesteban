@@ -28,7 +28,7 @@ export const ExperienceList = React.memo(() => {
         company: "Bobstore", 
         role: "Full-Stack Developer", 
         date: "2024",
-        description: "Colaboré con una marca de indumentaria para diseñar una solución de inventario y ventas enfocada en dispositivos móviles. Mi rol abarcó la concepción de la arquitectura cloud y la implementación de un embudo de ventas que conectara directamente la infraestructura en la nube con la atención al cliente."
+        description: "Colaboré con una marca de indumentaria para diseñar una solución de inventario y ventas enfocada en dispositivos móviles. Mi rol abarcó la concepción de la arquitectura cloud y la implementación de un embudo de ventas que conecta la infraestructura en la nube con el canal de atención de WhatsApp."
       }
     ],
     EN: [
@@ -48,7 +48,7 @@ export const ExperienceList = React.memo(() => {
         company: "Bobstore", 
         role: "Full-Stack Developer", 
         date: "2024",
-        description: "Collaborated with an apparel brand to design a mobile-first inventory and sales solution. My role encompassed cloud architecture conception and the implementation of a sales funnel connecting cloud infrastructure directly with customer support."
+        description: "Collaborated with an apparel brand to design a mobile-first inventory and sales solution. My role encompassed cloud architecture conception and the implementation of a sales funnel that connects the cloud infrastructure with the WhatsApp customer channel."
       }
     ]
   };

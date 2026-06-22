@@ -38,8 +38,8 @@ export const myProjects: Project[] = [
       EN: 'Data Architecture & Real-Time Leaderboard' 
     },
     description: {
-      ES: 'El cálculo manual de puntajes deportivos generaba retrasos e inconsistencias críticas. Desarrollé una plataforma centralizada y automatizada para procesar miles de inscripciones y generar clasificaciones en tiempo real de forma precisa.',
-      EN: 'Manual sports score calculations caused critical delays and inconsistencies. I developed a centralized, automated platform to process thousands of registrations and accurately generate real-time leaderboards.'
+      ES: "El cálculo manual de puntajes deportivos generaba retrasos y errores en las clasificaciones. Desarrollé una plataforma centralizada que procesa miles de inscripciones y genera clasificaciones en tiempo real.",
+      EN: "Manual score calculation caused delays and classification errors. I developed a centralized platform that processes thousands of registrations and generates real-time rankings."
     },
     engineeringFocus: {
       ES: 'Diseñé una base de datos relacional protegida con Supabase RLS. Implementé Server Actions en Next.js para la validación automática de categorías y optimicé las consultas SQL para soportar picos de alto tráfico durante los días de carrera.',
@@ -63,8 +63,8 @@ export const myProjects: Project[] = [
       EN: 'Conversion Optimization & E-Commerce' 
     },
     description: {
-      ES: 'Las ventas basadas en mensajería de texto limitaban la escalabilidad del negocio. Construí un e-commerce desde cero centrado estrictamente en maximizar la conversión mediante un diseño UI premium y un flujo de checkout de cero fricciones.',
-      EN: 'Text-messaging based sales severely limited business scalability. I built an e-commerce platform from scratch strictly focused on maximizing conversion through a premium UI design and a zero-friction checkout flow.'
+      ES: "Las ventas por mensajería limitaban la escalabilidad. Construí un e-commerce desde cero centrado en maximizar la conversión mediante un diseño de interfaz optimizado y un flujo de compra simplificado.",
+      EN: "Messaging-based sales limited scalability. I built an e-commerce from scratch focused on maximizing conversion through an optimized UI design and a simplified checkout flow."
     },
     engineeringFocus: {
       ES: 'Implementé Next.js con renderizado estático (SSG) para asegurar tiempos de carga en milisegundos y un SEO superior. Integré webhooks asíncronos de Mercado Pago para la validación segura de transacciones y automaticé el control de stock.',
@@ -88,8 +88,8 @@ export const myProjects: Project[] = [
       EN: 'Digital Catalog & Mobile Performance' 
     },
     description: {
-      ES: 'Para escalar el negocio y profesionalizar el proceso de venta, el cliente requería digitalizar su inventario. Desarrollé una SPA ultraligera que actúa como un catálogo instantáneo y redirige eficientemente las intenciones de compra hacia WhatsApp.',
-      EN: 'To scale the business and professionalize the sales process, the client needed to digitize their inventory. I developed an ultra-lightweight SPA that acts as an instant catalog, efficiently redirecting purchase intents to WhatsApp.'
+      ES: "Para escalar el negocio, el cliente requería digitalizar su inventario. Desarrollé un catálogo instantáneo ultraligero que redirige al cliente a WhatsApp para concretar la compra.",
+      EN: "To scale the business, the client needed to digitize their inventory. I developed an ultra-lightweight instant catalog that redirects the customer to WhatsApp to complete the purchase."
     },
     engineeringFocus: {
       ES: 'Anticipando el crecimiento del catálogo, diseñé proactivamente un algoritmo de compresión de imágenes en el cliente (Canvas API) antes de subir a Firebase, garantizando fluidez móvil y ahorro de ancho de banda. Arquitecté una base NoSQL ágil e implementé CI/CD.',
@@ -109,39 +109,53 @@ export const myProjects: Project[] = [
 
 export const techCategories: TechCategory[] = [
   {
-    title: { ES: 'Frontend', EN: 'Frontend' },
-    color: 'bg-purple-500',
-    shadow: 'rgba(168,85,247,0.4)',
+    title: { ES: "Lenguajes", EN: "Languages" },
+    color: "bg-blue-500",
+    shadow: "rgba(59,130,246,0.4)",
     items: [
-      { name: 'Next.js', icon: 'Globe' },
-      { name: 'React', icon: 'Atom' },
-      { name: 'Tailwind CSS', icon: 'Palette' },
-      { name: 'Astro', icon: 'Rocket' },
-      { name: 'Figma', icon: 'Figma' }
+      { name: "TypeScript", icon: "FileCode2" },
+      { name: "Python", icon: "Code2" },
+      { name: "Java", icon: "Coffee" },
+      { name: "C", icon: "Terminal" },
     ]
   },
   {
-    title: { ES: 'Backend', EN: 'Backend' },
-    color: 'bg-emerald-500',
-    shadow: 'rgba(16,185,129,0.4)',
+    title: { ES: "Frameworks y Librerías", EN: "Frameworks & Libraries" },
+    color: "bg-cyan-500",
+    shadow: "rgba(6,182,212,0.4)",
     items: [
-      { name: 'PostgreSQL', icon: 'Server' },
-      { name: 'Supabase', icon: 'Database' },
-      { name: 'Firebase', icon: 'Flame' },
-      { name: 'Vercel', icon: 'Triangle' }
+      { name: "Next.js", icon: "Globe" },
+      { name: "React", icon: "Atom" },
+      { name: "Tailwind CSS", icon: "Wind" },
+      { name: "Astro", icon: "Rocket" },
     ]
   },
   {
-    title: { ES: 'Ingeniería', EN: 'Engineering' },
-    color: 'bg-zinc-400',
-    shadow: 'rgba(161,161,170,0.4)',
+    title: { ES: "Bases de Datos y Cloud", EN: "Databases & Cloud" },
+    color: "bg-emerald-500",
+    shadow: "rgba(16,185,129,0.4)",
     items: [
-      { name: 'TypeScript', icon: 'FileCode2' },
-      { name: 'Python', icon: 'Terminal' },
-      { name: 'Java', icon: 'Coffee' },
-      { name: 'C', icon: 'Cpu' },
-      { name: 'Git / GitHub', icon: 'GitBranch' },
-      { name: 'AI Automation', icon: 'Bot' }
+      { name: "PostgreSQL", icon: "Database" },
+      { name: "Supabase", icon: "Zap" },
+      { name: "Firebase", icon: "Flame" },
     ]
-  }
+  },
+  {
+    title: { ES: "Infraestructura y Deploy", EN: "Infrastructure & Deploy" },
+    color: "bg-purple-500",
+    shadow: "rgba(168,85,247,0.4)",
+    items: [
+      { name: "Vercel", icon: "Triangle" },
+    ]
+  },
+  {
+    title: { ES: "Herramientas de Desarrollo", EN: "Development Tools" },
+    color: "bg-zinc-500",
+    shadow: "rgba(113,113,122,0.4)",
+    items: [
+      { name: "Git", icon: "GitBranch" },
+      { name: "GitHub", icon: "Github" },
+      { name: "Figma", icon: "PenTool" },
+    ]
+  },
 ];

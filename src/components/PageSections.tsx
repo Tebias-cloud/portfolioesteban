@@ -5,7 +5,7 @@ import { $lang } from '../store/ui';
 export const t = {
   ES: {
     selectedWorks: "Proyectos Destacados",
-    selectedWorksSub: "Sistemas escalables y plataformas digitales (2025-2026).",
+    selectedWorksSub: "Sistemas escalables y plataformas digitales.",
     stack: "Stack",
     stackSub: "Tecnologías Principales",
     footerRights: "© 2026 Esteban Vidal. Todos los derechos reservados.",
@@ -14,7 +14,7 @@ export const t = {
   },
   EN: {
     selectedWorks: "Selected Works",
-    selectedWorksSub: "Scalable systems and digital platforms (2025-2026).",
+    selectedWorksSub: "Scalable systems and digital platforms.",
     stack: "Stack",
     stackSub: "Core Technologies",
     footerRights: "© 2026 Esteban Vidal. All rights reserved.",
