@@ -15,13 +15,13 @@ export const ExperienceList = React.memo(() => {
       { 
         company: "Campeonato MTB Regional", 
         role: "Software Engineer", 
-        date: "2024 — Actual",
+        date: "2025 — Actual",
         description: "Diseñé e implementé la plataforma de gestión para un circuito deportivo regional, trabajando directamente con los organizadores para levantar requisitos y validar funcionalidades. Responsable del ciclo completo: análisis, arquitectura, desarrollo y despliegue. Entregué una plataforma unificada que estandarizó los procesos de inscripción, puntuación y ranking de 7 clubes independientes."
       },
       { 
         company: "Joyería Fran", 
         role: "Software Engineer", 
-        date: "2024 — 2025",
+        date: "2025 — Actual",
         description: "Diseñé la arquitectura y lideré el desarrollo de la plataforma de e-commerce para una marca de retail en transición digital. Integré Mercado Pago como pasarela de pagos y desarrollé un panel administrativo a medida que centralizó la gestión de productos, pedidos y pagos, eliminando procesos manuales."
       },
       { 
@@ -35,13 +35,13 @@ export const ExperienceList = React.memo(() => {
       { 
         company: "Campeonato MTB Regional", 
         role: "Software Engineer", 
-        date: "2024 — Present",
+        date: "2025 — Present",
         description: "I designed and implemented the management platform for a regional sports circuit, working directly with the organizers to gather requirements and validate functionalities. Responsible for the full cycle: analysis, architecture, development, and deployment. Delivered a unified platform that standardized the registration, scoring, and ranking processes of 7 independent clubs."
       },
       { 
         company: "Joyería Fran", 
         role: "Software Engineer", 
-        date: "2024 — 2025",
+        date: "2025 — Present",
         description: "I designed the architecture and led the development of the e-commerce platform for a retail brand undergoing digital transition. I integrated Mercado Pago as the payment gateway and developed a custom admin panel that centralized product, order, and payment management, eliminating manual processes."
       },
       { 
