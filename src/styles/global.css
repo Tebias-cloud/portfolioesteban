@@ -36,6 +36,7 @@
 
 html {
   scroll-behavior: smooth;
+  scrollbar-gutter: stable;
   /* El fondo ahora lo controla Layout.astro, ¡no lo pongas aquí! */
 }
 

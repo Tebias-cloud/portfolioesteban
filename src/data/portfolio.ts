@@ -92,14 +92,14 @@ export const myProjects: Project[] = [
       EN: "To scale the business, the client needed to digitize their inventory. I developed an ultra-lightweight instant catalog that redirects the customer to WhatsApp to complete the purchase."
     },
     engineeringFocus: {
-      ES: "Ante el crecimiento previsto del catálogo, diseñé un algoritmo de compresión de imágenes en el cliente (Canvas API) antes de subirlas a Firebase, lo que reduce el consumo de ancho de banda y mejora la experiencia en móviles. Usé Firebase Firestore como base de datos y GitHub Actions para despliegue continuo.",
-      EN: "Anticipating catalog growth, I designed a client-side image compression algorithm (Canvas API) before uploading to Firebase, reducing bandwidth usage and improving the mobile experience. Used Firebase Firestore as the database and GitHub Actions for continuous deployment."
+      ES: "Ante el crecimiento previsto del catálogo, diseñé un algoritmo de compresión de imágenes en el cliente (Canvas API) antes de subirlas a Firebase, lo que reduce el consumo de ancho de banda y mejora la experiencia en móviles. Usé Firebase Firestore como base de datos y Firebase Deploy para el despliegue.",
+      EN: "Anticipating catalog growth, I designed a client-side image compression algorithm (Canvas API) before uploading to Firebase, reducing bandwidth usage and improving the mobile experience. Used Firebase Firestore as the database and Firebase Deploy for deployment."
     },
     tools: [
       { name: 'Vanilla JS', icon: 'Terminal' },
       { name: 'Firebase', icon: 'Flame' },
       { name: 'CSS Grid', icon: 'Layout' },
-      { name: 'GitHub Actions', icon: 'Workflow' }
+      { name: 'Firebase Deploy', icon: 'Rocket' }
     ],
     images: ['/img/bobstore1.webp', '/img/bobstore2.webp', '/img/bobstore3.webp'],
     link: 'https://bobstore-89a30.web.app/',
