@@ -6,8 +6,6 @@ export const t = {
   ES: {
     selectedWorks: "Proyectos Destacados",
     selectedWorksSub: "Sistemas escalables y plataformas digitales.",
-    stack: "Stack",
-    stackSub: "Tecnologías Principales",
     footerRights: "© 2026 Esteban Vidal. Todos los derechos reservados.",
     footerDegree: "Ingeniería Civil en Computación",
     footerUni: "U. de Tarapacá"
@@ -15,8 +13,6 @@ export const t = {
   EN: {
     selectedWorks: "Selected Works",
     selectedWorksSub: "Scalable systems and digital platforms.",
-    stack: "Stack",
-    stackSub: "Core Technologies",
     footerRights: "© 2026 Esteban Vidal. All rights reserved.",
     footerDegree: "Computer Science Engineering",
     footerUni: "University of Tarapacá"
@@ -36,23 +32,6 @@ export const ProjectsHeader = React.memo(() => {
       </div>
       <p className="text-zinc-500 dark:text-zinc-400 text-sm font-light leading-relaxed">
         {t[lang].selectedWorksSub}
-      </p>
-    </div>
-  );
-});
-
-export const StackHeader = React.memo(() => {
-  const lang = useStore($lang);
-  return (
-    <div className="shrink-0">
-      <div className="flex items-center gap-3 mb-2">
-        <div className="w-2 h-2 rounded-sm bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.4)] md:hidden"></div>
-        <h2 className="text-xs uppercase tracking-[0.3em] text-zinc-900 dark:text-zinc-500 font-bold transition-[color,background-color] duration-300">
-            {t[lang].stack}
-        </h2>
-      </div>
-      <p className="text-zinc-600 dark:text-zinc-400 text-[10px] uppercase tracking-widest font-medium">
-        {t[lang].stackSub}
       </p>
     </div>
   );

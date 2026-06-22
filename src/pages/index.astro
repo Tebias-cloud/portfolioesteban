@@ -6,9 +6,8 @@ import { Particles } from '../components/ui/particles.tsx';
 import { Meteors } from '../components/ui/meteors.tsx';
 import { Navbar } from '../components/Navbar.tsx';
 import { HeroInfo } from '../components/HeroInfo.tsx';
-import { ProjectsHeader, StackHeader, FooterContent } from '../components/PageSections.tsx';
+import { ProjectsHeader, FooterContent } from '../components/PageSections.tsx';
 import { ExperienceList } from '../components/ExperienceList.tsx';
-import { TechStack } from '../components/TechStack.tsx';
 import { ContactSection } from '../components/ContactSection.tsx';
 ---
 
@@ -16,7 +15,6 @@ import { ContactSection } from '../components/ContactSection.tsx';
     <Navbar client:load />
 
     <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-zinc-100 dark:bg-[#0a0a0a] transition-[color,background-color] duration-300">
-        
         <Particles 
             client:visible 
             className="absolute inset-0 opacity-40 dark:opacity-90" 
@@ -25,15 +23,11 @@ import { ContactSection } from '../components/ContactSection.tsx';
             color="#a855f7" 
             refresh={true}
         />
-        
         <div class="absolute inset-0 z-0">
             <div class="absolute -top-[25%] -left-[20%] w-[80%] h-[80%] rounded-full bg-purple-500/10 dark:bg-purple-500/5 blur-3xl pointer-events-none"></div>
-            
             <div class="absolute -bottom-[25%] -right-[20%] w-[80%] h-[80%] rounded-full bg-cyan-500/10 dark:bg-cyan-500/5 blur-3xl pointer-events-none"></div>
         </div>
-
         <Meteors client:visible number={10} />
-
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(228,228,231,0.8)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,10,0.9)_100%)]"></div>
     </div>
 
@@ -56,16 +50,7 @@ import { ContactSection } from '../components/ContactSection.tsx';
             </Reveal>
         </section>
 
-        <section id="stack" class="mt-32 scroll-mt-32">
-            <Reveal client:visible>
-                <div class="flex flex-col md:flex-row gap-8 md:gap-16 items-start">
-                    <StackHeader client:visible />
-                    <TechStack client:visible />
-                </div>
-            </Reveal>
-        </section>
-
-        <section id="contact" class="mt-40 mb-20 border-t border-zinc-200 dark:border-white/5 pt-20">
+        <section id="contact" class="mt-32 mb-20 border-t border-zinc-200 dark:border-white/5 pt-20">
             <Reveal client:visible>
                 <ContactSection client:visible />
             </Reveal>
