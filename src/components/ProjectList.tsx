@@ -285,7 +285,7 @@ export const ProjectList = () => {
 
               <div className="mt-auto pt-6 border-t border-zinc-100 dark:border-white/5">
                 <div className="flex flex-wrap content-start gap-2 min-h-[48px]">
-                  {project.tools.slice(0, 3).map((tool) => {
+                  {project.tools.map((tool) => {
                     const IconComponent = Icons[
                       tool.icon as keyof typeof Icons
                     ] as React.ElementType;
