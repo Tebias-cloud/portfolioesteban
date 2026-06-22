@@ -48,7 +48,7 @@ export const myProjects: Project[] = [
     tools: [
       { name: 'Next.js', icon: 'Globe' },
       { name: 'TypeScript', icon: 'FileCode2' },
-      { name: 'Supabase', icon: 'Database' },
+      { name: 'Supabase', icon: 'Zap' },
       { name: 'Tailwind', icon: 'Layout' }
     ],
     images: ['/img/chaski1.webp', '/img/chaski2.webp', '/img/chaski3.webp'],
@@ -71,10 +71,10 @@ export const myProjects: Project[] = [
       EN: 'Implemented Next.js with static site generation (SSG) to ensure millisecond load times and superior SEO. Integrated asynchronous Mercado Pago webhooks for secure transaction validation and automated stock control.'
     },
     tools: [
-      { name: 'Next.js', icon: 'Zap' },
+      { name: 'Next.js', icon: 'Globe' },
       { name: 'PostgreSQL', icon: 'Database' },
       { name: 'Mercado Pago', icon: 'CreditCard' },
-      { name: 'Supabase', icon: 'Database' }
+      { name: 'Supabase', icon: 'Zap' }
     ],
     images: ['/img/joyas1.webp', '/img/joyas2.webp', '/img/joyas3.webp'],
     link: 'https://joyas-fran.vercel.app/',
@@ -92,14 +92,14 @@ export const myProjects: Project[] = [
       EN: "To scale the business, the client needed to digitize their inventory. I developed an ultra-lightweight instant catalog that redirects the customer to WhatsApp to complete the purchase."
     },
     engineeringFocus: {
-      ES: 'Anticipando el crecimiento del catálogo, diseñé proactivamente un algoritmo de compresión de imágenes en el cliente (Canvas API) antes de subir a Firebase, garantizando fluidez móvil y ahorro de ancho de banda. Arquitecté una base NoSQL ágil e implementé CI/CD.',
-      EN: 'Anticipating catalog growth, I proactively designed a client-side image compression algorithm (Canvas API) prior to Firebase uploads, guaranteeing mobile fluidity and bandwidth savings. Architected an agile NoSQL database and implemented CI/CD.'
+      ES: "Anticipando el crecimiento del catálogo, diseñé un algoritmo de compresión de imágenes en el cliente (Canvas API) previo a la subida a Firebase, garantizando fluidez móvil y ahorro de ancho de banda. Arquitecté una base de datos NoSQL en Firebase e implementé despliegue continuo con GitHub Actions.",
+      EN: "Anticipating catalog growth, I designed a client-side image compression algorithm (Canvas API) prior to Firebase upload, guaranteeing mobile fluidity and bandwidth savings. Architected a NoSQL database on Firebase and implemented continuous deployment with GitHub Actions."
     },
     tools: [
       { name: 'Vanilla JS', icon: 'Terminal' },
       { name: 'Firebase', icon: 'Flame' },
       { name: 'CSS Grid', icon: 'Layout' },
-      { name: 'CI/CD', icon: 'GitMerge' }
+      { name: 'GitHub Actions', icon: 'Workflow' }
     ],
     images: ['/img/bobstore1.webp', '/img/bobstore2.webp', '/img/bobstore3.webp'],
     link: 'https://bobstore-89a30.web.app/',
