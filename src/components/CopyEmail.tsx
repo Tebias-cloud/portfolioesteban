@@ -21,14 +21,14 @@ export const CopyEmail: React.FC<CopyEmailProps> = React.memo(({ textClassName =
       </span>
       <button 
         onClick={handleCopy} 
-        className="flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer active:scale-90" 
+        className="flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-90" 
         aria-label="Copiar correo"
       >
-        <div className="relative w-4 h-4">
+        <div className="relative w-[18px] h-[18px]">
           {copied ? (
-            <Check size={15} className="absolute inset-0 text-emerald-500 transition-opacity duration-300 opacity-100" />
+            <Check size={18} strokeWidth={1.5} className="absolute inset-0 text-emerald-500 transition-opacity duration-300 opacity-100" />
           ) : (
-            <Copy size={15} className="absolute inset-0 text-zinc-400 transition-opacity duration-300 opacity-100" />
+            <Copy size={18} strokeWidth={1.5} className="absolute inset-0 text-zinc-400 transition-opacity duration-300 opacity-100" />
           )}
         </div>
       </button>

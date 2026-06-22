@@ -59,8 +59,8 @@ export const HeroInfo = React.memo(() => {
             title={content[lang].cvTitle}
             className="group flex items-center gap-1 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] hover:-translate-y-0.5 duration-300"
           >
-            <span className="text-[11px] font-bold tracking-[0.2em] mt-[1px]">CV</span>
-            <Download size={15} strokeWidth={2} className="group-hover:translate-y-0.5 transition-transform duration-300" />
+            <span className="text-sm font-bold tracking-[0.2em]">CV</span>
+            <Download size={18} strokeWidth={1.5} className="group-hover:translate-y-0.5 transition-transform duration-300" />
           </a>
         </div>
 
