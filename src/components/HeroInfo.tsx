@@ -16,7 +16,7 @@ export const HeroInfo = React.memo(() => {
       cvFile: "/Esteban_Vidal_CV_ES.pdf"
     },
     EN: {
-      bio: "Civil Informatics Engineer. I dedicate myself to software development, with an emphasis on architecture, data integrity, and solution scalability. I build functional systems, adapting to the technologies required, with practical experience in ecosystems such as TypeScript, Next.js, and PostgreSQL.",
+      bio: "Civil Informatics Engineer. I dedicate myself to software development, with emphasis on architecture, data integrity, and scalability. I build functional systems, adapting to the required technologies, with practical experience in ecosystems such as TypeScript, Next.js, and PostgreSQL.",
       country: "Iquique, Chile",
       cvTitle: "Download CV",
       cvFile: "/Esteban_Vidal_CV_EN.pdf"
@@ -26,7 +26,7 @@ export const HeroInfo = React.memo(() => {
   return (
     <>
       <div className="flex flex-col gap-6">
-        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-tight leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300">
+        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-normal leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300 -translate-x-[0.015em]">
           Esteban Vidal.
         </h1>
         <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed font-light transition-[color,background-color] duration-300">
