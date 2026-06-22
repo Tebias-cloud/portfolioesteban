@@ -14,41 +14,41 @@ export const ExperienceList = React.memo(() => {
     ES: [
       { 
         company: "Campeonato MTB Regional", 
-        role: "Full-Stack Developer", 
+        role: "Software Engineer", 
         date: "2024 — Actual",
-        description: "Dirigí la digitalización completa de un circuito deportivo regional trabajando directamente con los organizadores. Fui responsable del ciclo de vida completo del software, desde el levantamiento de requerimientos hasta el despliegue en producción, logrando estandarizar los procesos operativos de 7 clubes independientes bajo una única plataforma."
+        description: "Gestioné la digitalización integral de un circuito deportivo regional en colaboración directa con los organizadores. Responsable del ciclo de vida completo del software: análisis de requisitos, diseño de la solución, desarrollo y despliegue en producción. Entregué una plataforma unificada que estandarizó los procesos operativos de 7 clubes independientes."
       },
       { 
         company: "Joyería Fran", 
-        role: "Full-Stack Developer", 
+        role: "Software Engineer", 
         date: "2024 — 2025",
-        description: "Lideré la estrategia técnica para la transición de una marca de retail tradicional hacia el comercio electrónico. Gestioné la arquitectura del proyecto, la integración con proveedores de pago externos y la entrega de un panel administrativo diseñado a medida para optimizar el flujo de trabajo diario del cliente."
+        description: "Diseñé la arquitectura y lideré el desarrollo de la plataforma de e-commerce para la transición digital de una marca de retail. Integré pasarelas de pago externas y desarrollé un panel administrativo a medida que simplificó la operación diaria del negocio."
       },
       { 
         company: "Bobstore", 
-        role: "Full-Stack Developer", 
+        role: "Software Engineer", 
         date: "2024",
-        description: "Desarrollé para una marca de indumentaria una solución de inventario y ventas enfocada en dispositivos móviles. Mi rol abarcó la concepción de la arquitectura cloud y la implementación de un embudo de ventas que conecta la infraestructura en la nube con el canal de atención de WhatsApp."
+        description: "Desarrollé una solución de inventario y ventas mobile-first para una marca de indumentaria. Definí la arquitectura cloud e implementé un embudo de ventas integrado con WhatsApp Business, conectando la infraestructura directamente con la atención al cliente."
       }
     ],
     EN: [
       { 
         company: "Campeonato MTB Regional", 
-        role: "Full-Stack Developer", 
+        role: "Software Engineer", 
         date: "2024 — Present",
-        description: "Led the complete digitization of a regional sports circuit by working directly with organizers. Responsible for the full software lifecycle, from requirements gathering to production deployment, successfully standardizing the operational processes of 7 independent clubs under a single platform."
+        description: "Managed the comprehensive digitization of a regional sports circuit in direct collaboration with the organizers. Responsible for the full software lifecycle: requirements analysis, design of the solution, development, and production deployment. Delivered a unified platform that standardized the operational processes of 7 independent clubs."
       },
       { 
         company: "Joyería Fran", 
-        role: "Full-Stack Developer", 
+        role: "Software Engineer", 
         date: "2024 — 2025",
-        description: "Led the technical strategy for transitioning a traditional retail brand into e-commerce. Managed project architecture, third-party payment gateway integration, and the delivery of a custom-built administrative dashboard to optimize the client's daily workflow."
+        description: "Designed the architecture and led the development of the e-commerce platform for the digital transition of a retail brand. Integrated external payment gateways and developed a custom admin panel that simplified the daily operations of the business."
       },
       { 
         company: "Bobstore", 
-        role: "Full-Stack Developer", 
+        role: "Software Engineer", 
         date: "2024",
-        description: "I developed an inventory and sales solution for a clothing brand, focused on mobile devices. My role encompassed cloud architecture conception and the implementation of a sales funnel that connects the cloud infrastructure with the WhatsApp customer channel."
+        description: "Developed a mobile-first inventory and sales solution for an apparel brand. Defined the cloud architecture and implemented a sales funnel integrated with WhatsApp Business, connecting the infrastructure directly to customer support."
       }
     ]
   };
