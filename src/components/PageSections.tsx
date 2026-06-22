@@ -7,14 +7,14 @@ export const t = {
     selectedWorks: "Proyectos Destacados",
     selectedWorksSub: "Sistemas escalables y plataformas digitales.",
     footerRights: "© 2026 Esteban Vidal. Todos los derechos reservados.",
-    footerDegree: "Ingeniería Civil en Computación",
+    footerDegree: "Ingeniería Civil en Informática",
     footerUni: "U. de Tarapacá"
   },
   EN: {
     selectedWorks: "Selected Works",
     selectedWorksSub: "Scalable systems and digital platforms.",
     footerRights: "© 2026 Esteban Vidal. All rights reserved.",
-    footerDegree: "Computer Science Engineering",
+    footerDegree: "Informatics Engineering",
     footerUni: "University of Tarapacá"
   }
 };
