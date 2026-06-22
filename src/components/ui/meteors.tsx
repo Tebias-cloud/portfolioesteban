@@ -19,6 +19,11 @@ export const Meteors = ({
   const isModalOpen = useStore($isModalOpen);
   const paused = propsPaused || isModalOpen;
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     const styles = [...new Array(number)].map(() => ({
       "--angle": -angle + "deg",
@@ -31,7 +36,7 @@ export const Meteors = ({
   }, [number, minDelay, maxDelay, minDuration, maxDuration, angle]);
 
   return (
-    <>
+    <div className={cn("pointer-events-none absolute inset-0 transition-opacity duration-1000", mounted ? "" : "opacity-0")}>
       {meteorStyles.map((style, idx) => (
         <span
           key={idx}
@@ -42,6 +47,6 @@ export const Meteors = ({
           <div className="pointer-events-none absolute top-1/2 -z-10 h-[1.5px] w-[50px] -translate-y-1/2 bg-gradient-to-r from-purple-500/40 via-fuchsia-500/20 to-transparent" />
         </span>
       ))}
-    </>
+    </div>
   );
 };

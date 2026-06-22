@@ -3,6 +3,7 @@ import { useStore } from '@nanostores/react';
 import { $lang } from '../store/ui';
 import { Download, Github, Linkedin } from 'lucide-react';
 import { CopyEmail } from './CopyEmail';
+import { motion } from 'framer-motion';
 
 export const HeroInfo = React.memo(() => {
   const currentLang = useStore($lang);
@@ -24,7 +25,11 @@ export const HeroInfo = React.memo(() => {
   };
 
   return (
-    <>
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5, ease: "easeOut" }}
+    >
       <div className="flex flex-col gap-6">
         <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-normal leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300 -ml-[0.03em]">
           Esteban Vidal.
@@ -35,7 +40,7 @@ export const HeroInfo = React.memo(() => {
       </div>
       
       {/* ACTION BAR: Ultra Minimalista y Simétrica */}
-      <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
+      <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 opacity-0 animate-[fadeIn_0.5s_ease-out_0.2s_forwards]">
         
         {/* CORREO */}
         <CopyEmail textClassName="text-zinc-500 dark:text-zinc-400" />
@@ -76,6 +81,6 @@ export const HeroInfo = React.memo(() => {
         </div>
 
       </div>
-    </>
+    </motion.div>
   );
 });

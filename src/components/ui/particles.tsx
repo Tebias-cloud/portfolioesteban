@@ -43,6 +43,11 @@ export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity =
   const isModalOpen = useStore($isModalOpen);
   const paused = propsPaused || isModalOpen;
 
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   useEffect(() => {
     if (canvasRef.current) context.current = canvasRef.current.getContext("2d");
     initCanvas();
@@ -150,7 +155,7 @@ export const Particles: React.FC<ParticlesProps> = ({ className = "", quantity =
   };
 
   return (
-    <div className={cn("pointer-events-none transition-opacity duration-500", paused && "opacity-20", className)} ref={canvasContainerRef} aria-hidden="true" {...props}>
+    <div className={cn("pointer-events-none transition-opacity duration-1000", className, paused && "opacity-20", mounted ? "" : "opacity-0")} ref={canvasContainerRef} aria-hidden="true" {...props}>
       <canvas ref={canvasRef} className="size-full" />
     </div>
   );
