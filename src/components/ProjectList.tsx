@@ -79,7 +79,7 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
         <div className="flex flex-col h-full p-8 md:p-10 relative">
           <header className="flex justify-between items-center mb-8 shrink-0 relative z-10">
             <div className="flex flex-col">
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50 uppercase leading-none">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 uppercase leading-none">
                 {getDisplayTitle(project.title)}
               </h2>
               <div className="flex items-center mt-3">
@@ -175,7 +175,7 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
                 <h4 className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-4">
                   {labels[lang].tech}
                 </h4>
-                <div className="flex flex-wrap gap-2.5">
+                <div className="flex flex-wrap gap-2">
                   {project.tools.map((tool) => {
                     const IconComp = Icons[
                       tool.icon as keyof typeof Icons
