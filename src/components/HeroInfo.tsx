@@ -10,13 +10,13 @@ export const HeroInfo = React.memo(() => {
 
   const content = {
     ES: {
-      bio: "Ingeniero Civil Informático. Me dedico al desarrollo de software, con énfasis en la arquitectura, la integridad de los datos y la escalabilidad de las soluciones. Construyo sistemas funcionales adaptándome a las tecnologías necesarias, con experiencia práctica en ecosistemas como TypeScript, Next.js y PostgreSQL.",
+      bio: "Ingeniero Civil Informático. Desarrollo software con énfasis en arquitectura, integridad de datos y escalabilidad de las soluciones. Construyo sistemas funcionales adaptándome a las tecnologías necesarias, con experiencia práctica en ecosistemas como TypeScript, Next.js y PostgreSQL.",
       country: "Iquique, Chile",
       cvTitle: "Descargar CV",
       cvFile: "/Esteban_Vidal_CV_ES.pdf"
     },
     EN: {
-      bio: "Civil Informatics Engineer. I focus on software development, with emphasis on architecture, data integrity, and scalability. I build functional systems, adapting to the technologies required, with practical experience in ecosystems such as TypeScript, Next.js, and PostgreSQL.",
+      bio: "Civil Informatics Engineer. I develop software with an emphasis on architecture, data integrity, and solution scalability. I build functional systems, adapting to the technologies required, with practical experience in ecosystems such as TypeScript, Next.js, and PostgreSQL.",
       country: "Iquique, Chile",
       cvTitle: "Download CV",
       cvFile: "/Esteban_Vidal_CV_EN.pdf"

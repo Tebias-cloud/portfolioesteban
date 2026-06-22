@@ -11,12 +11,12 @@ export const ContactSection = React.memo(() => {
   const content = {
     ES: {
       title: "¿Quieres trabajar juntos?",
-      desc: "Escríbeme para explorar colaboraciones técnicas o discutir nuevas oportunidades estratégicas.",
+      desc: "Escríbeme para explorar colaboraciones o nuevos proyectos.",
       status: "Abierto a nuevas colaboraciones"
     },
     EN: {
       title: "Want to work together?",
-      desc: "Reach out to explore technical collaborations or discuss new strategic opportunities.",
+      desc: "Contact me to explore collaborations or new projects.",
       status: "Open to new collaborations"
     }
   };
