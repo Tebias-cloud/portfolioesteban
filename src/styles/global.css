@@ -37,7 +37,13 @@
 html {
   scroll-behavior: smooth;
   scrollbar-gutter: stable;
+  scrollbar-width: none; /* Firefox */
   /* El fondo ahora lo controla Layout.astro, ¡no lo pongas aquí! */
+}
+
+/* Chrome, Safari, Edge */
+html::-webkit-scrollbar {
+  display: none;
 }
 
 /* Animaciones para el Theme Toggler (View Transitions) */
