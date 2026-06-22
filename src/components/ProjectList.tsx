@@ -74,12 +74,12 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
         transition={{ duration: 0.3, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[72rem] h-[90vh] md:h-auto md:max-h-[90vh] bg-white dark:bg-[#070707] border border-zinc-200 dark:border-white/5 rounded-[32px] shadow-2xl overflow-hidden flex flex-col z-10"
+        className="relative w-full max-w-[72rem] h-[90vh] md:h-auto md:max-h-[90vh] bg-white/60 dark:bg-[#070707]/80 backdrop-blur-sm border border-zinc-200/50 dark:border-white/5 rounded-[24px] shadow-2xl overflow-hidden flex flex-col z-10"
       >
         <div className="flex flex-col h-full p-8 md:p-10 relative">
           <header className="flex justify-between items-center mb-8 shrink-0 relative z-10">
             <div className="flex flex-col">
-              <h2 className="text-3xl md:text-5xl font-black tracking-tighter text-zinc-900 dark:text-zinc-50 uppercase leading-none">
+              <h2 className="text-2xl md:text-4xl font-bold tracking-tighter text-zinc-900 dark:text-zinc-50 uppercase leading-none">
                 {getDisplayTitle(project.title)}
               </h2>
               <div className="flex items-center mt-3">
@@ -156,7 +156,7 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>{" "}
                   {labels[lang].arch}
                 </h4>
-                <p className="text-zinc-600 dark:text-zinc-400 text-sm leading-relaxed font-light">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                   {project.description[lang]}
                 </p>
               </section>
@@ -166,7 +166,7 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>{" "}
                   {labels[lang].eng}
                 </h4>
-                <p className="text-zinc-800 dark:text-zinc-300 text-[14px] leading-relaxed font-medium">
+                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
                   {project.engineeringFocus[lang]}
                 </p>
               </section>
@@ -184,9 +184,9 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
                     return (
                       <div
                         key={tool.name}
-                        className="flex items-center gap-2 px-3 py-1.5 bg-zinc-50 dark:bg-white/[0.03] rounded-lg border border-zinc-200/50 dark:border-white/5 text-zinc-600 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors duration-300 cursor-default"
+                        className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-500"
                       >
-                        <IconComp size={12} strokeWidth={1.5} />
+                        <IconComp size={12} strokeWidth={2} />
                         <span className="text-[9px] uppercase tracking-widest font-bold">
                           {tool.name}
                         </span>

@@ -42,8 +42,8 @@ export const myProjects: Project[] = [
       EN: "Manual score calculation caused delays and classification errors. I developed a centralized platform that processes thousands of registrations and generates real-time rankings."
     },
     engineeringFocus: {
-      ES: 'Diseñé una base de datos relacional protegida con Supabase RLS. Implementé Server Actions en Next.js para la validación automática de categorías y optimicé las consultas SQL para soportar picos de alto tráfico durante los días de carrera.',
-      EN: 'Designed a relational database secured with Supabase RLS. Implemented Next.js Server Actions for automatic category validation and optimized SQL queries to handle high-traffic spikes during race days.'
+      ES: "Diseñé una base de datos relacional con Supabase RLS. Implementé Server Actions en Next.js para validar automáticamente las categorías y escribí consultas SQL eficientes para manejar múltiples inscripciones sin bloqueos.",
+      EN: "Designed a relational database with Supabase RLS. Implemented Next.js Server Actions for automatic category validation and wrote efficient SQL queries to handle multiple registrations without locks."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },
@@ -67,8 +67,8 @@ export const myProjects: Project[] = [
       EN: "Messaging-based sales limited scalability. I built an e-commerce from scratch focused on maximizing conversion through an optimized UI design and a simplified checkout flow."
     },
     engineeringFocus: {
-      ES: 'Implementé Next.js con renderizado estático (SSG) para asegurar tiempos de carga en milisegundos y un SEO superior. Integré webhooks asíncronos de Mercado Pago para la validación segura de transacciones y automaticé el control de stock.',
-      EN: 'Implemented Next.js with static site generation (SSG) to ensure millisecond load times and superior SEO. Integrated asynchronous Mercado Pago webhooks for secure transaction validation and automated stock control.'
+      ES: "Usé renderizado estático (SSG) en Next.js para mejorar el rendimiento y el SEO. Integré webhooks asíncronos de Mercado Pago para procesar pagos seguros y desarrollé un panel que automatiza el control de stock.",
+      EN: "Used static site generation (SSG) in Next.js to improve performance and SEO. Integrated asynchronous Mercado Pago webhooks for secure payment processing and built an admin panel that automates stock control."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },
@@ -92,8 +92,8 @@ export const myProjects: Project[] = [
       EN: "To scale the business, the client needed to digitize their inventory. I developed an ultra-lightweight instant catalog that redirects the customer to WhatsApp to complete the purchase."
     },
     engineeringFocus: {
-      ES: "Anticipando el crecimiento del catálogo, diseñé un algoritmo de compresión de imágenes en el cliente (Canvas API) previo a la subida a Firebase, garantizando fluidez móvil y ahorro de ancho de banda. Arquitecté una base de datos NoSQL en Firebase e implementé despliegue continuo con GitHub Actions.",
-      EN: "Anticipating catalog growth, I designed a client-side image compression algorithm (Canvas API) prior to Firebase upload, guaranteeing mobile fluidity and bandwidth savings. Architected a NoSQL database on Firebase and implemented continuous deployment with GitHub Actions."
+      ES: "Ante el crecimiento previsto del catálogo, diseñé un algoritmo de compresión de imágenes en el cliente (Canvas API) antes de subirlas a Firebase, lo que reduce el consumo de ancho de banda y mejora la experiencia en móviles. Usé Firebase Firestore como base de datos y GitHub Actions para despliegue continuo.",
+      EN: "Anticipating catalog growth, I designed a client-side image compression algorithm (Canvas API) before uploading to Firebase, reducing bandwidth usage and improving the mobile experience. Used Firebase Firestore as the database and GitHub Actions for continuous deployment."
     },
     tools: [
       { name: 'Vanilla JS', icon: 'Terminal' },
