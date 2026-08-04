@@ -47,8 +47,7 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
     },
   };
 
-  const getDisplayTitle = (title: string) =>
-    title === "Chaski Riders" ? "Campeonato Regional MTB" : title;
+
 
   return (
     <div
@@ -80,12 +79,20 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
           <header className="flex justify-between items-center mb-8 shrink-0 relative z-10">
             <div className="flex flex-col">
               <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 uppercase leading-none">
-                {getDisplayTitle(project.title)}
+                {project.title}
               </h2>
-              <div className="flex items-center mt-3">
+              <div className="flex flex-wrap items-center mt-3 gap-x-3 gap-y-1.5">
                 <span className="text-purple-600 dark:text-purple-400 text-[10px] font-bold uppercase tracking-[0.4em]">
                   {project.subtitle[lang]}
                 </span>
+                {project.status && (
+                  <>
+                    <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden md:inline"></span>
+                    <span className="text-zinc-500 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-zinc-100 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5">
+                      {project.status[lang]}
+                    </span>
+                  </>
+                )}
               </div>
             </div>
             <div className="flex items-center gap-3">
@@ -99,14 +106,16 @@ const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, o
                   <Icons.Github size={20} strokeWidth={1.5} />
                 </a>
               )}
-              <a
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-2 px-6 py-3 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 rounded-full font-bold uppercase tracking-[0.1em] text-[10px] transition-colors"
-              >
-                {labels[lang].visit} <Icons.ArrowUpRight size={14} />
-              </a>
+              {project.link && (
+                <a
+                  href={project.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 px-6 py-3 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 rounded-full font-bold uppercase tracking-[0.1em] text-[10px] transition-colors"
+                >
+                  {labels[lang].visit} <Icons.ArrowUpRight size={14} />
+                </a>
+              )}
               <button
                 onClick={onClose}
                 className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white p-3 rounded-full hover:bg-zinc-100 dark:hover:bg-white/5 ml-2 transition-all hover:rotate-90"
@@ -222,8 +231,7 @@ export const ProjectList = () => {
     };
   }, [selectedId]);
 
-  const getDisplayTitle = (title: string) =>
-    title === "Chaski Riders" ? "Campeonato Regional MTB" : title;
+
 
   return (
     <>
@@ -276,7 +284,7 @@ export const ProjectList = () => {
             {/* Card content */}
             <div className="p-6 flex flex-col flex-1 z-10">
               <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-                {getDisplayTitle(project.title)}
+                {project.title}
               </h3>
 
               <p className="text-zinc-500 dark:text-zinc-400 text-[13px] mt-3 mb-6 line-clamp-3 overflow-hidden leading-relaxed font-light">

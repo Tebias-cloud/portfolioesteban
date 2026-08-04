@@ -13,42 +13,18 @@ export const ExperienceList = React.memo(() => {
   const experience = {
     ES: [
       { 
-        company: "Campeonato MTB Regional", 
-        role: "Software Engineer", 
-        date: "2025 — Actual",
-        description: "Diseñé e implementé la plataforma de gestión para un circuito deportivo regional, trabajando directamente con los organizadores para levantar requisitos y validar funcionalidades. Responsable del ciclo completo: análisis, arquitectura, desarrollo y despliegue. Entregué una plataforma unificada que estandarizó los procesos de inscripción, puntuación y ranking de 7 clubes independientes."
-      },
-      { 
-        company: "Joyería Fran", 
-        role: "Software Engineer", 
-        date: "2025 — Actual",
-        description: "Diseñé la arquitectura y lideré el desarrollo de la plataforma de e-commerce para una marca de retail en transición digital. Integré Mercado Pago como pasarela de pagos y desarrollé un panel administrativo a medida que centralizó la gestión de productos, pedidos y pagos, eliminando procesos manuales."
-      },
-      { 
-        company: "Bobstore", 
-        role: "Software Engineer", 
-        date: "2024",
-        description: "Desarrollé una solución mobile-first de inventario y ventas para una marca de indumentaria. Diseñé la arquitectura cloud sobre Firebase e implementé un embudo de ventas con integración directa a WhatsApp Business, reemplazando procesos de pedido manuales."
+        company: "Desarrollador de Software Freelance", 
+        role: "Consultoría y Desarrollo de Software", 
+        date: "2024 — Presente",
+        description: "Desarrollo soluciones de software para proyectos independientes, participando en el diseño de arquitectura, modelado de datos, implementación de funcionalidades e integración de servicios.\n\nExperiencia desarrollando plataformas web, sistemas administrativos y aplicaciones orientadas a resolver necesidades mediante software mantenible."
       }
     ],
     EN: [
       { 
-        company: "Campeonato MTB Regional", 
-        role: "Software Engineer", 
-        date: "2025 — Present",
-        description: "I designed and implemented the management platform for a regional sports circuit, working directly with the organizers to gather requirements and validate functionalities. Responsible for the full cycle: analysis, architecture, development, and deployment. Delivered a unified platform that standardized the registration, scoring, and ranking processes of 7 independent clubs."
-      },
-      { 
-        company: "Joyería Fran", 
-        role: "Software Engineer", 
-        date: "2025 — Present",
-        description: "I designed the architecture and led the development of the e-commerce platform for a retail brand undergoing digital transition. I integrated Mercado Pago as the payment gateway and developed a custom admin panel that centralized product, order, and payment management, eliminating manual processes."
-      },
-      { 
-        company: "Bobstore", 
-        role: "Software Engineer", 
-        date: "2024",
-        description: "I developed a mobile-first inventory and sales solution for a clothing brand. I designed the cloud architecture on Firebase and implemented a sales funnel with direct integration to WhatsApp Business, replacing manual order processes."
+        company: "Freelance Software Developer", 
+        role: "Software Consulting & Development", 
+        date: "2024 — Present",
+        description: "Develop software solutions for independent projects, participating in system design, data modeling, feature implementation, and service integration.\n\nExperience building web platforms, management systems, and applications focused on solving problems through maintainable software solutions."
       }
     ]
   };

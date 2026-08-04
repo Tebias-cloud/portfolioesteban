@@ -13,8 +13,9 @@ export interface Project {
   engineeringFocus: BilingualText;
   tools: { name: string; icon: keyof typeof Icons }[];
   images: string[];
-  link: string;
+  link?: string;
   github?: string;
+  status: BilingualText;
 }
 
 export interface TechItem {
@@ -38,37 +39,41 @@ export const myProjects: Project[] = [
       EN: 'Data Architecture & Real-Time Leaderboard' 
     },
     description: {
-      ES: "El cálculo manual de puntajes deportivos generaba retrasos y errores en las clasificaciones. Desarrollé una plataforma centralizada que procesa miles de inscripciones y genera clasificaciones en tiempo real.",
-      EN: "Manual score calculation caused delays and classification errors. I developed a centralized platform that processes thousands of registrations and generates real-time rankings."
+      ES: "El cálculo manual de puntajes deportivos generaba retrasos y errores en las clasificaciones del campeonato. Desarrollé una plataforma centralizada que procesa inscripciones y genera clasificaciones en tiempo real, utilizada para centralizar la operación de los 7 clubes organizadores del campeonato.",
+      EN: "Manual score calculation caused delays and classification errors in the championship. I developed a centralized platform that processes registrations and generates real-time rankings, used to centralize the operations of the 7 organizing clubs."
     },
     engineeringFocus: {
-      ES: "Diseñé una base de datos relacional con Supabase RLS. Implementé Server Actions en Next.js para validar automáticamente las categorías y escribí consultas SQL eficientes para manejar múltiples inscripciones sin bloqueos.",
-      EN: "Designed a relational database with Supabase RLS. Implemented Next.js Server Actions for automatic category validation and wrote efficient SQL queries to handle multiple registrations without locks."
+      ES: "Diseñé una arquitectura de datos relacional para gestionar participantes, resultados y clasificaciones. Implementé procesamiento automático de resultados oficiales y funcionalidades administrativas para optimizar la gestión del campeonato.",
+      EN: "Designed a relational data architecture to manage participants, results, and leaderboards. Implemented automatic parsing of official race results and administrative tools to optimize league operations."
     },
     tools: [
-      { name: 'Next.js', icon: 'Globe' },
+      { name: 'Next.js 15', icon: 'Globe' },
       { name: 'TypeScript', icon: 'FileCode2' },
       { name: 'Supabase', icon: 'Zap' },
-      { name: 'Tailwind', icon: 'Layout' }
+      { name: 'Tailwind CSS', icon: 'Layout' }
     ],
     images: ['/img/chaski1.webp', '/img/chaski2.webp', '/img/chaski3.webp'],
     link: 'https://campeonato-mtb.vercel.app/',
-    github: 'https://github.com/Tebias-cloud/Campeonato-MTB-leaderboard'
+    github: 'https://github.com/Tebias-cloud/Campeonato-MTB-leaderboard',
+    status: {
+      ES: 'Completado',
+      EN: 'Completed'
+    }
   },
   {
     id: 'fran',
     title: 'Joyería Fran',
     subtitle: { 
-      ES: 'Optimización de Conversión y E-Commerce', 
-      EN: 'Conversion Optimization & E-Commerce' 
+      ES: 'E-Commerce Automatizado y Transacciones de Stock', 
+      EN: 'Automated E-Commerce & Stock Transactions' 
     },
     description: {
-      ES: "Las ventas por mensajería limitaban la escalabilidad. Construí un e-commerce desde cero centrado en maximizar la conversión mediante un diseño de interfaz optimizado y un flujo de compra simplificado.",
-      EN: "Messaging-based sales limited scalability. I built an e-commerce from scratch focused on maximizing conversion through an optimized UI design and a simplified checkout flow."
+      ES: "El proceso manual de venta y control de inventario dificultaba la operación de la joyería. Diseñé e implementé una plataforma web para la venta online que automatiza el catálogo, gestiona el inventario e integra la confirmación segura de transacciones.",
+      EN: "Manual sales processes and inventory tracking hindered jewelry store operations. I designed and implemented a web platform for online sales that automates the catalog, manages inventory, and integrates secure transaction confirmation."
     },
     engineeringFocus: {
-      ES: "Usé renderizado estático (SSG) en Next.js para mejorar el rendimiento y el SEO. Integré webhooks asíncronos de Mercado Pago para procesar pagos seguros y desarrollé un panel que automatiza el control de stock.",
-      EN: "Used static site generation (SSG) in Next.js to improve performance and SEO. Integrated asynchronous Mercado Pago webhooks for secure payment processing and built an admin panel that automates stock control."
+      ES: "Integré Mercado Pago con validación de pagos y diseñé la gestión transaccional de inventario para evitar inconsistencias durante las compras. Optimicé la carga de imágenes mediante procesamiento previo en cliente.",
+      EN: "Integrated Mercado Pago with payment validation and designed transactional inventory management to prevent purchase inconsistencies. Optimized image loading via client-side preprocessing."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },
@@ -78,22 +83,55 @@ export const myProjects: Project[] = [
     ],
     images: ['/img/joyas1.webp', '/img/joyas2.webp', '/img/joyas3.webp'],
     link: 'https://joyas-fran.vercel.app/',
-    github: 'https://github.com/Tebias-cloud/joyas-fran'
+    github: 'https://github.com/Tebias-cloud/joyas-fran',
+    status: {
+      ES: 'Completado',
+      EN: 'Completed'
+    }
+  },
+  {
+    id: 'deathcloud',
+    title: 'DeathCloud',
+    subtitle: { 
+      ES: 'Plataforma Distribuidora y Sockets en Tiempo Real', 
+      EN: 'Launcher Hub & Real-Time Sockets' 
+    },
+    description: {
+      ES: "La dispersión de servicios y la gestión manual de usuarios dificultaba la interacción entre jugadores. Desarrollé una plataforma que conecta un cliente React con un backend Express y base de datos relacional para centralizar chats en tiempo real, tickets de soporte e inventarios de personajes.",
+      EN: "Scattered services and manual user management hindered player interaction. I developed a platform linking a React client to an Express backend and relational database to centralize real-time chat, support tickets, and character inventories."
+    },
+    engineeringFocus: {
+      ES: "Diseñé un backend con Express y una arquitectura preparada para manejar distintos servicios del ecosistema del juego. Implementé comunicación en tiempo real mediante Socket.io y una estructura relacional para gestionar usuarios, inventarios y soporte.",
+      EN: "Designed an Express backend architecture structured to handle different services within the game's ecosystem. Implemented real-time communications using Socket.io and a relational schema to manage users, inventories, and support."
+    },
+    tools: [
+      { name: 'React', icon: 'Atom' },
+      { name: 'Node.js', icon: 'Terminal' },
+      { name: 'Express.js', icon: 'Globe' },
+      { name: 'PostgreSQL', icon: 'Database' },
+      { name: 'Socket.io', icon: 'Zap' }
+    ],
+    images: ['/img/deathcloud1.webp', '/img/deathcloud2.webp', '/img/deathcloud3.webp'],
+    github: 'https://github.com/Tebias-cloud/DeathCloud',
+    status: {
+      ES: 'Servidor Offline - Demo Local',
+      EN: 'Server Offline - Local Demo'
+    }
   },
   {
     id: 'bobstore',
-    title: 'Bobstore',
+    title: 'Bob Store',
     subtitle: { 
-      ES: 'Catálogo Digital y Rendimiento Mobile', 
-      EN: 'Digital Catalog & Mobile Performance' 
+      ES: 'Catálogo Digital e Integración de Mensajería', 
+      EN: 'Digital Catalog & Messaging Integration' 
     },
     description: {
-      ES: "Para escalar el negocio, el cliente requería digitalizar su inventario. Desarrollé un catálogo instantáneo ultraligero que redirige al cliente a WhatsApp para concretar la compra.",
-      EN: "To scale the business, the client needed to digitize their inventory. I developed an ultra-lightweight instant catalog that redirects the customer to WhatsApp to complete the purchase."
+      ES: "La falta de un canal digital impedía que la tienda de ropa mostrara su stock de forma remota. Desarrollé un catálogo digital optimizado para dispositivos móviles que permite a los clientes explorar productos y enviar consultas de compra detalladas directamente al canal de WhatsApp Business del negocio.",
+      EN: "The lack of a digital channel prevented the clothing store from showing its stock remotely. I developed a mobile-optimized digital catalog that allows customers to browse products and send detailed purchase inquiries directly to the business's WhatsApp Business chat."
     },
     engineeringFocus: {
-      ES: "Ante el crecimiento previsto del catálogo, diseñé un algoritmo de compresión de imágenes en el cliente (Canvas API) antes de subirlas a Firebase, lo que reduce el consumo de ancho de banda y mejora la experiencia en móviles. Usé Firebase Firestore como base de datos y Firebase Deploy para el despliegue.",
-      EN: "Anticipating catalog growth, I designed a client-side image compression algorithm (Canvas API) before uploading to Firebase, reducing bandwidth usage and improving the mobile experience. Used Firebase Firestore as the database and Firebase Deploy for deployment."
+      ES: "Diseñé e implementé la base de datos no relacional sobre Firebase Firestore, integrando un panel privado de administración para la sincronización instantánea de stock de productos y precios. Optimicé la carga de recursos estáticos en móviles mediante pre-procesado de imágenes.",
+      EN: "Designed and implemented the non-relational database on Firebase Firestore, integrating a private admin panel for real-time stock and price updates. Optimized mobile asset loading through image preprocessing."
     },
     tools: [
       { name: 'Vanilla JS', icon: 'Terminal' },
@@ -103,7 +141,11 @@ export const myProjects: Project[] = [
     ],
     images: ['/img/bobstore1.webp', '/img/bobstore2.webp', '/img/bobstore3.webp'],
     link: 'https://bobstore-89a30.web.app/',
-    github: 'https://github.com/Tebias-cloud/bobstore-'
+    github: 'https://github.com/Tebias-cloud/bobstore-',
+    status: {
+      ES: 'Completado',
+      EN: 'Completed'
+    }
   }
 ];
 

@@ -5,16 +5,16 @@ import { $lang } from '../store/ui';
 export const t = {
   ES: {
     selectedWorks: "Proyectos Destacados",
-    selectedWorksSub: "Sistemas escalables y plataformas digitales.",
+    selectedWorksSub: "Diseño de sistemas y plataformas digitales.",
     footerRights: "© 2026 Esteban Vidal. Todos los derechos reservados.",
     footerDegree: "Ingeniería Civil en Informática",
-    footerUni: "U. de Tarapacá"
+    footerUni: "Universidad de Tarapacá"
   },
   EN: {
     selectedWorks: "Selected Works",
-    selectedWorksSub: "Scalable systems and digital platforms.",
+    selectedWorksSub: "System design and digital platforms.",
     footerRights: "© 2026 Esteban Vidal. All rights reserved.",
-    footerDegree: "Informatics Engineering",
+    footerDegree: "Computer Engineering",
     footerUni: "University of Tarapacá"
   }
 };

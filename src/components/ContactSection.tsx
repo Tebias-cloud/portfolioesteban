@@ -1,7 +1,7 @@
 import React from 'react';
 import { useStore } from '@nanostores/react';
 import { $lang } from '../store/ui';
-import { Linkedin, ArrowUpRight } from 'lucide-react';
+import { Github, Linkedin, ArrowUpRight } from 'lucide-react';
 import { CopyEmail } from './CopyEmail';
 
 export const ContactSection = React.memo(() => {
@@ -34,6 +34,17 @@ export const ContactSection = React.memo(() => {
 
       <div className="flex flex-wrap items-center gap-x-10 gap-y-6">
         <CopyEmail textClassName="text-zinc-600 dark:text-zinc-300" />
+
+        <a 
+          href="https://github.com/Tebias-cloud" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="flex items-center gap-2 text-zinc-500 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] hover:-translate-y-0.5 duration-300 group"
+        >
+          <Github size={18} strokeWidth={1.5} />
+          <span className="text-sm font-medium">GitHub</span>
+          <ArrowUpRight size={14} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-0.5" />
+        </a>
 
         <a 
           href="https://www.linkedin.com/in/esteban-vidal-/" 

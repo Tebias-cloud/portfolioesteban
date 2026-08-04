@@ -11,13 +11,13 @@ export const HeroInfo = React.memo(() => {
 
   const content = {
     ES: {
-      bio: "Ingeniero Civil en Informática. Me dedico al desarrollo de software, con énfasis en la arquitectura, la integridad de los datos y la escalabilidad de las soluciones.",
+      bio: "Desarrollador de software orientado al diseño e implementación de sistemas. Enfocado en arquitectura, modelado de datos, integración de servicios y desarrollo de funcionalidades para construir software mantenible y preparado para evolucionar.",
       country: "Iquique, Chile",
       cvTitle: "Descargar CV",
       cvFile: "/Esteban_Vidal_CV_ES.pdf"
     },
     EN: {
-      bio: "Civil Informatics Engineer. I dedicate myself to software development, with emphasis on architecture, data integrity, and scalability.",
+      bio: "Software developer focused on system design and implementation. Experienced in architecture, data modeling, service integration, and feature development to build maintainable software designed to evolve over time.",
       country: "Iquique, Chile",
       cvTitle: "Download CV",
       cvFile: "/Esteban_Vidal_CV_EN.pdf"
