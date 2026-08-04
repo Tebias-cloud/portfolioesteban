@@ -15,7 +15,7 @@ export const ExperienceList = React.memo(() => {
       { 
         company: "Desarrollador de Software Freelance", 
         role: "Consultoría y Desarrollo de Software", 
-        date: "2024 — Presente",
+        date: "2025 — Presente",
         description: "Desarrollo soluciones de software para proyectos independientes, participando en el diseño de arquitectura, modelado de datos, implementación de funcionalidades e integración de servicios.\n\nExperiencia desarrollando plataformas web, sistemas administrativos y aplicaciones orientadas a resolver necesidades mediante software mantenible."
       }
     ],
@@ -23,7 +23,7 @@ export const ExperienceList = React.memo(() => {
       { 
         company: "Freelance Software Developer", 
         role: "Software Consulting & Development", 
-        date: "2024 — Present",
+        date: "2025 — Present",
         description: "Develop software solutions for independent projects, participating in system design, data modeling, feature implementation, and service integration.\n\nExperience building web platforms, management systems, and applications focused on solving problems through maintainable software solutions."
       }
     ]
