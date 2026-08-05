@@ -118,16 +118,7 @@ export const myProjects: Project[] = [
       ES: 'Servidor Offline - Demo Local',
       EN: 'Server Offline - Local Demo'
     }
-  }
-];
-
-// Array de proyectos extra vacío para producción, manteniendo la funcionalidad preparada para el futuro
-export const extraProjects: Project[] = [];
-
-/*
- * PROYECTOS PREPARADOS PARA EL FUTURO (Desactivados hasta estar en producción)
- *
-export const futureProjects: Project[] = [
+  },
   {
     id: 'bobstore',
     title: 'Bob Store',
@@ -156,7 +147,16 @@ export const futureProjects: Project[] = [
       ES: 'Completado',
       EN: 'Completed'
     }
-  },
+  }
+];
+
+// Array de proyectos extra vacío para producción, manteniendo la funcionalidad preparada para el futuro
+export const extraProjects: Project[] = [];
+
+/*
+ * PROYECTOS PREPARADOS PARA EL FUTURO (Desactivados hasta estar en producción)
+ *
+export const futureProjects: Project[] = [
   {
     id: 'fantasyleague',
     title: 'Fantasy League',

@@ -14,7 +14,7 @@ export const ProjectList = () => {
   const [selectedId, setSelectedId] = useState<string | null>(null);
   const selectedProject = myProjects.find((p) => p.id === selectedId) || extraProjects.find((p) => p.id === selectedId);
 
-  const INITIAL_VISIBLE_COUNT = 3;
+  const INITIAL_VISIBLE_COUNT = 4;
   const initialProjects = myProjects;
 
   // Safe localStorage reading with try-catch

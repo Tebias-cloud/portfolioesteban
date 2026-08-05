@@ -13,18 +13,18 @@ export const ExperienceList = React.memo(() => {
   const experience = {
     ES: [
       { 
-        company: "Campeonato Regional MTB Tarapacá", 
-        role: "Desarrollador de Software", 
+        company: "Desarrollador de Software Freelance", 
+        role: "Consultoría y Desarrollo de Software", 
         date: "2025 — Presente",
-        description: "Desarrollé una plataforma web para centralizar la gestión de inscripciones, resultados y rankings del Campeonato Regional MTB Tarapacá.\n\nReemplacé la gestión distribuida en planillas por una plataforma centralizada utilizada por los 7 clubes organizadores del campeonato, centralizando la administración y disponibilidad de la información.\n\nDiseñé e implementé la solución completa, incluyendo el modelado de la base de datos, panel administrativo, sitio público e integración con un sistema de cronometraje para automatizar el procesamiento de resultados."
+        description: "Desarrollo soluciones de software para proyectos independientes, abarcando el ciclo completo de desarrollo, desde el análisis de requerimientos hasta la implementación de la solución."
       }
     ],
     EN: [
       { 
-        company: "Regional MTB Championship Tarapacá", 
-        role: "Software Developer", 
+        company: "Freelance Software Developer", 
+        role: "Software Consulting & Development", 
         date: "2025 — Present",
-        description: "Developed a web platform to centralize registrations, race results, and rankings for the Regional MTB Championship Tarapacá.\n\nReplaced spreadsheet-based management with a centralized platform used by the 7 organizing clubs, centralizing administration and information availability.\n\nDesigned and implemented the complete solution, including database modeling, an administrative dashboard, public website, and integration with a timing system to automate race result processing."
+        description: "I develop software solutions for independent projects, covering the full development lifecycle, from requirements analysis to implementation."
       }
     ]
   };
