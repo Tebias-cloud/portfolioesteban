@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { Copy, Check } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 interface CopyEmailProps {
   textClassName?: string;
 }
 
-export const CopyEmail: React.FC<CopyEmailProps> = React.memo(({ textClassName = "text-zinc-600 dark:text-zinc-300" }) => {
+export const CopyEmail: React.FC<CopyEmailProps> = React.memo(({ textClassName = "text-zinc-500 dark:text-zinc-400" }) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -15,23 +16,25 @@ export const CopyEmail: React.FC<CopyEmailProps> = React.memo(({ textClassName =
   };
 
   return (
-    <div className="group flex items-center gap-2.5">
-      <span className={`text-sm font-medium tracking-wide select-all hover:text-zinc-900 dark:hover:text-white transition-colors cursor-text ${textClassName}`}>
+    <div className="group flex items-center gap-2 focus:outline-none">
+      <span className={`text-xs font-medium tracking-wide select-all hover:text-zinc-900 dark:hover:text-white transition-colors cursor-text ${textClassName}`}>
         esteban.vidal.valencia@gmail.com
       </span>
-      <button 
+      <motion.button 
         onClick={handleCopy} 
-        className="flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] duration-300 cursor-pointer hover:-translate-y-0.5 active:scale-90" 
+        whileHover={{ scale: 1.1, opacity: 0.85 }}
+        transition={{ duration: 0.2, ease: "easeInOut" }}
+        className="flex items-center justify-center text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors cursor-pointer focus:outline-none" 
         aria-label="Copiar correo"
       >
-        <div className="relative w-[18px] h-[18px]">
+        <div className="relative w-[16px] h-[16px]">
           {copied ? (
-            <Check size={18} strokeWidth={1.5} className="absolute inset-0 text-emerald-500 transition-opacity duration-300 opacity-100" />
+            <Check size={16} strokeWidth={1.5} className="absolute inset-0 text-emerald-500 transition-opacity duration-300 opacity-100" />
           ) : (
-            <Copy size={18} strokeWidth={1.5} className="absolute inset-0 text-zinc-400 transition-opacity duration-300 opacity-100" />
+            <Copy size={16} strokeWidth={1.5} className="absolute inset-0 text-zinc-400 transition-opacity duration-300 opacity-100" />
           )}
         </div>
-      </button>
+      </motion.button>
     </div>
   );
 });

@@ -11,13 +11,13 @@ export const HeroInfo = React.memo(() => {
 
   const content = {
     ES: {
-      bio: "Desarrollador de software orientado al diseño e implementación de sistemas. Enfocado en arquitectura, modelado de datos, integración de servicios y desarrollo de funcionalidades para construir software mantenible y preparado para evolucionar.",
+      bio: "Ingeniero Civil en Informática. Diseño y desarrollo soluciones de software orientadas a sistemas mantenibles y preparados para evolucionar.",
       country: "Iquique, Chile",
       cvTitle: "Descargar CV",
       cvFile: "/Esteban_Vidal_CV_ES.pdf"
     },
     EN: {
-      bio: "Software developer focused on system design and implementation. Experienced in architecture, data modeling, service integration, and feature development to build maintainable software designed to evolve over time.",
+      bio: "Computer Science Engineer. I design and develop software solutions focused on maintainable systems and long-term evolution.",
       country: "Iquique, Chile",
       cvTitle: "Download CV",
       cvFile: "/Esteban_Vidal_CV_EN.pdf"
@@ -46,27 +46,57 @@ export const HeroInfo = React.memo(() => {
         <CopyEmail textClassName="text-zinc-500 dark:text-zinc-400" />
 
         {/* REDES & CV */}
-        <div className="flex items-center gap-5">
-          <a href="https://github.com/Tebias-cloud" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] hover:-translate-y-0.5 duration-300" aria-label="GitHub">
-            <Github size={18} strokeWidth={1.5} />
-          </a>
-          <a href="https://www.linkedin.com/in/esteban-vidal-/" target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-[#0a66c2] dark:hover:text-[#3b82f6] transition-[color,transform] hover:-translate-y-0.5 duration-300" aria-label="LinkedIn">
-            <Linkedin size={18} strokeWidth={1.5} />
-          </a>
+        <div className="flex items-center gap-6">
+          <motion.a 
+            href="https://github.com/Tebias-cloud" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            whileHover={{ scale: 1.1, opacity: 0.85 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none" 
+            aria-label="GitHub"
+          >
+            <Github size={16} strokeWidth={1.5} />
+            <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors select-none">
+              GitHub
+            </span>
+          </motion.a>
+
+          <motion.a 
+            href="https://www.linkedin.com/in/esteban-vidal-/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            whileHover={{ scale: 1.1, opacity: 0.85 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none" 
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={16} strokeWidth={1.5} />
+            <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors select-none">
+              LinkedIn
+            </span>
+          </motion.a>
           
           <div className="w-px h-4 bg-zinc-200 dark:bg-zinc-800 transition-[color,background-color] duration-300"></div>
 
-          <a 
+          <motion.a 
             href={content[lang].cvFile} 
             download
             target="_blank"
             rel="noopener noreferrer"
             title={content[lang].cvTitle}
-            className="group flex items-center gap-1 text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-[color,transform] hover:-translate-y-0.5 duration-300"
+            whileHover={{ scale: 1.1, opacity: 0.85 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ duration: 0.2, ease: "easeInOut" }}
+            className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none"
           >
-            <span className="text-sm font-bold tracking-[0.2em]">CV</span>
-            <Download size={18} strokeWidth={1.5} />
-          </a>
+            <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors select-none">
+              {lang === "ES" ? "CV" : "CV"}
+            </span>
+            <Download size={16} strokeWidth={1.5} />
+          </motion.a>
         </div>
 
         {/* UBICACIÓN */}

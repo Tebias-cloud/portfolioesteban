@@ -1,223 +1,50 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import * as Icons from "lucide-react";
 import { useStore } from "@nanostores/react";
 import { $lang, $isModalOpen } from "../store/ui";
-import { myProjects } from "../data/portfolio";
-import type { Project } from "../data/portfolio";
-
-interface ProjectModalProps {
-  project: Project;
-  lang: "ES" | "EN";
-  onClose: () => void;
-}
-
-const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, onClose }) => {
-  const [activeImg, setActiveImg] = useState(0);
-
-  // Preload all screenshots for this project on mount
-  useEffect(() => {
-    project.images.forEach((src) => {
-      const img = new Image();
-      img.src = src;
-    });
-  }, [project.images]);
-
-  // Close on Escape key
-  useEffect(() => {
-    const handleEsc = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
-    };
-    window.addEventListener("keydown", handleEsc);
-    return () => window.removeEventListener("keydown", handleEsc);
-  }, [onClose]);
-
-  const labels = {
-    ES: {
-      visit: "Visitar Proyecto",
-      arch: "Contexto del Proyecto",
-      eng: "Solución Técnica",
-      tech: "Stack",
-    },
-    EN: {
-      visit: "Visit Project",
-      arch: "Project Context",
-      eng: "Technical Solution",
-      tech: "Stack",
-    },
-  };
-
-
-
-  return (
-    <div
-      className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-8"
-    >
-      {/* Overlay: solid background with opacity transition */}
-      <motion.div
-        key="overlay"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
-        onClick={onClose}
-        className="absolute inset-0 bg-zinc-50/90 dark:bg-black/95"
-      />
-
-      {/* Contenido del modal con will-change forzado */}
-      <motion.div
-        key="modal-content"
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
-        animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
-        style={{ willChange: "transform, opacity" }}
-        onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[72rem] h-[90vh] md:h-auto md:max-h-[90vh] bg-white/60 dark:bg-[#070707]/80 backdrop-blur-sm border border-zinc-200/50 dark:border-white/5 rounded-[24px] shadow-2xl overflow-hidden flex flex-col z-10"
-      >
-        <div className="flex flex-col h-full p-8 md:p-10 relative">
-          <header className="flex justify-between items-center mb-8 shrink-0 relative z-10">
-            <div className="flex flex-col">
-              <h2 className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 uppercase leading-none">
-                {project.title}
-              </h2>
-              <div className="flex flex-wrap items-center mt-3 gap-x-3 gap-y-1.5">
-                <span className="text-purple-600 dark:text-purple-400 text-[10px] font-bold uppercase tracking-[0.4em]">
-                  {project.subtitle[lang]}
-                </span>
-                {project.status && (
-                  <>
-                    <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden md:inline"></span>
-                    <span className="text-zinc-500 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-zinc-100 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5">
-                      {project.status[lang]}
-                    </span>
-                  </>
-                )}
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white p-3 rounded-full hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
-                >
-                  <Icons.Github size={20} strokeWidth={1.5} />
-                </a>
-              )}
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 rounded-full font-bold uppercase tracking-[0.1em] text-[10px] transition-colors"
-                >
-                  {labels[lang].visit} <Icons.ArrowUpRight size={14} />
-                </a>
-              )}
-              <button
-                onClick={onClose}
-                className="text-zinc-400 hover:text-zinc-900 dark:hover:text-white p-3 rounded-full hover:bg-zinc-100 dark:hover:bg-white/5 ml-2 transition-all hover:rotate-90"
-              >
-                <Icons.X size={20} strokeWidth={1.5} />
-              </button>
-            </div>
-          </header>
-
-          <div className="grid lg:grid-cols-2 gap-10 min-h-0 flex-1 relative z-10">
-            <div className="flex flex-col gap-6 relative">
-              {/* Imagen principal con glow optimizado (blur reducido) */}
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden flex items-center justify-center group shadow-xl border border-zinc-200/50 dark:border-white/5 bg-zinc-100 dark:bg-black/50">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-purple-500/10 dark:bg-purple-500/5 blur-2xl rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0 will-change-[opacity]" />
-                <img
-                  src={project.images[activeImg]}
-                  alt={`${project.title} screenshot ${activeImg + 1}`}
-                  className="w-full h-full object-cover relative z-10"
-                />
-              </div>
-
-              {/* Miniaturas con transiciones acotadas y bordes fijos para evitar reflows */}
-              <div className="grid grid-cols-3 gap-4 shrink-0 pb-1 px-1">
-                {project.images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImg(idx)}
-                    className={`relative aspect-video rounded-xl overflow-hidden focus:outline-none border-2 transition-[opacity,transform,border-color] duration-200 will-change-transform ${
-                      activeImg === idx
-                        ? "border-purple-500/70 opacity-100 scale-[1.02]"
-                        : "border-zinc-200 dark:border-white/5 opacity-40 hover:opacity-100 hover:-translate-y-0.5"
-                    }`}
-                  >
-                    <img
-                      src={img}
-                      alt={`${project.title} thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover"
-                    />
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            <aside className="flex flex-col gap-8 py-2 overflow-y-auto scrollbar-hide pr-6">
-              <section>
-                <h4 className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>{" "}
-                  {labels[lang].arch}
-                </h4>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  {project.description[lang]}
-                </p>
-              </section>
-
-              <section>
-                <h4 className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(16,185,129,0.6)]"></span>{" "}
-                  {labels[lang].eng}
-                </h4>
-                <p className="text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed">
-                  {project.engineeringFocus[lang]}
-                </p>
-              </section>
-
-              <section className="mt-auto pt-6 border-t border-zinc-100 dark:border-white/5">
-                <h4 className="text-[10px] text-zinc-400 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-4">
-                  {labels[lang].tech}
-                </h4>
-                <div className="flex flex-wrap gap-2">
-                  {project.tools.map((tool) => {
-                    const IconComp = Icons[
-                      tool.icon as keyof typeof Icons
-                    ] as React.ElementType;
-                    if (!IconComp) return null;
-                    return (
-                      <div
-                        key={tool.name}
-                        className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-500"
-                      >
-                        <IconComp size={12} strokeWidth={2} />
-                        <span className="text-[9px] uppercase tracking-widest font-bold">
-                          {tool.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </section>
-            </aside>
-          </div>
-        </div>
-      </motion.div>
-    </div>
-  );
-});
+import { myProjects, extraProjects } from "../data/portfolio";
+import { ProjectCard } from "./ProjectCard";
+import { ProjectModal } from "./ProjectModal";
 
 export const ProjectList = () => {
   const currentLang = useStore($lang);
   const lang = currentLang as "ES" | "EN";
 
   const [selectedId, setSelectedId] = useState<string | null>(null);
-  const selectedProject = myProjects.find((p) => p.id === selectedId);
+  const selectedProject = myProjects.find((p) => p.id === selectedId) || extraProjects.find((p) => p.id === selectedId);
+
+  const INITIAL_VISIBLE_COUNT = 3;
+  const initialProjects = myProjects;
+
+  // Safe localStorage reading with try-catch
+  const [isExpanded, setIsExpanded] = useState(() => {
+    try {
+      if (typeof window !== "undefined") {
+        return localStorage.getItem("portfolio-projects-expanded") === "true";
+      }
+    } catch (error) {
+      console.warn("Storage access is blocked or restricted:", error);
+    }
+    return false;
+  });
+
+  const isInitialMount = useRef(true);
+
+  // Safe localStorage writing, avoiding unnecessary initial write
+  useEffect(() => {
+    if (isInitialMount.current) {
+      isInitialMount.current = false;
+      return;
+    }
+    try {
+      if (typeof window !== "undefined") {
+        localStorage.setItem("portfolio-projects-expanded", String(isExpanded));
+      }
+    } catch (error) {
+      console.warn("Could not save to storage:", error);
+    }
+  }, [isExpanded]);
 
   // Lock body scroll and handle modal open state
   useEffect(() => {
@@ -231,91 +58,98 @@ export const ProjectList = () => {
     };
   }, [selectedId]);
 
-
+  const handleToggle = () => {
+    if (isExpanded) {
+      const element = document.getElementById("projects-grid");
+      if (element) {
+        // Scroll to the bottom of the main 4 projects grid to keep the view focused and eliminate the browser scroll snap
+        const rect = element.getBoundingClientRect();
+        const yOffset = -200; // offset to keep the bottom of the grid visible
+        const y = rect.top + window.scrollY + rect.height + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+    setIsExpanded(!isExpanded);
+  };
 
   return (
     <>
       {/* Grid: 1 column on mobile, 2 columns on desktop */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {myProjects.map((project, index) => (
-          <motion.div
+      <div
+        id="projects-grid"
+        role="region"
+        aria-label={lang === "ES" ? "Proyectos principales" : "Featured projects"}
+        className="grid grid-cols-1 md:grid-cols-2 gap-6"
+      >
+        {initialProjects.map((project, index) => (
+          <ProjectCard
             key={project.id}
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, amount: 0.2 }}
-            transition={{
-              duration: 0.5,
-              ease: [0.25, 0.46, 0.45, 0.94],
-              delay: index * 0.08,
-            }}
+            project={project}
+            lang={lang}
+            index={index}
             onClick={() => setSelectedId(project.id)}
-            className="group cursor-pointer relative flex flex-col h-full
-              bg-white/80 dark:bg-[#0a0a0a]/90
-              border border-zinc-200/50 dark:border-white/5
-              shadow-sm hover:shadow-lg
-              overflow-hidden rounded-[24px]
-              transition-shadow duration-300
-              /* ⬇️ whileHover movido a CSS puro + will-change */
-              hover:-translate-y-1 transition-transform duration-300 ease-out
-              will-change-transform"
-          >
-            {/* Glow púrpura animado solo con opacidad (no background-color) */}
-            <div
-              className="absolute inset-0 rounded-[inherit] pointer-events-none
-                bg-purple-500/20 dark:bg-purple-500/30 blur-xl
-                opacity-0 group-hover:opacity-100
-                transition-opacity duration-500
-                will-change-[opacity]"
-            />
-
-            {/* Thumbnail */}
-            <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-[#0a0a0a] z-10">
-              <img
-                src={project.images[0]}
-                alt={project.title}
-                width="640"
-                height="360"
-                loading="lazy"
-                decoding="async"
-                className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
-              />
-            </div>
-
-            {/* Card content */}
-            <div className="p-6 flex flex-col flex-1 z-10">
-              <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-                {project.title}
-              </h3>
-
-              <p className="text-zinc-500 dark:text-zinc-400 text-[13px] mt-3 mb-6 line-clamp-3 overflow-hidden leading-relaxed font-light">
-                {project.description[lang]}
-              </p>
-
-              <div className="mt-auto pt-6 border-t border-zinc-100 dark:border-white/5">
-                <div className="flex flex-wrap content-start gap-2 min-h-[48px]">
-                  {project.tools.map((tool) => {
-                    const IconComponent = Icons[
-                      tool.icon as keyof typeof Icons
-                    ] as React.ElementType;
-                    if (!IconComponent) return null;
-                    return (
-                      <div
-                        key={tool.name}
-                        className="flex items-center gap-1.5 text-zinc-500 dark:text-zinc-500"
-                      >
-                        <IconComponent size={12} strokeWidth={2} />
-                        <span className="text-[9px] uppercase tracking-widest font-bold">
-                          {tool.name}
-                        </span>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </div>
-          </motion.div>
+          />
         ))}
       </div>
+
+      <AnimatePresence>
+        {isExpanded && (
+          <motion.div
+            key="projects-extra-wrapper"
+            initial={{ clipPath: "inset(0% 0% 100% 0%)", y: -20 }}
+            animate={{ clipPath: "inset(0% 0% 0% 0%)", y: 0 }}
+            exit={{ clipPath: "inset(0% 0% 100% 0%)", y: -20 }}
+            transition={{ duration: 0.6, ease: "easeInOut" }}
+            style={{ overflow: "hidden" }}
+          >
+            <div
+              id="projects-grid-extra"
+              role="region"
+              aria-label={lang === "ES" ? "Proyectos adicionales" : "Additional projects"}
+              className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6"
+            >
+              {extraProjects.map((project, index) => (
+                <ProjectCard
+                  key={project.id}
+                  project={project}
+                  lang={lang}
+                  index={index + INITIAL_VISIBLE_COUNT}
+                  animateEntry={false}
+                  onClick={() => setSelectedId(project.id)}
+                />
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      {extraProjects.length > 0 && (
+        <div className="flex justify-center mt-10">
+          <button
+            id="toggle-projects-btn"
+            aria-expanded={isExpanded}
+            aria-controls="projects-grid-extra"
+            onClick={handleToggle}
+            className="flex items-center gap-1.5 py-2 text-zinc-700 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 font-bold uppercase tracking-[0.2em] text-[10px] transition-colors cursor-pointer focus:outline-none select-none"
+          >
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={isExpanded ? "expanded" : "collapsed"}
+                initial={{ opacity: 0, y: -4 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 4 }}
+                transition={{ duration: 0.15, ease: "easeInOut" }}
+                className="flex items-center gap-1.5"
+              >
+                {isExpanded
+                  ? (lang === "ES" ? "Ver menos" : "Show less")
+                  : (lang === "ES" ? "Ver más" : "Show more")}
+                {isExpanded ? <Icons.ChevronUp size={14} /> : <Icons.ChevronDown size={14} />}
+              </motion.span>
+            </AnimatePresence>
+          </button>
+        </div>
+      )}
 
       {/* Modal con AnimatePresence para entrada/salida suaves */}
       <AnimatePresence>

@@ -4,9 +4,13 @@ import SpeedInsights from '@vercel/speed-insights/astro';
 
 interface Props {
     title: string;
+    description?: string;
 }
 
-const { title } = Astro.props;
+const { 
+    title, 
+    description = "Portafolio profesional de Esteban Vidal, Desarrollador de Software. Proyectos, experiencia y soluciones de ingeniería." 
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -16,6 +20,35 @@ const { title } = Astro.props;
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
         <title>{title}</title>
+        <meta name="description" content={description} />
+        
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={title} />
+        <meta property="og:description" content={description} />
+        <meta property="og:image" content="/img/toxicskies1.webp" />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:title" content={title} />
+        <meta property="twitter:description" content={description} />
+        <meta property="twitter:image" content="/img/toxicskies1.webp" />
+
+        <!-- Structured Data / JSON-LD -->
+        <script type="application/ld+json" is:inline>
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": "Esteban Vidal",
+            "jobTitle": "Desarrollador de Software",
+            "url": "https://tebias-cloud.github.io",
+            "sameAs": [
+              "https://github.com/Tebias-cloud"
+            ],
+            "description": "Portafolio profesional de Esteban Vidal, Desarrollador de Software con especialidad en Next.js, React, Astro y Unity."
+          }
+        </script>
+
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">

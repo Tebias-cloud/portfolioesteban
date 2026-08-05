@@ -13,18 +13,18 @@ export const ExperienceList = React.memo(() => {
   const experience = {
     ES: [
       { 
-        company: "Desarrollador de Software Freelance", 
-        role: "Consultoría y Desarrollo de Software", 
+        company: "Campeonato Regional MTB Tarapacá", 
+        role: "Desarrollador de Software", 
         date: "2025 — Presente",
-        description: "Desarrollo soluciones de software para proyectos independientes, participando en el diseño de arquitectura, modelado de datos, implementación de funcionalidades e integración de servicios.\n\nExperiencia desarrollando plataformas web, sistemas administrativos y aplicaciones orientadas a resolver necesidades mediante software mantenible."
+        description: "Desarrollé una plataforma web para centralizar la gestión de inscripciones, resultados y rankings del Campeonato Regional MTB Tarapacá.\n\nReemplacé la gestión distribuida en planillas por una plataforma centralizada utilizada por los 7 clubes organizadores del campeonato, centralizando la administración y disponibilidad de la información.\n\nDiseñé e implementé la solución completa, incluyendo el modelado de la base de datos, panel administrativo, sitio público e integración con un sistema de cronometraje para automatizar el procesamiento de resultados."
       }
     ],
     EN: [
       { 
-        company: "Freelance Software Developer", 
-        role: "Software Consulting & Development", 
+        company: "Regional MTB Championship Tarapacá", 
+        role: "Software Developer", 
         date: "2025 — Present",
-        description: "Develop software solutions for independent projects, participating in system design, data modeling, feature implementation, and service integration.\n\nExperience building web platforms, management systems, and applications focused on solving problems through maintainable software solutions."
+        description: "Developed a web platform to centralize registrations, race results, and rankings for the Regional MTB Championship Tarapacá.\n\nReplaced spreadsheet-based management with a centralized platform used by the 7 organizing clubs, centralizing administration and information availability.\n\nDesigned and implemented the complete solution, including database modeling, an administrative dashboard, public website, and integration with a timing system to automate race result processing."
       }
     ]
   };
@@ -48,7 +48,7 @@ export const ExperienceList = React.memo(() => {
               <h3 className="text-xl md:text-2xl font-bold text-zinc-900 dark:text-zinc-100 transition-colors duration-500 tracking-tight">
                 {item.company}
               </h3>
-              <h4 className="text-sm md:text-base font-medium text-zinc-600 dark:text-zinc-400 mt-1 transition-colors duration-500">
+              <h4 className="text-sm md:text-base font-medium text-zinc-700 dark:text-zinc-400 mt-1 transition-colors duration-500">
                 {item.role}
               </h4>
               <span className="text-xs font-mono text-zinc-400 dark:text-zinc-500 mt-3 transition-colors duration-500 uppercase tracking-widest">
@@ -57,9 +57,14 @@ export const ExperienceList = React.memo(() => {
             </div>
 
             <div className="md:w-2/3 flex flex-col justify-center">
-              <p className="text-sm md:text-[15px] text-zinc-600 dark:text-zinc-400 leading-relaxed font-light transition-colors duration-500">
-                {item.description}
-              </p>
+              {item.description.split("\n\n").map((paragraph, idx) => (
+                <p 
+                  key={idx} 
+                  className="text-sm md:text-[15px] text-zinc-700 dark:text-zinc-400 leading-relaxed font-light transition-colors duration-500 mb-4 last:mb-0 max-w-prose"
+                >
+                  {paragraph}
+                </p>
+              ))}
             </div>
           </div>
         ))}

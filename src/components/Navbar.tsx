@@ -4,15 +4,11 @@ import { Moon, Sun, User, Briefcase, FolderCode } from "lucide-react";
 import { flushSync } from "react-dom";
 import { useStore } from '@nanostores/react';
 import { $lang } from '../store/ui';
+import { motion, AnimatePresence } from "framer-motion";
 
 export const Navbar = () => {
   const currentLang = useStore($lang);
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      return document.documentElement.classList.contains('dark');
-    }
-    return true;
-  });
+  const [isDark, setIsDark] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -67,8 +63,19 @@ export const Navbar = () => {
           <button onClick={toggleLang} className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
             {currentLang}
           </button>
-          <button ref={buttonRef} onClick={toggleTheme} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
-            {isDark ? <Sun size={18} /> : <Moon size={18} />}
+          <button ref={buttonRef} onClick={toggleTheme} className="rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 w-10 h-10 flex items-center justify-center cursor-pointer overflow-hidden relative">
+            <AnimatePresence mode="wait" initial={false}>
+              <motion.div
+                key={isDark ? "sun" : "moon"}
+                initial={{ y: 12, opacity: 0, rotate: 45 }}
+                animate={{ y: 0, opacity: 1, rotate: 0 }}
+                exit={{ y: -12, opacity: 0, rotate: -45 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="flex items-center justify-center"
+              >
+                {isDark ? <Sun size={18} /> : <Moon size={18} />}
+              </motion.div>
+            </AnimatePresence>
           </button>
         </div>
       </div>

@@ -112,12 +112,22 @@ export const myProjects: Project[] = [
       { name: 'Socket.io', icon: 'Zap' }
     ],
     images: ['/img/deathcloud1.webp', '/img/deathcloud2.webp', '/img/deathcloud3.webp'],
+    link: 'https://tebias-cloud.github.io/DeathCloud/',
     github: 'https://github.com/Tebias-cloud/DeathCloud',
     status: {
       ES: 'Servidor Offline - Demo Local',
       EN: 'Server Offline - Local Demo'
     }
-  },
+  }
+];
+
+// Array de proyectos extra vacío para producción, manteniendo la funcionalidad preparada para el futuro
+export const extraProjects: Project[] = [];
+
+/*
+ * PROYECTOS PREPARADOS PARA EL FUTURO (Desactivados hasta estar en producción)
+ *
+export const futureProjects: Project[] = [
   {
     id: 'bobstore',
     title: 'Bob Store',
@@ -146,9 +156,99 @@ export const myProjects: Project[] = [
       ES: 'Completado',
       EN: 'Completed'
     }
+  },
+  {
+    id: 'fantasyleague',
+    title: 'Fantasy League',
+    subtitle: { 
+      ES: 'Plataforma Interactiva de Liga de Fantasía', 
+      EN: 'Interactive Fantasy League Platform' 
+    },
+    description: {
+      ES: "Plataforma web interactiva para la creación y gestión de ligas de fantasía deportiva. Permite a los usuarios armar equipos virtuales basados en jugadores reales, realizar transferencias en tiempo real, acumular puntos y competir en tablas de clasificación dinámicas.",
+      EN: "Interactive web platform for creating and managing sports fantasy leagues. Users can build virtual teams based on real players, execute real-time transfers, earn points, and compete on dynamic leaderboards."
+    },
+    engineeringFocus: {
+      ES: "Diseñé una base de datos relacional para gestionar transferencias y clasificaciones complejas. Implementé sincronización automatizada de estadísticas en segundo plano mediante cron jobs e integración con WebSockets para actualizaciones instantáneas.",
+      EN: "Designed a relational database layout to manage transfers and complex standings. Implemented automated statistics synchronization using background cron jobs and WebSocket integration for real-time leaderboard updates."
+    },
+    tools: [
+      { name: 'Next.js', icon: 'Globe' },
+      { name: 'TypeScript', icon: 'FileCode2' },
+      { name: 'PostgreSQL', icon: 'Database' },
+      { name: 'Tailwind CSS', icon: 'Layout' }
+    ],
+    images: ['/img/fantasy1.webp', '/img/fantasy2.webp', '/img/fantasy3.webp'],
+    github: 'https://github.com/Tebias-cloud/fantasyleague',
+    status: {
+      ES: 'En Desarrollo',
+      EN: 'In Development'
+    }
+  },
+  {
+    id: 'tempoui',
+    title: 'TempoUI',
+    subtitle: { 
+      ES: 'Temporizador Pomodoro Inmersivo', 
+      EN: 'Immersive Pomodoro Timer' 
+    },
+    description: {
+      ES: "Una aplicación web Pomodoro inmersiva que implementa temporizadores personalizables y entornos visuales interactivos (Zen Ocean, Enderman, Deep Galaxy). Cuenta con persistencia de preferencias de usuario del lado del cliente y retroalimentación sonora.",
+      EN: "An immersive Pomodoro web app featuring customizable timers and interactive visual environments (Zen Ocean, Enderman, Deep Galaxy). Includes client-side user preferences persistence and audio feedback."
+    },
+    engineeringFocus: {
+      ES: "Implementé la persistencia local de estado con Zustand, retroalimentación sonora interactiva con use-sound, y un cursor de precisión personalizado que responde a la velocidad del ratón. Diseño dinámico con Framer Motion.",
+      EN: "Implemented local state persistence with Zustand, interactive audio feedback with use-sound, and a custom precision cursor that responds to mouse velocity. Dynamic layout using Framer Motion."
+    },
+    tools: [
+      { name: 'Next.js 15', icon: 'Globe' },
+      { name: 'Tailwind CSS', icon: 'Layout' },
+      { name: 'Zustand', icon: 'Zap' },
+      { name: 'Framer Motion', icon: 'Atom' }
+    ],
+    images: ['/img/tempoui1.webp', '/img/tempoui2.webp', '/img/tempoui3.webp'],
+    github: 'https://github.com/Tebias-cloud/tempoui',
+    status: {
+      ES: 'Completado',
+      EN: 'Completed'
+    }
+  },
+  {
+    id: 'dctoxicskiesmvp',
+    title: 'Toxic Skies MVP',
+    subtitle: { 
+      ES: 'Videojuego de Combate Aéreo y Novela Visual', 
+      EN: 'Aerial Combat & Visual Novel Game' 
+    },
+    description: {
+      ES: "Producto Mínimo Viable (MVP) de un videojuego de combate aéreo en tercera persona y narrativa interactiva tipo novela visual. Cuenta con un sistema de diálogos y elecciones, control de volumen maestro y distribución directa mediante el launcher de DeathCloud.",
+      EN: "Minimum Viable Product (MVP) for a third-person aerial combat and visual novel interactive game. Features dialogue and choice systems, master volume routing, and direct distribution through the DeathCloud launcher."
+    },
+    engineeringFocus: {
+      ES: "Desarrollé la lógica del juego en Unity 6 (URP) usando C#, integré VNCreator para la narrativa interactiva, y estructuréd el ruteo de canales en el AudioMixer central de Unity. Soportado por Unity Input System moderno.",
+      EN: "Developed gameplay logic in Unity 6 (URP) using C#, integrated VNCreator for interactive narratives, and routed channel feeds in Unity's central AudioMixer. Powered by the modern Unity Input System."
+    },
+    tools: [
+      { name: 'Unity', icon: 'Gamepad2' },
+      { name: 'C#', icon: 'FileCode2' },
+      { name: 'VNCreator', icon: 'BookOpen' }
+    ],
+    images: ['/img/toxicskies1.webp', '/img/toxicskies2.webp', '/img/toxicskies3.webp'],
+    github: 'https://github.com/Tebias-cloud/dc_toxicskiesmvp',
+    status: {
+      ES: 'Completado',
+      EN: 'Completed'
+    }
   }
 ];
+*/
 
+
+/* 
+ * NOTA: Esta sección está comentada temporalmente ya que no se utiliza actualmente
+ * en la interfaz. Puedes descomentarla si en el futuro decides renderizar una grilla
+ * de tecnologías por categorías.
+ *
 export const techCategories: TechCategory[] = [
   {
     title: { ES: "Lenguajes", EN: "Languages" },
@@ -201,3 +301,4 @@ export const techCategories: TechCategory[] = [
     ]
   },
 ];
+*/
