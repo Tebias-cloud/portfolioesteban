@@ -2,6 +2,8 @@
 
 Este repositorio contiene el código de la web portafolio personal y profesional de Esteban. Está construida utilizando el generador de sitios estáticos de alto rendimiento **Astro** junto con **React** para islas interactivas de interfaz, estilado mediante **Tailwind CSS v4** y desplegado en **Cloudflare Pages**.
 
+![Esteban Portfolio UI](public/assets/screenshot.jpg)
+
 ---
 
 ## 🛠️ Stack Tecnológico
