@@ -45,22 +45,15 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
       onClick={onClick}
       className="group cursor-pointer relative flex flex-col h-full
         bg-white/80 dark:bg-[#0a0a0a]/90
-        border border-zinc-200/50 dark:border-white/5
-        shadow-sm hover:shadow-lg
+        border border-zinc-200/60 dark:border-white/5
+        hover:border-zinc-300/90 dark:hover:border-white/15
+        shadow-xs hover:shadow-md
         overflow-hidden rounded-[24px]
-        transition-shadow duration-300
-        hover:-translate-y-1 transition-transform duration-300 ease-out
+        hover:-translate-y-1
+        transition-[transform,box-shadow,border-color] duration-300 ease-out
+        motion-reduce:hover:translate-y-0 motion-reduce:transition-none
         will-change-transform"
     >
-      {/* Glow púrpura animado solo con opacidad (no background-color) */}
-      <div
-        className="absolute inset-0 rounded-[inherit] pointer-events-none
-          bg-purple-500/20 dark:bg-purple-500/30 blur-xl
-          opacity-0 group-hover:opacity-100
-          transition-opacity duration-500
-          will-change-[opacity]"
-      />
-
       {/* Thumbnail */}
       <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-[#0a0a0a] z-10">
         {imgError ? (
@@ -79,7 +72,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
             loading="lazy"
             decoding="async"
             onError={() => setImgError(true)}
-            className="w-full h-full object-cover object-top opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-transform duration-700 ease-out"
+            className="w-full h-full object-cover object-top group-hover:scale-[1.02] transition-transform duration-300 ease-out motion-reduce:group-hover:scale-100"
           />
         )}
       </div>

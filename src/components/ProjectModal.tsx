@@ -38,9 +38,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
   const labels = {
     ES: {
       visit: "Visitar Proyecto",
-      arch: "Contexto del Proyecto",
       eng: "Solución Técnica",
-      tech: "Stack",
+      tech: "Tecnologías principales",
       close: "Cerrar modal",
       imgUnavailable: "Imagen no disponible",
       prevImg: "Imagen anterior",
@@ -48,9 +47,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
     },
     EN: {
       visit: "Visit Project",
-      arch: "Project Context",
       eng: "Technical Solution",
-      tech: "Stack",
+      tech: "Key technologies",
       close: "Close modal",
       imgUnavailable: "Image not available",
       prevImg: "Previous image",
@@ -135,14 +133,6 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
                   <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden sm:inline" />
                   <span className="text-zinc-600 dark:text-zinc-400 font-mono text-[10px]">
                     {project.highlights[lang]}
-                  </span>
-                </>
-              )}
-              {project.status && (
-                <>
-                  <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden sm:inline" />
-                  <span className="text-zinc-700 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-zinc-200/60 dark:bg-white/5 border border-zinc-300/40 dark:border-white/5">
-                    {project.status[lang]}
                   </span>
                 </>
               )}
@@ -266,21 +256,11 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
               )}
             </div>
 
-            {/* Columna de texto descriptivo y técnico */}
-            <aside className="flex flex-col gap-6 lg:gap-8 pb-4">
+            {/* Columna técnica: Solución Técnica y Stack */}
+            <aside className="flex flex-col justify-between gap-6 pb-4">
               <section>
                 <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-2.5 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
-                  {labels[lang].arch}
-                </h4>
-                <p className="text-[13px] md:text-sm text-zinc-800 dark:text-zinc-300 leading-relaxed font-light">
-                  {project.description[lang]}
-                </p>
-              </section>
-
-              <section>
-                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-2.5 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(10,185,129,0.6)]" />
                   {labels[lang].eng}
                 </h4>
                 <p className="text-[13px] md:text-sm text-zinc-800 dark:text-zinc-300 leading-relaxed font-light">

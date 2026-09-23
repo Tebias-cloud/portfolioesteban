@@ -44,18 +44,17 @@ export const myProjects: Project[] = [
       EN: '7 clubs · +240 riders · 7 race events'
     },
     description: {
-      ES: "Plataforma centralizada utilizada por 7 clubes y más de 240 corredores para gestionar la temporada 2026 (7 fechas) del Campeonato Regional MTB Tarapacá. Reemplazó procesos que anteriormente se gestionaban mediante planillas, centralizando inscripciones, validación de corredores, asignación de dorsales, calendario y clasificaciones con actualización inmediata.",
-      EN: "Centralized web platform used by 7 clubs and over 240 riders to manage the 2026 season (7 race events) of the Tarapacá Regional MTB Championship. Replaced spreadsheet-based workflows, centralizing race registration, rider validation, bib assignments, event scheduling, and official leaderboards with immediate updates."
+      ES: "Modelo de datos relacional para inscripciones, participantes, resultados y rankings, con procesamiento de resultados e integración con el sistema de cronometraje.",
+      EN: "Relational data model for registrations, participants, results, and leaderboards, with automated result processing and race timing system integration."
     },
     engineeringFocus: {
-      ES: "Diseñé una arquitectura de datos relacional para gestionar participantes, resultados y clasificaciones. Implementé el procesamiento automático de resultados oficiales, integración con el sistema de cronometraje y funcionalidades administrativas para la operación completa del campeonato.",
-      EN: "Designed a relational data architecture to manage participants, results, and standings. Implemented automatic race result processing, integration with the race timing system, and administrative tools for end-to-end championship operations."
+      ES: "Modelo de datos relacional para inscripciones, participantes, resultados y rankings, con procesamiento de resultados e integración con el sistema de cronometraje.",
+      EN: "Relational data model for registrations, participants, results, and leaderboards, with automated result processing and race timing system integration."
     },
     tools: [
-      { name: 'Next.js 15', icon: 'Globe' },
+      { name: 'Next.js', icon: 'Globe' },
       { name: 'TypeScript', icon: 'FileCode2' },
-      { name: 'Supabase', icon: 'Zap' },
-      { name: 'Tailwind CSS', icon: 'Layout' }
+      { name: 'Supabase / PostgreSQL', icon: 'Database' }
     ],
     images: ['/img/chaski1.webp', '/img/chaski2.webp', '/img/chaski3.webp'],
     link: 'https://campeonato-mtb.vercel.app/',
@@ -77,18 +76,17 @@ export const myProjects: Project[] = [
       EN: 'Catalog · Inventory · Mercado Pago'
     },
     description: {
-      ES: "Plataforma de comercio electrónico diseñada para digitalizar la operación comercial de un negocio existente. Automatiza el catálogo online, centraliza el inventario en tiempo real, gestiona pedidos y procesa transacciones seguras mediante Mercado Pago.",
-      EN: "E-commerce platform designed to digitize the retail operations of an existing business. Automates the online catalog, centralizes real-time inventory tracking, manages orders, and processes secure transactions through Mercado Pago."
+      ES: "E-commerce con gestión de inventario, validaciones del lado servidor, control de acceso administrativo e integración con Mercado Pago.",
+      EN: "E-commerce with inventory management, server-side validations, administrative access control, and Mercado Pago integration."
     },
     engineeringFocus: {
-      ES: "Integré Mercado Pago con validaciones seguras del lado servidor y control de acceso administrativo. Diseñé la gestión transaccional de stock para prevenir inconsistencias durante compras simultáneas y optimicé la entrega de catálogo mediante procesamiento previo de imágenes.",
-      EN: "Integrated Mercado Pago payment flow with secure server-side validations and administrative access control. Designed transactional inventory logic to prevent inconsistencies during concurrent purchases and optimized catalog asset delivery through client-side image preprocessing."
+      ES: "E-commerce con gestión de inventario, validaciones del lado servidor, control de acceso administrativo e integración con Mercado Pago.",
+      EN: "E-commerce with inventory management, server-side validations, administrative access control, and Mercado Pago integration."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },
-      { name: 'PostgreSQL', icon: 'Database' },
-      { name: 'Mercado Pago', icon: 'CreditCard' },
-      { name: 'Supabase', icon: 'Zap' }
+      { name: 'Supabase / PostgreSQL', icon: 'Database' },
+      { name: 'Mercado Pago', icon: 'CreditCard' }
     ],
     images: ['/img/joyas1.webp', '/img/joyas2.webp', '/img/joyas3.webp'],
     link: 'https://joyas-fran.vercel.app/',
