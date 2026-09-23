@@ -49,10 +49,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
         hover:border-zinc-300/90 dark:hover:border-white/15
         shadow-xs hover:shadow-md
         overflow-hidden rounded-[24px]
-        hover:-translate-y-1
-        transition-[transform,box-shadow,border-color] duration-300 ease-out
-        motion-reduce:hover:translate-y-0 motion-reduce:transition-none
-        will-change-transform"
+        transition-[border-color,box-shadow] duration-200 ease-out
+        motion-reduce:transition-none"
     >
       {/* Thumbnail */}
       <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-[#0a0a0a] z-10">

@@ -50,20 +50,41 @@ export const Navbar = () => {
     });
   }, [isDark]);
 
+  const navLabels = {
+    ES: {
+      profile: "Ir a perfil",
+      projects: "Ir a proyectos",
+      experience: "Ir a experiencia",
+      langToggle: "Cambiar idioma a inglés",
+      themeDark: "Cambiar a modo claro",
+      themeLight: "Cambiar a modo oscuro"
+    },
+    EN: {
+      profile: "Go to profile",
+      projects: "Go to projects",
+      experience: "Go to experience",
+      langToggle: "Switch language to Spanish",
+      themeDark: "Switch to light mode",
+      themeLight: "Switch to dark mode"
+    }
+  };
+
+  const labels = navLabels[currentLang as "ES" | "EN"];
+
   return (
-    <nav className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]">
+    <nav aria-label="Navegación principal" className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]">
       <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm shadow-md dark:shadow-2xl transition-[color,background-color] duration-300">
         <div className="flex items-center">
-          <a href="#top" title="Perfil" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><User size={18} /></a>
-          <a href="#projects" title="Proyectos" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><FolderCode size={18} /></a>
-          <a href="#experience" title="Experiencia" className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><Briefcase size={18} /></a>
+          <a href="#top" title={labels.profile} aria-label={labels.profile} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><User size={18} /></a>
+          <a href="#projects" title={labels.projects} aria-label={labels.projects} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><FolderCode size={18} /></a>
+          <a href="#experience" title={labels.experience} aria-label={labels.experience} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><Briefcase size={18} /></a>
         </div>
         <div className="w-px h-4 bg-zinc-200 dark:bg-white/10 mx-1 transition-[color,background-color] duration-300" />
         <div className="flex items-center gap-0.5">
-          <button onClick={toggleLang} className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
+          <button onClick={toggleLang} aria-label={labels.langToggle} className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
             {currentLang}
           </button>
-          <button ref={buttonRef} onClick={toggleTheme} className="rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 w-10 h-10 flex items-center justify-center cursor-pointer overflow-hidden relative">
+          <button ref={buttonRef} onClick={toggleTheme} aria-label={isDark ? labels.themeDark : labels.themeLight} className="rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 w-10 h-10 flex items-center justify-center cursor-pointer overflow-hidden relative">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={isDark ? "sun" : "moon"}

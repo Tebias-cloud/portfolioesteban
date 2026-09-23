@@ -113,7 +113,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
         transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-[72rem] bg-zinc-50 dark:bg-[#070707] md:bg-white/80 md:dark:bg-[#070707]/90 md:backdrop-blur-md md:border md:border-zinc-200/50 md:dark:border-white/5 md:rounded-[24px] shadow-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col z-10"
+        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-5xl bg-zinc-50 dark:bg-[#070707] md:bg-white/80 md:dark:bg-[#070707]/90 md:backdrop-blur-md md:border md:border-zinc-200/50 md:dark:border-white/5 md:rounded-[24px] shadow-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col z-10"
       >
         {/* Header Sticky en móvil / Fijo en desktop */}
         <header className="sticky top-0 z-30 bg-zinc-50/95 dark:bg-[#070707]/95 md:bg-transparent backdrop-blur-md md:backdrop-blur-none px-4 py-3 sm:px-6 sm:py-4 md:px-10 md:pt-8 md:pb-6 border-b border-zinc-200/50 dark:border-white/5 md:border-b-0 flex justify-between items-start md:items-center gap-3 shrink-0">
@@ -175,7 +175,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
 
         {/* Cuerpo del contenido */}
         <div className="p-4 sm:p-5 md:p-10 md:pt-2 flex-1 md:overflow-y-auto">
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
+          <div className="grid lg:grid-cols-[1.3fr_1fr] gap-8 lg:gap-10 items-center">
             {/* Galería interactiva con flechas y soporte de swipe */}
             <div className="flex flex-col gap-4">
               <div
@@ -256,8 +256,8 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
               )}
             </div>
 
-            {/* Columna técnica: Solución Técnica y Stack */}
-            <aside className="flex flex-col justify-between gap-6 pb-4">
+            {/* Columna técnica: Solución Técnica y Stack agrupados naturalmente */}
+            <aside className="flex flex-col gap-6 lg:gap-7 py-2">
               <section>
                 <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-2.5 flex items-center gap-2">
                   <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
@@ -268,7 +268,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
                 </p>
               </section>
 
-              <section className="mt-auto pt-4 border-t border-zinc-200/50 dark:border-white/5">
+              <section className="pt-5 border-t border-zinc-200/50 dark:border-white/5">
                 <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-3">
                   {labels[lang].tech}
                 </h4>

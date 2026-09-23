@@ -25,13 +25,9 @@ export const HeroInfo = React.memo(() => {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: "easeOut" }}
-    >
+    <div>
       <div className="flex flex-col gap-6">
-        <h1 className="text-6xl md:text-[5.5rem] font-bold tracking-normal leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300 -ml-[0.03em]">
+        <h1 className="text-5xl sm:text-6xl md:text-[5.5rem] font-bold tracking-normal leading-none text-zinc-950 dark:text-white transition-[color,background-color] duration-300 -ml-[0.03em]">
           Esteban Vidal.
         </h1>
         <p className="text-base md:text-lg text-zinc-600 dark:text-zinc-400 max-w-2xl leading-relaxed font-light transition-[color,background-color] duration-300">
@@ -40,7 +36,7 @@ export const HeroInfo = React.memo(() => {
       </div>
       
       {/* ACTION BAR: Ultra Minimalista y Simétrica */}
-      <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5 opacity-0 animate-[fadeIn_0.5s_ease-out_0.2s_forwards]">
+      <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-5">
         
         {/* CORREO */}
         <CopyEmail textClassName="text-zinc-500 dark:text-zinc-400" />
@@ -111,6 +107,6 @@ export const HeroInfo = React.memo(() => {
         </div>
 
       </div>
-    </motion.div>
+    </div>
   );
 });

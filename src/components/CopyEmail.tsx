@@ -10,9 +10,14 @@ export const CopyEmail: React.FC<CopyEmailProps> = React.memo(({ textClassName =
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText('esteban.vidal.valencia@gmail.com');
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText('esteban.vidal.valencia@gmail.com')
+        .then(() => {
+          setCopied(true);
+          setTimeout(() => setCopied(false), 2000);
+        })
+        .catch(() => {});
+    }
   };
 
   return (
