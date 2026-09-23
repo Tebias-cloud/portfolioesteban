@@ -11,13 +11,13 @@ export const HeroInfo = React.memo(() => {
 
   const content = {
     ES: {
-      bio: "Ingeniero Civil en Informática. Diseño y desarrollo soluciones de software orientadas a sistemas mantenibles y preparados para evolucionar.",
+      bio: "Diseño y desarrollo soluciones de software orientadas a sistemas mantenibles y preparados para evolucionar, desde el modelado de datos hasta la implementación de lógica de negocio.",
       country: "Iquique, Chile",
       cvTitle: "Descargar CV",
       cvFile: "/Esteban_Vidal_CV_ES.pdf"
     },
     EN: {
-      bio: "Computer Science Engineer. I design and develop software solutions focused on maintainable systems and long-term evolution.",
+      bio: "I design and develop software solutions focused on maintainable systems that can evolve over time, from data modeling to business logic implementation.",
       country: "Iquique, Chile",
       cvTitle: "Download CV",
       cvFile: "/Esteban_Vidal_CV_EN.pdf"

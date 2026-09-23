@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import * as Icons from "lucide-react";
 import type { Project } from "../data/portfolio";
@@ -12,6 +12,7 @@ interface ProjectModalProps {
 export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, lang, onClose }) => {
   const [activeImg, setActiveImg] = useState(0);
   const [imgErrors, setImgErrors] = useState<Record<number, boolean>>({});
+  const touchStartX = useRef<number | null>(null);
 
   // Preload all screenshots for this project on mount safely with try-catch
   useEffect(() => {
@@ -41,7 +42,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
       eng: "Solución Técnica",
       tech: "Stack",
       close: "Cerrar modal",
-      imgUnavailable: "Imagen no disponible"
+      imgUnavailable: "Imagen no disponible",
+      prevImg: "Imagen anterior",
+      nextImg: "Imagen siguiente"
     },
     EN: {
       visit: "Visit Project",
@@ -49,7 +52,9 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
       eng: "Technical Solution",
       tech: "Stack",
       close: "Close modal",
-      imgUnavailable: "Image not available"
+      imgUnavailable: "Image not available",
+      prevImg: "Previous image",
+      nextImg: "Next image"
     },
   };
 
@@ -57,108 +62,168 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
     setImgErrors((prev) => ({ ...prev, [index]: true }));
   };
 
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setActiveImg((prev) => (prev === 0 ? project.images.length - 1 : prev - 1));
+  };
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    setActiveImg((prev) => (prev === project.images.length - 1 ? 0 : prev + 1));
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const touchEndX = e.changedTouches[0].clientX;
+    const diff = touchStartX.current - touchEndX;
+    if (diff > 45) {
+      handleNext();
+    } else if (diff < -45) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+  };
+
   return (
     <div
       role="dialog"
       aria-modal="true"
       aria-labelledby="modal-project-title"
-      className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-8"
+      className="fixed inset-0 z-[150] flex items-center justify-center md:p-8"
     >
-      {/* Overlay: solid background with opacity transition */}
+      {/* Overlay: solo visible en desktop como backdrop oscuro */}
       <motion.div
         key="overlay"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        transition={{ duration: 0.3 }}
+        transition={{ duration: 0.25 }}
         onClick={onClose}
-        className="absolute inset-0 bg-zinc-50/90 dark:bg-black/95"
+        className="hidden md:block absolute inset-0 bg-zinc-950/80 backdrop-blur-xs"
       />
 
-      {/* Contenido del modal con will-change forzado */}
+      {/* Contenedor del modal: en mobile ocupa la pantalla completa, en desktop es la tarjeta centrada */}
       <motion.div
         key="modal-content"
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        initial={{ opacity: 0, scale: 0.98, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ duration: 0.3, ease: "easeOut" }}
+        exit={{ opacity: 0, scale: 0.98, y: 15 }}
+        transition={{ duration: 0.25, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-[72rem] h-[90vh] md:h-auto md:max-h-[90vh] bg-white/60 dark:bg-[#070707]/80 backdrop-blur-sm border border-zinc-200/50 dark:border-white/5 rounded-[24px] shadow-2xl overflow-hidden flex flex-col z-10"
+        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-[72rem] bg-zinc-50 dark:bg-[#070707] md:bg-white/80 md:dark:bg-[#070707]/90 md:backdrop-blur-md md:border md:border-zinc-200/50 md:dark:border-white/5 md:rounded-[24px] shadow-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col z-10"
       >
-        <div className="flex flex-col h-full p-8 md:p-10 relative">
-          <header className="flex justify-between items-center mb-8 shrink-0 relative z-10">
-            <div className="flex flex-col">
-              <h2 
-                id="modal-project-title" 
-                className="text-2xl md:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 uppercase leading-none"
+        {/* Header Sticky en móvil / Fijo en desktop */}
+        <header className="sticky top-0 z-30 bg-zinc-50/95 dark:bg-[#070707]/95 md:bg-transparent backdrop-blur-md md:backdrop-blur-none px-4 py-3 sm:px-6 sm:py-4 md:px-10 md:pt-8 md:pb-6 border-b border-zinc-200/50 dark:border-white/5 md:border-b-0 flex justify-between items-start md:items-center gap-3 shrink-0">
+          <div className="flex flex-col min-w-0 flex-1">
+            <h2
+              id="modal-project-title"
+              className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight text-zinc-900 dark:text-zinc-50 uppercase leading-tight truncate"
+            >
+              {project.title}
+            </h2>
+            <div className="flex flex-wrap items-center mt-1 md:mt-2 gap-x-2.5 gap-y-1">
+              <span className="text-purple-600 dark:text-purple-400 text-[10px] font-bold uppercase tracking-[0.2em] md:tracking-[0.3em]">
+                {project.subtitle[lang]}
+              </span>
+              {project.highlights && (
+                <>
+                  <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden sm:inline" />
+                  <span className="text-zinc-600 dark:text-zinc-400 font-mono text-[10px]">
+                    {project.highlights[lang]}
+                  </span>
+                </>
+              )}
+              {project.status && (
+                <>
+                  <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden sm:inline" />
+                  <span className="text-zinc-700 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-zinc-200/60 dark:bg-white/5 border border-zinc-300/40 dark:border-white/5">
+                    {project.status[lang]}
+                  </span>
+                </>
+              )}
+            </div>
+          </div>
+
+          <div className="flex items-center gap-1.5 sm:gap-2 shrink-0">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="GitHub"
+                className="w-10 h-10 flex items-center justify-center text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-full hover:bg-zinc-200/60 dark:hover:bg-white/5 transition-colors"
               >
-                {project.title}
-              </h2>
-              <div className="flex flex-wrap items-center mt-3 gap-x-3 gap-y-1.5">
-                <span className="text-purple-600 dark:text-purple-400 text-[10px] font-bold uppercase tracking-[0.4em]">
-                  {project.subtitle[lang]}
-                </span>
-                {project.status && (
+                <Icons.Github size={18} strokeWidth={1.75} />
+              </a>
+            )}
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1.5 px-3.5 sm:px-5 py-2.5 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 rounded-full font-bold uppercase tracking-[0.1em] text-[10px] transition-colors"
+              >
+                <span className="hidden sm:inline">{labels[lang].visit}</span>
+                <span className="sm:hidden">{lang === "ES" ? "Ver" : "Visit"}</span>
+                <Icons.ArrowUpRight size={13} strokeWidth={2} />
+              </a>
+            )}
+            <button
+              onClick={onClose}
+              aria-label={labels[lang].close}
+              className="w-11 h-11 flex items-center justify-center text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white rounded-full hover:bg-zinc-200/60 dark:hover:bg-white/5 transition-all hover:rotate-90 ml-0.5"
+            >
+              <Icons.X size={20} strokeWidth={1.75} />
+            </button>
+          </div>
+        </header>
+
+        {/* Cuerpo del contenido */}
+        <div className="p-4 sm:p-5 md:p-10 md:pt-2 flex-1 md:overflow-y-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-10">
+            {/* Galería interactiva con flechas y soporte de swipe */}
+            <div className="flex flex-col gap-4">
+              <div
+                onTouchStart={handleTouchStart}
+                onTouchEnd={handleTouchEnd}
+                className="relative w-full aspect-video rounded-2xl overflow-hidden flex items-center justify-center group shadow-md border border-zinc-200/60 dark:border-white/5 bg-zinc-100 dark:bg-black/50 select-none"
+              >
+                {/* Flechas de navegación (si hay más de 1 imagen) */}
+                {project.images.length > 1 && (
                   <>
-                    <span className="w-1 h-1 rounded-full bg-zinc-300 dark:bg-zinc-700 hidden md:inline"></span>
-                    {/* Contrast improved: changed from text-zinc-500 to text-zinc-700 in light mode */}
-                    <span className="text-zinc-700 dark:text-zinc-400 text-[9px] font-bold uppercase tracking-widest px-2 py-0.5 rounded bg-zinc-100 dark:bg-white/5 border border-zinc-200/50 dark:border-white/5">
-                      {project.status[lang]}
-                    </span>
+                    <button
+                      onClick={handlePrev}
+                      aria-label={labels[lang].prevImg}
+                      className="absolute left-2.5 top-1/2 -translate-y-1/2 w-9 h-9 md:w-10 md:h-10 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs transition-colors z-20 opacity-80 md:opacity-0 md:group-hover:opacity-100"
+                    >
+                      <Icons.ChevronLeft size={20} strokeWidth={2.5} />
+                    </button>
+                    <button
+                      onClick={handleNext}
+                      aria-label={labels[lang].nextImg}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 w-9 h-9 md:w-10 md:h-10 rounded-full bg-black/50 hover:bg-black/75 text-white flex items-center justify-center backdrop-blur-xs transition-colors z-20 opacity-80 md:opacity-0 md:group-hover:opacity-100"
+                    >
+                      <Icons.ChevronRight size={20} strokeWidth={2.5} />
+                    </button>
                   </>
                 )}
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              {project.github && (
-                <a
-                  href={project.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub"
-                  className="text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white p-3 rounded-full hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
-                >
-                  <Icons.Github size={20} strokeWidth={1.5} />
-                </a>
-              )}
-              {project.link && (
-                <a
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-6 py-3 bg-zinc-900 dark:bg-zinc-100 hover:bg-zinc-800 dark:hover:bg-white text-white dark:text-zinc-950 rounded-full font-bold uppercase tracking-[0.1em] text-[10px] transition-colors"
-                >
-                  {labels[lang].visit} <Icons.ArrowUpRight size={14} />
-                </a>
-              )}
-              <button
-                onClick={onClose}
-                aria-label={labels[lang].close}
-                className="text-zinc-700 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white p-3 rounded-full hover:bg-zinc-100 dark:hover:bg-white/5 ml-2 transition-all hover:rotate-90"
-              >
-                <Icons.X size={20} strokeWidth={1.5} />
-              </button>
-            </div>
-          </header>
 
-          <div className="grid lg:grid-cols-2 gap-10 min-h-0 flex-1 relative z-10 overflow-y-auto lg:overflow-visible pr-2 scrollbar-hide">
-            <div className="flex flex-col gap-6 relative shrink-0 lg:shrink">
-              {/* Imagen principal con glow optimizado (blur reducido) */}
-              <div className="relative w-full aspect-video rounded-2xl overflow-hidden flex items-center justify-center group shadow-xl border border-zinc-200/50 dark:border-white/5 bg-zinc-100 dark:bg-black/50">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-purple-500/10 dark:bg-purple-500/5 blur-2xl rounded-full opacity-80 group-hover:opacity-100 transition-opacity duration-1000 pointer-events-none z-0 will-change-[opacity]" />
-                
                 {imgErrors[activeImg] ? (
                   <div className="w-full h-full flex flex-col items-center justify-center text-zinc-400 bg-zinc-50 dark:bg-zinc-900 z-10">
-                    <Icons.ImageOff size={40} className="mb-3" />
-                    <span className="text-[12px] uppercase tracking-widest font-bold">
+                    <Icons.ImageOff size={36} className="mb-2" />
+                    <span className="text-[11px] uppercase tracking-widest font-bold">
                       {labels[lang].imgUnavailable}
                     </span>
                   </div>
                 ) : (
                   <img
                     src={project.images[activeImg]}
-                    alt={`${project.title} - ${lang === "ES" ? "captura principal" : "main screenshot"}`}
+                    alt={`${project.title} - ${lang === "ES" ? `captura ${activeImg + 1}` : `screenshot ${activeImg + 1}`}`}
                     loading="lazy"
                     decoding="async"
                     onError={() => handleImageError(activeImg)}
@@ -167,62 +232,64 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
                 )}
               </div>
 
-              {/* Miniaturas con transiciones acotadas y bordes fijos para evitar reflows */}
-              <div className="grid grid-cols-3 gap-4 shrink-0 pb-1 px-1">
-                {project.images.map((img, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => setActiveImg(idx)}
-                    aria-label={`${project.title} - ${lang === "ES" ? `ver captura ${idx + 1}` : `view screenshot ${idx + 1}`}`}
-                    className={`relative aspect-video rounded-xl overflow-hidden focus:outline-none border-2 transition-[opacity,transform,border-color] duration-200 will-change-transform ${
-                      activeImg === idx
-                        ? "border-purple-500/70 opacity-100 scale-[1.02]"
-                        : "border-zinc-200 dark:border-white/5 opacity-40 hover:opacity-100 hover:-translate-y-0.5"
-                    }`}
-                  >
-                    {imgErrors[idx] ? (
-                      <div className="w-full h-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-900 text-zinc-400">
-                        <Icons.ImageOff size={16} />
-                      </div>
-                    ) : (
-                      <img
-                        src={img}
-                        alt={`${project.title} - ${lang === "ES" ? `miniatura ${idx + 1}` : `thumbnail ${idx + 1}`}`}
-                        loading="lazy"
-                        decoding="async"
-                        onError={() => handleImageError(idx)}
-                        className="w-full h-full object-cover"
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
+              {/* Miniaturas con targets táctiles cómodos */}
+              {project.images.length > 1 && (
+                <div className="grid grid-cols-3 gap-3 shrink-0">
+                  {project.images.map((img, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImg(idx)}
+                      aria-label={`${project.title} - ${lang === "ES" ? `ver captura ${idx + 1}` : `view screenshot ${idx + 1}`}`}
+                      className={`relative aspect-video rounded-xl overflow-hidden focus:outline-none border-2 transition-all duration-200 cursor-pointer ${
+                        activeImg === idx
+                          ? "border-purple-500 opacity-100 scale-[1.02]"
+                          : "border-zinc-200/80 dark:border-white/5 opacity-50 hover:opacity-100"
+                      }`}
+                    >
+                      {imgErrors[idx] ? (
+                        <div className="w-full h-full flex items-center justify-center bg-zinc-100 dark:bg-zinc-900 text-zinc-400">
+                          <Icons.ImageOff size={16} />
+                        </div>
+                      ) : (
+                        <img
+                          src={img}
+                          alt={`${project.title} - ${lang === "ES" ? `miniatura ${idx + 1}` : `thumbnail ${idx + 1}`}`}
+                          loading="lazy"
+                          decoding="async"
+                          onError={() => handleImageError(idx)}
+                          className="w-full h-full object-cover"
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
 
-            {/* Contrast improved: changed text-zinc-500/600 to text-zinc-700/800 in light mode */}
-            <aside className="flex flex-col gap-8 py-2 lg:overflow-y-auto pr-2 scrollbar-hide">
+            {/* Columna de texto descriptivo y técnico */}
+            <aside className="flex flex-col gap-6 lg:gap-8 pb-4">
               <section>
-                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]"></span>{" "}
+                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-2.5 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shadow-[0_0_8px_rgba(168,85,247,0.6)]" />
                   {labels[lang].arch}
                 </h4>
-                <p className="text-sm text-zinc-800 dark:text-zinc-400 leading-relaxed">
+                <p className="text-[13px] md:text-sm text-zinc-800 dark:text-zinc-300 leading-relaxed font-light">
                   {project.description[lang]}
                 </p>
               </section>
 
               <section>
-                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-3 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(10,185,129,0.6)]"></span>{" "}
+                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-2.5 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_rgba(10,185,129,0.6)]" />
                   {labels[lang].eng}
                 </h4>
-                <p className="text-sm text-zinc-800 dark:text-zinc-400 leading-relaxed">
+                <p className="text-[13px] md:text-sm text-zinc-800 dark:text-zinc-300 leading-relaxed font-light">
                   {project.engineeringFocus[lang]}
                 </p>
               </section>
 
-              <section className="mt-auto pt-6 border-t border-zinc-100 dark:border-white/5">
-                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-4">
+              <section className="mt-auto pt-4 border-t border-zinc-200/50 dark:border-white/5">
+                <h4 className="text-[10px] text-zinc-700 dark:text-zinc-500 font-bold uppercase tracking-[0.2em] mb-3">
                   {labels[lang].tech}
                 </h4>
                 <div className="flex flex-wrap gap-2">
@@ -234,7 +301,7 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
                     return (
                       <div
                         key={tool.name}
-                        className="flex items-center gap-1.5 text-zinc-800 dark:text-zinc-500"
+                        className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-zinc-100 dark:bg-white/5 text-zinc-800 dark:text-zinc-400 border border-zinc-200/40 dark:border-white/5"
                       >
                         <IconComp size={12} strokeWidth={2} />
                         <span className="text-[9px] uppercase tracking-widest font-bold">

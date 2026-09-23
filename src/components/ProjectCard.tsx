@@ -26,13 +26,13 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
   const transitionVal = animateEntry
     ? {
         duration: 0.5,
-        ease: [0.25, 0.46, 0.45, 0.94],
+        ease: [0.25, 0.46, 0.45, 0.94] as const,
         delay: index * 0.08,
       }
     : { duration: 0.2 };
 
-  const imageAlt = lang === "ES" 
-    ? `${project.title} - Captura de pantalla de la interfaz` 
+  const imageAlt = lang === "ES"
+    ? `${project.title} - Captura de pantalla de la interfaz`
     : `${project.title} - Interface screenshot`;
 
   return (
@@ -85,18 +85,56 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
       </div>
 
       {/* Card content */}
-      <div className="p-6 flex flex-col flex-1 z-10">
-        <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
-          {project.title}
-        </h3>
+      <div className="p-5 md:p-6 flex flex-col flex-1 z-10">
+        <div className="flex items-start justify-between gap-3">
+          <div className="flex-1 min-w-0">
+            <h3 className="text-lg font-bold text-zinc-900 dark:text-zinc-100 tracking-tight">
+              {project.title}
+            </h3>
+            {project.highlights && (
+              <div className="flex items-center gap-1.5 mt-1.5 text-[11px] font-mono font-medium text-purple-600 dark:text-purple-400/90 tracking-wide">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
+                <span className="truncate">{project.highlights[lang]}</span>
+              </div>
+            )}
+          </div>
 
-        {/* Contrast improved: changed from text-zinc-500 to text-zinc-700 in light mode */}
-        <p className="text-zinc-700 dark:text-zinc-400 text-[13px] mt-3 mb-6 line-clamp-3 overflow-hidden leading-relaxed font-light">
+          {/* Quick links discretos con targets táctiles mínimos de 44x44px en móvil */}
+          <div className="flex items-center gap-0.5 shrink-0 -mr-2 -mt-1.5">
+            {project.github && (
+              <a
+                href={project.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={lang === "ES" ? `Código de ${project.title} en GitHub` : `${project.title} GitHub repository`}
+                onClick={(e) => e.stopPropagation()}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
+              >
+                <Icons.Github size={18} strokeWidth={1.75} />
+              </a>
+            )}
+            {project.link && (
+              <a
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={lang === "ES" ? `Visitar sitio de ${project.title}` : `Visit ${project.title} live site`}
+                onClick={(e) => e.stopPropagation()}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-zinc-400 dark:text-zinc-500 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
+              >
+                <Icons.ArrowUpRight size={18} strokeWidth={1.75} />
+              </a>
+            )}
+          </div>
+        </div>
+
+        {/* Contrast improved: text-zinc-700 in light mode */}
+        <p className="text-zinc-700 dark:text-zinc-400 text-[13px] mt-3 mb-5 line-clamp-3 overflow-hidden leading-relaxed font-light">
           {project.description[lang]}
         </p>
 
-        <div className="mt-auto pt-6 border-t border-zinc-100 dark:border-white/5">
-          <div className="flex flex-wrap content-start gap-2 min-h-[48px]">
+        <div className="mt-auto pt-4 border-t border-zinc-100 dark:border-white/5">
+          <div className="flex flex-wrap content-start gap-2">
             {project.tools.map((tool) => {
               const IconComponent = Icons[
                 tool.icon as keyof typeof Icons

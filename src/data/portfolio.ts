@@ -16,6 +16,7 @@ export interface Project {
   link?: string;
   github?: string;
   status: BilingualText;
+  highlights?: BilingualText;
 }
 
 export interface TechItem {
@@ -34,17 +35,21 @@ export const myProjects: Project[] = [
   {
     id: 'chaski',
     title: 'Campeonato Regional MTB',
-    subtitle: { 
-      ES: 'Arquitectura de Datos y Ranking en Tiempo Real', 
-      EN: 'Data Architecture & Real-Time Leaderboard' 
+    subtitle: {
+      ES: 'Arquitectura de Datos y Ranking en Tiempo Real',
+      EN: 'Data Architecture & Real-Time Leaderboard'
+    },
+    highlights: {
+      ES: '7 clubes · +240 corredores · 7 fechas',
+      EN: '7 clubs · +240 riders · 7 race events'
     },
     description: {
-      ES: "El cálculo manual de puntajes deportivos generaba retrasos y errores en las clasificaciones del campeonato. Desarrollé una plataforma centralizada que procesa inscripciones y genera clasificaciones en tiempo real, utilizada para centralizar la operación de los 7 clubes organizadores del campeonato.",
-      EN: "Manual score calculation caused delays and classification errors in the championship. I developed a centralized platform that processes registrations and generates real-time rankings, used to centralize the operations of the 7 organizing clubs."
+      ES: "Plataforma centralizada utilizada por 7 clubes y más de 240 corredores para gestionar la temporada 2026 (7 fechas) del Campeonato Regional MTB Tarapacá. Reemplazó procesos que anteriormente se gestionaban mediante planillas, centralizando inscripciones, validación de corredores, asignación de dorsales, calendario y clasificaciones con actualización inmediata.",
+      EN: "Centralized web platform used by 7 clubs and over 240 riders to manage the 2026 season (7 race events) of the Tarapacá Regional MTB Championship. Replaced spreadsheet-based workflows, centralizing race registration, rider validation, bib assignments, event scheduling, and official leaderboards with immediate updates."
     },
     engineeringFocus: {
-      ES: "Diseñé una arquitectura de datos relacional para gestionar participantes, resultados y clasificaciones. Implementé procesamiento automático de resultados oficiales y funcionalidades administrativas para optimizar la gestión del campeonato.",
-      EN: "Designed a relational data architecture to manage participants, results, and leaderboards. Implemented automatic parsing of official race results and administrative tools to optimize league operations."
+      ES: "Diseñé una arquitectura de datos relacional para gestionar participantes, resultados y clasificaciones. Implementé el procesamiento automático de resultados oficiales, integración con el sistema de cronometraje y funcionalidades administrativas para la operación completa del campeonato.",
+      EN: "Designed a relational data architecture to manage participants, results, and standings. Implemented automatic race result processing, integration with the race timing system, and administrative tools for end-to-end championship operations."
     },
     tools: [
       { name: 'Next.js 15', icon: 'Globe' },
@@ -63,17 +68,21 @@ export const myProjects: Project[] = [
   {
     id: 'fran',
     title: 'Joyería Fran',
-    subtitle: { 
-      ES: 'E-Commerce Automatizado y Transacciones de Stock', 
-      EN: 'Automated E-Commerce & Stock Transactions' 
+    subtitle: {
+      ES: 'E-Commerce Automatizado y Transacciones de Stock',
+      EN: 'Automated E-Commerce & Stock Transactions'
+    },
+    highlights: {
+      ES: 'Catálogo · Inventario · Mercado Pago',
+      EN: 'Catalog · Inventory · Mercado Pago'
     },
     description: {
-      ES: "El proceso manual de venta y control de inventario dificultaba la operación de la joyería. Diseñé e implementé una plataforma web para la venta online que automatiza el catálogo, gestiona el inventario e integra la confirmación segura de transacciones.",
-      EN: "Manual sales processes and inventory tracking hindered jewelry store operations. I designed and implemented a web platform for online sales that automates the catalog, manages inventory, and integrates secure transaction confirmation."
+      ES: "Plataforma de comercio electrónico diseñada para digitalizar la operación comercial de un negocio existente. Automatiza el catálogo online, centraliza el inventario en tiempo real, gestiona pedidos y procesa transacciones seguras mediante Mercado Pago.",
+      EN: "E-commerce platform designed to digitize the retail operations of an existing business. Automates the online catalog, centralizes real-time inventory tracking, manages orders, and processes secure transactions through Mercado Pago."
     },
     engineeringFocus: {
-      ES: "Integré Mercado Pago con validación de pagos y diseñé la gestión transaccional de inventario para evitar inconsistencias durante las compras. Optimicé la carga de imágenes mediante procesamiento previo en cliente.",
-      EN: "Integrated Mercado Pago with payment validation and designed transactional inventory management to prevent purchase inconsistencies. Optimized image loading via client-side preprocessing."
+      ES: "Integré Mercado Pago con validaciones seguras del lado servidor y control de acceso administrativo. Diseñé la gestión transaccional de stock para prevenir inconsistencias durante compras simultáneas y optimicé la entrega de catálogo mediante procesamiento previo de imágenes.",
+      EN: "Integrated Mercado Pago payment flow with secure server-side validations and administrative access control. Designed transactional inventory logic to prevent inconsistencies during concurrent purchases and optimized catalog asset delivery through client-side image preprocessing."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },
@@ -88,13 +97,17 @@ export const myProjects: Project[] = [
       ES: 'Completado',
       EN: 'Completed'
     }
-  },
+  }
+];
+
+// Proyectos archivados (mantenidos fuera de la vista pública sin eliminar sus assets)
+export const archivedProjects: Project[] = [
   {
     id: 'deathcloud',
     title: 'DeathCloud',
-    subtitle: { 
-      ES: 'Plataforma Distribuidora y Sockets en Tiempo Real', 
-      EN: 'Launcher Hub & Real-Time Sockets' 
+    subtitle: {
+      ES: 'Plataforma Distribuidora y Sockets en Tiempo Real',
+      EN: 'Launcher Hub & Real-Time Sockets'
     },
     description: {
       ES: "La dispersión de servicios y la gestión manual de usuarios dificultaba la interacción entre jugadores. Desarrollé una plataforma que conecta un cliente React con un backend Express y base de datos relacional para centralizar chats en tiempo real, tickets de soporte e inventarios de personajes.",
@@ -122,9 +135,9 @@ export const myProjects: Project[] = [
   {
     id: 'bobstore',
     title: 'Bob Store',
-    subtitle: { 
-      ES: 'Catálogo Digital e Integración de Mensajería', 
-      EN: 'Digital Catalog & Messaging Integration' 
+    subtitle: {
+      ES: 'Catálogo Digital e Integración de Mensajería',
+      EN: 'Digital Catalog & Messaging Integration'
     },
     description: {
       ES: "La falta de un canal digital impedía que la tienda de ropa mostrara su stock de forma remota. Desarrollé un catálogo digital optimizado para dispositivos móviles que permite a los clientes explorar productos y enviar consultas de compra detalladas directamente al canal de WhatsApp Business del negocio.",
@@ -150,7 +163,6 @@ export const myProjects: Project[] = [
   }
 ];
 
-// Array de proyectos extra vacío para producción, manteniendo la funcionalidad preparada para el futuro
 export const extraProjects: Project[] = [];
 
 /*
@@ -160,9 +172,9 @@ export const futureProjects: Project[] = [
   {
     id: 'fantasyleague',
     title: 'Fantasy League',
-    subtitle: { 
-      ES: 'Plataforma Interactiva de Liga de Fantasía', 
-      EN: 'Interactive Fantasy League Platform' 
+    subtitle: {
+      ES: 'Plataforma Interactiva de Liga de Fantasía',
+      EN: 'Interactive Fantasy League Platform'
     },
     description: {
       ES: "Plataforma web interactiva para la creación y gestión de ligas de fantasía deportiva. Permite a los usuarios armar equipos virtuales basados en jugadores reales, realizar transferencias en tiempo real, acumular puntos y competir en tablas de clasificación dinámicas.",
@@ -188,9 +200,9 @@ export const futureProjects: Project[] = [
   {
     id: 'tempoui',
     title: 'TempoUI',
-    subtitle: { 
-      ES: 'Temporizador Pomodoro Inmersivo', 
-      EN: 'Immersive Pomodoro Timer' 
+    subtitle: {
+      ES: 'Temporizador Pomodoro Inmersivo',
+      EN: 'Immersive Pomodoro Timer'
     },
     description: {
       ES: "Una aplicación web Pomodoro inmersiva que implementa temporizadores personalizables y entornos visuales interactivos (Zen Ocean, Enderman, Deep Galaxy). Cuenta con persistencia de preferencias de usuario del lado del cliente y retroalimentación sonora.",
@@ -216,9 +228,9 @@ export const futureProjects: Project[] = [
   {
     id: 'dctoxicskiesmvp',
     title: 'Toxic Skies MVP',
-    subtitle: { 
-      ES: 'Videojuego de Combate Aéreo y Novela Visual', 
-      EN: 'Aerial Combat & Visual Novel Game' 
+    subtitle: {
+      ES: 'Videojuego de Combate Aéreo y Novela Visual',
+      EN: 'Aerial Combat & Visual Novel Game'
     },
     description: {
       ES: "Producto Mínimo Viable (MVP) de un videojuego de combate aéreo en tercera persona y narrativa interactiva tipo novela visual. Cuenta con un sistema de diálogos y elecciones, control de volumen maestro y distribución directa mediante el launcher de DeathCloud.",
@@ -244,7 +256,7 @@ export const futureProjects: Project[] = [
 */
 
 
-/* 
+/*
  * NOTA: Esta sección está comentada temporalmente ya que no se utiliza actualmente
  * en la interfaz. Puedes descomentarla si en el futuro decides renderizar una grilla
  * de tecnologías por categorías.

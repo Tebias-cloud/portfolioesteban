@@ -14,7 +14,7 @@ export const t = {
     selectedWorks: "Selected Works",
     selectedWorksSub: "System design and digital platforms",
     footerRights: "© 2026 Esteban Vidal. All rights reserved.",
-    footerDegree: "Computer Engineering",
+    footerDegree: "Computer Science Engineering",
     footerUni: "University of Tarapacá"
   }
 };
