@@ -17,6 +17,7 @@ export interface Project {
   github?: string;
   status: BilingualText;
   highlights?: BilingualText;
+  impact?: BilingualText;
 }
 
 export interface TechItem {
@@ -43,13 +44,17 @@ export const myProjects: Project[] = [
       ES: '7 clubes · +240 corredores · 7 fechas',
       EN: '7 clubs · +240 riders · 7 race events'
     },
+    impact: {
+      ES: 'En uso durante la temporada 2026 · centraliza procesos antes gestionados mediante planillas.',
+      EN: 'In active use for the 2026 season · centralizes workflows previously managed with spreadsheets.'
+    },
     description: {
-      ES: "Modelo de datos relacional para inscripciones, participantes, resultados y rankings, con procesamiento de resultados e integración con el sistema de cronometraje.",
-      EN: "Relational data model for registrations, participants, results, and leaderboards, with automated result processing and race timing system integration."
+      ES: "Plataforma web para la gestión integral de carreras de ciclismo de montaña, centralizando el registro de corredores por categorías y la publicación de resultados oficiales.",
+      EN: "Web platform for full-cycle mountain bike race management, centralizing category-based rider registration and official results publishing."
     },
     engineeringFocus: {
-      ES: "Modelo de datos relacional para inscripciones, participantes, resultados y rankings, con procesamiento de resultados e integración con el sistema de cronometraje.",
-      EN: "Relational data model for registrations, participants, results, and leaderboards, with automated result processing and race timing system integration."
+      ES: "Diseño de esquema relacional en PostgreSQL para puntuaciones acumuladas y desempates, procesamiento automatizado con sistemas de cronometraje y consultas optimizadas en Next.js.",
+      EN: "Relational database schema in PostgreSQL for cumulative standings and tie-breakers, automated processing with chip timing systems, and optimized queries in Next.js."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },
@@ -76,12 +81,12 @@ export const myProjects: Project[] = [
       EN: 'Catalog · Inventory · Mercado Pago'
     },
     description: {
-      ES: "E-commerce con gestión de inventario, validaciones del lado servidor, control de acceso administrativo e integración con Mercado Pago.",
-      EN: "E-commerce with inventory management, server-side validations, administrative access control, and Mercado Pago integration."
+      ES: "Tienda online para catálogo de joyería y ventas directas, con sincronización de inventario en tiempo real y flujo de compra automatizado.",
+      EN: "Online store for jewelry catalog and direct sales, featuring real-time inventory synchronization and an automated checkout flow."
     },
     engineeringFocus: {
-      ES: "E-commerce con gestión de inventario, validaciones del lado servidor, control de acceso administrativo e integración con Mercado Pago.",
-      EN: "E-commerce with inventory management, server-side validations, administrative access control, and Mercado Pago integration."
+      ES: "Transacciones atómicas en PostgreSQL para control estricto de inventario sin sobreventa, validaciones estrictas del lado servidor e integración del checkout con Mercado Pago.",
+      EN: "Atomic transactions in PostgreSQL for strict stock control without overselling, strict server-side validation endpoints, and Mercado Pago checkout integration."
     },
     tools: [
       { name: 'Next.js', icon: 'Globe' },

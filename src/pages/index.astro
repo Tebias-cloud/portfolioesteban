@@ -15,46 +15,49 @@ import { ContactSection } from '../components/ContactSection.tsx';
     <Navbar client:load />
 
     <div class="fixed inset-0 -z-10 pointer-events-none overflow-hidden bg-zinc-100 dark:bg-[#0a0a0a] transition-[color,background-color] duration-300">
-        <Particles 
-            client:visible 
-            className="absolute inset-0 opacity-40 dark:opacity-90" 
-            quantity={60}
-            ease={100}
-            color="#a855f7" 
-            refresh={true}
-        />
+        {/* En mobile se desactivan Particles y Meteors para máxima fluidez, conservando los gradientes estáticos */}
+        <div class="hidden md:block absolute inset-0 pointer-events-none">
+            <Particles
+                client:visible
+                className="absolute inset-0 opacity-40 dark:opacity-90"
+                quantity={50}
+                ease={100}
+                color="#a855f7"
+                refresh={true}
+            />
+            <Meteors client:visible number={8} />
+        </div>
         <div class="absolute inset-0 z-0">
             <div class="absolute -top-[25%] -left-[20%] w-[80%] h-[80%] rounded-full bg-purple-500/10 dark:bg-purple-500/5 blur-3xl pointer-events-none"></div>
             <div class="absolute -bottom-[25%] -right-[20%] w-[80%] h-[80%] rounded-full bg-cyan-500/10 dark:bg-cyan-500/5 blur-3xl pointer-events-none"></div>
         </div>
-        <Meteors client:visible number={10} />
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(228,228,231,0.8)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,10,0.9)_100%)]"></div>
     </div>
 
-    <main id="top" class="relative z-10 max-w-5xl mx-auto px-6 pt-6 pb-12 md:pt-10 md:pb-20 mt-16">
-        
-        <header class="mb-16 md:mb-20">
+    <main id="top" class="relative z-10 max-w-5xl mx-auto px-5 sm:px-6 pt-6 pb-10 md:pt-10 md:pb-20 mt-12 md:mt-16">
+
+        <header class="mb-12 md:mb-20">
             <HeroInfo client:load />
         </header>
 
-        <section id="projects" class="scroll-mt-32">
+        <section id="projects" class="scroll-mt-24 md:scroll-mt-32">
             <ProjectsHeader client:visible />
             <ProjectList client:visible />
         </section>
 
-        <section id="experience" class="mt-32 scroll-mt-32">
+        <section id="experience" class="mt-16 md:mt-32 scroll-mt-24 md:scroll-mt-32">
             <Reveal client:visible>
                 <ExperienceList client:visible />
             </Reveal>
         </section>
 
-        <section id="contact" class="mt-32 mb-20 border-t border-zinc-200 dark:border-white/5 pt-20">
+        <section id="contact" class="mt-16 md:mt-32 mb-12 md:mb-20 border-t border-zinc-200 dark:border-white/5 pt-12 md:pt-20">
             <Reveal client:visible>
                 <ContactSection client:visible />
             </Reveal>
         </section>
 
-        <footer class="pb-12 pt-4 flex flex-col md:flex-row justify-between items-center gap-4 transition-[color,background-color] duration-300">
+        <footer class="pb-10 pt-4 flex flex-col md:flex-row justify-between items-center gap-4 transition-[color,background-color] duration-300">
             <FooterContent client:visible />
         </footer>
     </main>

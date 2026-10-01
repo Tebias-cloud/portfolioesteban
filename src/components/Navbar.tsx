@@ -3,11 +3,12 @@ import { useState, useCallback, useEffect, useRef } from "react";
 import { Moon, Sun, User, Briefcase, FolderCode } from "lucide-react";
 import { flushSync } from "react-dom";
 import { useStore } from '@nanostores/react';
-import { $lang } from '../store/ui';
+import { $lang, $isModalOpen } from '../store/ui';
 import { motion, AnimatePresence } from "framer-motion";
 
 export const Navbar = () => {
   const currentLang = useStore($lang);
+  const isModalOpen = useStore($isModalOpen);
   const [isDark, setIsDark] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
@@ -72,19 +73,56 @@ export const Navbar = () => {
   const labels = navLabels[currentLang as "ES" | "EN"];
 
   return (
-    <nav aria-label="Navegación principal" className="fixed top-6 left-1/2 -translate-x-1/2 z-[100]">
+    <nav
+      aria-label="Navegación principal"
+      className={`site-navbar fixed top-6 left-1/2 -translate-x-1/2 z-[100] transition-opacity duration-200 ease-in-out ${
+        isModalOpen
+          ? "opacity-0 pointer-events-none invisible"
+          : "opacity-100"
+      }`}
+    >
       <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-full border border-zinc-200/80 dark:border-white/5 bg-white/90 dark:bg-zinc-900/90 backdrop-blur-sm shadow-md dark:shadow-2xl transition-[color,background-color] duration-300">
         <div className="flex items-center">
-          <a href="#top" title={labels.profile} aria-label={labels.profile} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><User size={18} /></a>
-          <a href="#projects" title={labels.projects} aria-label={labels.projects} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><FolderCode size={18} /></a>
-          <a href="#experience" title={labels.experience} aria-label={labels.experience} className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300"><Briefcase size={18} /></a>
+          <a
+            href="#top"
+            title={labels.profile}
+            aria-label={labels.profile}
+            className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          >
+            <User size={18} />
+          </a>
+          <a
+            href="#projects"
+            title={labels.projects}
+            aria-label={labels.projects}
+            className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          >
+            <FolderCode size={18} />
+          </a>
+          <a
+            href="#experience"
+            title={labels.experience}
+            aria-label={labels.experience}
+            className="p-2.5 rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          >
+            <Briefcase size={18} />
+          </a>
         </div>
         <div className="w-px h-4 bg-zinc-200 dark:bg-white/10 mx-1 transition-[color,background-color] duration-300" />
         <div className="flex items-center gap-0.5">
-          <button onClick={toggleLang} aria-label={labels.langToggle} className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300">
+          <button
+            onClick={toggleLang}
+            aria-label={labels.langToggle}
+            className="flex items-center justify-center w-10 h-10 rounded-full text-[10px] font-bold text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 cursor-pointer"
+          >
             {currentLang}
           </button>
-          <button ref={buttonRef} onClick={toggleTheme} aria-label={isDark ? labels.themeDark : labels.themeLight} className="rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 w-10 h-10 flex items-center justify-center cursor-pointer overflow-hidden relative">
+          <button
+            ref={buttonRef}
+            onClick={toggleTheme}
+            aria-label={isDark ? labels.themeDark : labels.themeLight}
+            className="rounded-full text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-white/5 transition-[color,background-color] duration-300 w-10 h-10 flex items-center justify-center cursor-pointer overflow-hidden relative focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
+          >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
                 key={isDark ? "sun" : "moon"}

@@ -41,16 +41,27 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
       whileInView={whileInViewVal}
       viewport={viewportVal}
       transition={transitionVal}
-      whileTap={{ scale: 0.98 }}
+      whileTap={{ scale: 0.99 }}
       onClick={onClick}
+      role="button"
+      tabIndex={0}
+      aria-label={lang === "ES" ? `Ver detalles de ${project.title}` : `View details for ${project.title}`}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          onClick();
+        }
+      }}
       className="group cursor-pointer relative flex flex-col h-full
         bg-white/80 dark:bg-[#0a0a0a]/90
         border border-zinc-200/60 dark:border-white/5
         hover:border-zinc-300/90 dark:hover:border-white/15
+        active:border-purple-500/30
         shadow-xs hover:shadow-md
         overflow-hidden rounded-[24px]
         transition-[border-color,box-shadow] duration-200 ease-out
-        motion-reduce:transition-none"
+        motion-reduce:transition-none
+        focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
     >
       {/* Thumbnail */}
       <div className="relative aspect-video w-full overflow-hidden border-b border-zinc-100 dark:border-white/5 bg-zinc-50 dark:bg-[#0a0a0a] z-10">
@@ -90,7 +101,7 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
             )}
           </div>
 
-          {/* Quick links discretos con targets táctiles mínimos de 44x44px en móvil */}
+          {/* Quick links discretos con targets táctiles cómodos */}
           <div className="flex items-center gap-0.5 shrink-0 -mr-2 -mt-1.5">
             {project.github && (
               <a
@@ -99,7 +110,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
                 rel="noopener noreferrer"
                 aria-label={lang === "ES" ? `Código de ${project.title} en GitHub` : `${project.title} GitHub repository`}
                 onClick={(e) => e.stopPropagation()}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
+                onKeyDown={(e) => e.stopPropagation()}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-zinc-400 dark:text-zinc-500 hover:text-zinc-900 dark:hover:text-zinc-100 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
               >
                 <Icons.Github size={18} strokeWidth={1.75} />
               </a>
@@ -111,7 +123,8 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
                 rel="noopener noreferrer"
                 aria-label={lang === "ES" ? `Visitar sitio de ${project.title}` : `Visit ${project.title} live site`}
                 onClick={(e) => e.stopPropagation()}
-                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-zinc-400 dark:text-zinc-500 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors"
+                onKeyDown={(e) => e.stopPropagation()}
+                className="w-11 h-11 min-w-[44px] min-h-[44px] flex items-center justify-center rounded-xl text-zinc-400 dark:text-zinc-500 hover:text-purple-600 dark:hover:text-purple-400 hover:bg-zinc-100 dark:hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80"
               >
                 <Icons.ArrowUpRight size={18} strokeWidth={1.75} />
               </a>

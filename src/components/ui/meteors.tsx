@@ -14,14 +14,32 @@ export const Meteors = ({
   angle = 215,
   className,
   paused: propsPaused = false,
-}: { number?: number; minDelay?: number; maxDelay?: number; minDuration?: number; maxDuration?: number; angle?: number; className?: string; paused?: boolean; }) => {
+}: {
+  number?: number;
+  minDelay?: number;
+  maxDelay?: number;
+  minDuration?: number;
+  maxDuration?: number;
+  angle?: number;
+  className?: string;
+  paused?: boolean;
+}) => {
   const [meteorStyles, setMeteorStyles] = useState<Array<React.CSSProperties>>([]);
   const isModalOpen = useStore($isModalOpen);
   const paused = propsPaused || isModalOpen;
 
   const [mounted, setMounted] = useState(false);
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
   useEffect(() => {
     setMounted(true);
+    if (typeof window !== "undefined") {
+      const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+      setPrefersReducedMotion(mediaQuery.matches);
+      const listener = (e: MediaQueryListEvent) => setPrefersReducedMotion(e.matches);
+      mediaQuery.addEventListener("change", listener);
+      return () => mediaQuery.removeEventListener("change", listener);
+    }
   }, []);
 
   useEffect(() => {
@@ -35,15 +53,24 @@ export const Meteors = ({
     setMeteorStyles(styles);
   }, [number, minDelay, maxDelay, minDuration, maxDuration, angle]);
 
+  if (prefersReducedMotion) {
+    return null;
+  }
+
   return (
-    <div className={cn("pointer-events-none absolute inset-0 transition-opacity duration-1000", mounted ? "" : "opacity-0")}>
+    <div
+      className={cn(
+        "pointer-events-none absolute inset-0 transition-opacity duration-1000",
+        mounted ? "" : "opacity-0"
+      )}
+    >
       {meteorStyles.map((style, idx) => (
         <span
           key={idx}
           style={{ ...style, animationPlayState: paused ? "paused" : "running" }}
           className={cn("animate-meteor pointer-events-none absolute rotate-[var(--angle)]", className)}
         >
-          {/* La línea ahora tiene color morado/fucsia coherente */}
+          {/* La línea tiene color morado/fucsia coherente */}
           <div className="pointer-events-none absolute top-1/2 -z-10 h-[1.5px] w-[50px] -translate-y-1/2 bg-gradient-to-r from-purple-500/40 via-fuchsia-500/20 to-transparent" />
         </span>
       ))}

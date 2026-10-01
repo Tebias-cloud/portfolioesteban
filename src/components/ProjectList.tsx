@@ -49,6 +49,7 @@ export const ProjectList = () => {
       <AnimatePresence>
         {selectedId && selectedProject && (
           <ProjectModal
+            key={selectedProject.id}
             project={selectedProject}
             lang={lang}
             onClose={() => setSelectedId(null)}

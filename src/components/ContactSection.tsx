@@ -11,24 +11,24 @@ export const ContactSection = React.memo(() => {
 
   const content = {
     ES: {
-      title: "¿Quieres trabajar juntos?",
-      desc: "Escríbeme para explorar colaboraciones o nuevos proyectos.",
-      status: "Abierto a nuevas colaboraciones"
+      title: "Contacto",
+      desc: "Abierto a oportunidades, colaboraciones y nuevos proyectos.",
+      status: "Abierto a oportunidades"
     },
     EN: {
-      title: "Want to work together?",
-      desc: "Contact me to explore collaborations or new projects.",
-      status: "Open to new collaborations"
+      title: "Contact",
+      desc: "Open to opportunities, collaborations, and new projects.",
+      status: "Open to opportunities"
     }
   };
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-6 sm:gap-8">
       <div className="flex flex-col gap-2">
         <h2 className="text-2xl font-bold tracking-tight text-zinc-900 dark:text-zinc-100">
           {content[lang].title}
         </h2>
-        <p className="text-zinc-700 dark:text-zinc-400 font-light max-w-lg">
+        <p className="text-zinc-700 dark:text-zinc-400 font-light max-w-lg text-sm sm:text-base">
           {content[lang].desc}
         </p>
       </div>
@@ -36,28 +36,30 @@ export const ContactSection = React.memo(() => {
       <div className="flex flex-wrap items-center gap-6">
         <CopyEmail textClassName="text-zinc-500 dark:text-zinc-400" />
 
-        <motion.a 
-          href="https://github.com/Tebias-cloud" 
-          target="_blank" 
+        <motion.a
+          href="https://github.com/Tebias-cloud"
+          target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.1, opacity: 0.85 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
-          className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none"
+          transition={{ duration: 0.15, ease: "easeInOut" }}
+          className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded px-1 -mx-1 py-0.5"
+          aria-label="GitHub"
         >
           <Github size={16} strokeWidth={1.5} />
           <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors select-none">GitHub</span>
           <ArrowUpRight size={12} className="opacity-0 group-hover:opacity-100 transition-opacity -translate-y-0.5" />
         </motion.a>
 
-        <motion.a 
-          href="https://www.linkedin.com/in/esteban-vidal-/" 
-          target="_blank" 
+        <motion.a
+          href="https://www.linkedin.com/in/esteban-vidal-/"
+          target="_blank"
           rel="noopener noreferrer"
-          whileHover={{ scale: 1.1, opacity: 0.85 }}
+          whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          transition={{ duration: 0.2, ease: "easeInOut" }}
-          className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none"
+          transition={{ duration: 0.15, ease: "easeInOut" }}
+          className="group flex items-center gap-1.5 text-zinc-500 hover:text-zinc-900 dark:text-zinc-400 dark:hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/80 rounded px-1 -mx-1 py-0.5"
+          aria-label="LinkedIn"
         >
           <Linkedin size={16} strokeWidth={1.5} />
           <span className="text-xs font-medium text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white transition-colors select-none">LinkedIn</span>

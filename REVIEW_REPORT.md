@@ -1,76 +1,31 @@
-# Reporte de Revisión de Ingeniería: Portafolio
+# Reporte de Revisión Técnica: Portafolio
 
-Este reporte presenta la revisión técnica del repositorio **Portafolio**, analizando su arquitectura, separación de responsabilidades, decisiones de diseño, mantenibilidad, accesibilidad (a11y) y SEO, basándose en la implementación real del código.
-
----
-
-## 1. Decisiones de Diseño y Mantenibilidad del Código
-
-El portafolio está estructurado sobre **Astro 5** con la integración de **React 19** para componentes interactivos y **Tailwind CSS v4** para estilos.
-
-### Separación entre Contenido y Presentación
-El archivo [src/data/portfolio.ts](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/data/portfolio.ts) centraliza la información de proyectos, experiencia, categorías de tecnologías y enlaces externos. 
-*   **Mantenibilidad:** Agregar, remover o editar un proyecto o puesto laboral requiere modificar únicamente este archivo de datos, sin alterar componentes de interfaz o código JSX, actuando como la fuente que unifica el contenido del sitio.
-
-### Reutilización de Estructuras (Modal Único)
-La vista detallada de proyectos en `ProjectList.tsx` implementa un único componente modal reutilizable. 
-*   **Diseño Modular:** El modal lee dinámicamente la información del proyecto seleccionado en base al estado del store y renderiza la ficha correspondiente para cualquier ítem, evitando la declaración de un modal o componente separado por cada proyecto del catálogo.
-
-### Sitio Completamente Estático Generado en Build (SSG)
-*   **Entrega de Recursos:** El contenido de la página se compila por completo a HTML estático en tiempo de build. Esto elimina la necesidad de procesamiento o cómputo dinámico del lado del servidor (SSR) para renderizar la información básica del portafolio en producción.
-
-### Hidratación de React Limitada a la Interacción (Islands Architecture)
-El archivo [index.astro](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/pages/index.astro) define la directiva de hidratación de cada isla de React de la siguiente manera:
-*   `client:load` en `Navbar` y `HeroInfo` para procesar el cambio de tema e idioma de forma inmediata en el cliente.
-*   `client:visible` en `ProjectsHeader`, `ProjectList`, `ExperienceList`, `ContactSection` y `FooterContent`. El código JavaScript de React para estas secciones se descarga e hidrata únicamente cuando entran en la sección visible de la pantalla, difiriendo la hidratación del componente hasta que entra al viewport.
-
-### Internacionalización Basada en Nano Stores
-*   **Traducciones:** Las traducciones bilingües se resuelven mediante el tipo `BilingualText` (`ES: string; EN: string`) en `portfolio.ts`.
-*   **Manejo de Idioma:** El idioma activo se controla a través de un almacén global ligero de **Nano Stores** (`$lang` en [src/store/ui.ts](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/store/ui.ts)). Los componentes leen este estado y cargan la cadena correspondiente al idioma activo sin dependencias de frameworks adicionales de traducción.
-
-### Carga Anticipada de Imágenes
-*   **Pre-carga de Assets:** En [ProjectList.tsx](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/components/ProjectList.tsx), al abrir la vista detallada de un proyecto, un efecto `useEffect` crea instancias de `new Image()` y les asigna los paths de `project.images`. Esto solicita los archivos de imagen de forma anticipada antes de que el usuario haga clic para alternar la galería.
+Revisión técnica de la implementación del portafolio web de Esteban Vidal ([https://www.estebanvidal.dev/](https://www.estebanvidal.dev/)), detallando arquitectura, separación de responsabilidades, accesibilidad, SEO y rendimiento móvil.
 
 ---
 
-## 2. Estructura CSS y Animaciones
+## 1. Arquitectura y Mantenibilidad
 
-*   **Sugerencia de Composición de Capas:** Se especifica la propiedad `will-change: transform, opacity` en el contenedor del modal [ProjectList.tsx:L74](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/components/ProjectList.tsx#L74) y `will-change-transform` en las tarjetas de proyecto (línea 260) para indicar al navegador qué elementos experimentarán transformaciones animadas.
-*   **Tailwind CSS v4:** El portafolio migra el estilado a Tailwind v4 integrándolo mediante el plugin de Vite `@tailwindcss/vite` en [astro.config.mjs:L13](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/astro.config.mjs#L13). Las animaciones personalizadas se definen directamente mediante `@keyframes` y clases utilitarias en [src/styles/global.css](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/styles/global.css).
-
----
-
-## 3. Limitaciones y Puntos a Corregir
-
-La auditoría del código identifica las siguientes áreas de mejora técnicas:
-
-### SEO (Optimización en Buscadores)
-*   **Meta descripción ausente:** No existe la etiqueta `<meta name="description" content="..." />` en el `<head>` de [Layout.astro](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/layouts/Layout.astro), lo que impide definir el extracto de texto en resultados de búsqueda.
-*   **Falta de metadatos Open Graph / Twitter Cards:** No se definen propiedades `og:title`, `og:description`, `og:image` ni etiquetas de Twitter, limitando la visualización enriquecida al compartir el enlace del sitio.
-
-### Accesibilidad (a11y)
-*   **Enlaces mudos en Navbar:** Los enlaces principales en [Navbar.tsx:L61-63](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/components/Navbar.tsx#L61-L63) renderizan exclusivamente iconos de Lucide React. Carecen de etiquetas `aria-label` o texto descriptivo para lectores de pantalla.
-*   **Semántica y Roles en Diálogo:** El modal de detalles en `ProjectList.tsx` se renderiza dentro de un elemento `div` genérico sin los atributos WAI-ARIA `role="dialog"` y `aria-modal="true"`.
-*   **Falta de Confinamiento de Foco (Opcional):** Al abrir la vista en detalle del proyecto, la tecla `Tab` permite mover el foco del teclado fuera del modal hacia los elementos invisibles del fondo de la página, perdiendo la referencia de entrada de usuario. Esta corrección es recomendada si se desea cumplir estrictamente con los estándares de accesibilidad WCAG AA.
+- **Generación Estática (SSG):** El portafolio se compila por completo a HTML estático con Astro 5, minimizando el tiempo de respuesta inicial (TTFB) y el consumo de recursos en Cloudflare Pages.
+- **Islas de Interactividad:** Los componentes interactivos (Navbar, listados y modales) se hidratan selectivamente (`client:load` para elementos críticos de navegación, `client:visible` para secciones de contenido).
+- **Separación de Responsabilidades:** Toda la información de proyectos y experiencia se centraliza en `src/data/portfolio.ts`, distinguiendo entre la descripción del problema resuelto (`description`), la solución técnica y arquitectura (`engineeringFocus`) y la evidencia de uso real (`impact`).
+- **Estado Global Ligero:** Nano Stores (`$lang` e `$isModalOpen`) proporciona comunicación reactiva entre componentes sin la sobrecarga de contextos pesados.
 
 ---
 
-## 4. Roadmap de Implementación Sugerido
+## 2. Rendimiento y UX Móvil
 
-### 🔴 Alta Prioridad (Saneamiento Básico)
-
-#### A. Agregar Metatags de SEO y Open Graph
-*   **Acción:** Editar [Layout.astro](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/layouts/Layout.astro) para incluir la meta descripción y los tags Open Graph (`og:title`, `og:description`, `og:image`).
-
-#### B. Añadir Accesibilidad a Enlaces de Navbar
-*   **Acción:** Incorporar atributos `aria-label` descriptivos a los enlaces de perfil, proyectos y experiencia en [Navbar.tsx](file:///c:/Users/Esteban/Desktop/proyectosT/portfolioesteban-main/src/components/Navbar.tsx).
+- **Fondo y Efectos Visuales:** El componente `Particles` limita su `devicePixelRatio` a un máximo de 2 para evitar saturación en pantallas de alta densidad de píxeles, elimina re-renderizados en eventos de movimiento del cursor mediante referencias directas y respeta `prefers-reduced-motion`. Tanto `Particles` como `Meteors` se desactivan en pantallas móviles, manteniendo el gradiente estático para un rendimiento fluido y eficiente en batería.
+- **Modal y Contextos de Apilamiento:** `ProjectModal` se renderiza mediante un portal en `document.body`, eliminando problemas de stacking context. Cuando el modal está activo, la `Navbar` se oculta mediante la regla CSS global `body.modal-open .site-navbar` sin alterar su centrado horizontal (`transform: translateX(-50%)`).
+- **Galería Táctil:** Soporta desplazamiento gestual (swipe) con `touch-action: pan-y` para no entorpecer el scroll vertical, junto con una transición horizontal y de opacidad breve (~180 ms).
+- **Hero y Espaciado:** Espaciados verticales adaptados para móviles en `src/pages/index.astro`, evitando vacíos excesivos. El Hero define un orden vertical claro en pantallas pequeñas (correo, redes y ubicación) y soporte preparado para avatar de perfil circular sin saltos de maquetación (CLS).
 
 ---
 
-### 🟡 Media Prioridad (Interactividad y Semántica)
+## 3. Accesibilidad (a11y) y SEO
 
-#### C. Atributos ARIA en Modal
-*   **Acción:** Incorporar `role="dialog"`, `aria-modal="true"`, y asociar el título con `aria-labelledby` en el contenedor del modal de `ProjectList.tsx`. Agregar `aria-label="Cerrar modal"` al botón de cierre.
-
-#### D. Implementar Trap de Foco (Confinamiento de Foco)
-*   **Acción:** Agregar un gestor de eventos en `ProjectModal` que capture el foco del teclado y mantenga el ciclo de tabbing estrictamente entre el botón de cierre, los thumbnails y los enlaces externos del proyecto.
+- **Navegación por Teclado:** Las tarjetas de proyectos son navegables mediante `Tab` y accionables con `Enter` o `Espacio` sin romper los enlaces anidados a repositorios o demos en vivo. La `Navbar` dispone de `aria-label` descriptivos en todos sus accesos e interactivos.
+- **Gestión de Foco y Semántica en Diálogo:** `ProjectModal` implementa los atributos `role="dialog"`, `aria-modal="true"` y `aria-labelledby`, soporte de cierre mediante `Escape`, foco inicial en el botón de cierre, trampa de foco (`focus trap`) mientras permanece abierto y restauración del foco al elemento detonador al cerrarse.
+- **Controles con Foco Visible:** Todos los elementos interactivos cuentan con estilos de `focus-visible` discretos basados en el color morado de la paleta.
+- **Internacionalización y HTML:** La preferencia de idioma se almacena en `localStorage` y actualiza inmediatamente el atributo `lang` de la etiqueta `<html>`, evitando parpadeos de carga.
+- **Metadatos y Schema:** Configuración de URL canónica, Open Graph y Twitter Cards bajo el dominio oficial `https://www.estebanvidal.dev/`, junto con marcado estructurado Schema.org (`JSON-LD`) con perfiles de GitHub y LinkedIn. Limpieza completa de dependencias de analítica no utilizadas.

@@ -9,7 +9,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://tebias-cloud.github.io',
+  site: 'https://www.estebanvidal.dev',
 
   vite: {
     plugins: [tailwindcss()]
