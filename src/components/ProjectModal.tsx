@@ -199,10 +199,18 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
         transition={{ duration: 0.22, ease: "easeOut" }}
         style={{ willChange: "transform, opacity" }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-5xl bg-zinc-50 dark:bg-[#070707] md:bg-white/80 md:dark:bg-[#070707]/90 md:backdrop-blur-md md:border md:border-zinc-200/50 md:dark:border-white/5 md:rounded-[24px] shadow-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col z-10"
+        className="isolate relative w-full h-full md:h-auto md:max-h-[90vh] md:max-w-5xl bg-zinc-50 dark:bg-[#070707] md:bg-white/80 md:dark:bg-[#070707]/90 md:backdrop-blur-md md:border md:border-zinc-200/50 md:dark:border-white/5 md:rounded-[24px] shadow-2xl overflow-y-auto overflow-x-hidden md:overflow-hidden flex flex-col z-10"
       >
+        {/* Fondo sutil / textura ambiental solo en móvil para mantener la identidad visual del sitio */}
+        <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10 md:hidden" aria-hidden="true">
+          <div className="absolute -top-[15%] -left-[15%] w-[80vw] h-[80vw] rounded-full bg-purple-500/10 dark:bg-purple-500/[0.07] blur-3xl pointer-events-none" />
+          <div className="absolute top-[35%] -right-[20%] w-[80vw] h-[80vw] rounded-full bg-cyan-500/10 dark:bg-cyan-500/[0.05] blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-[10%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-purple-500/8 dark:bg-purple-500/[0.04] blur-3xl pointer-events-none" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(250,250,250,0.6)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(7,7,7,0.85)_100%)] pointer-events-none" />
+        </div>
+
         {/* Header Sticky en móvil / Fijo en desktop */}
-        <header className="sticky top-0 z-30 bg-zinc-50 dark:bg-[#070707] md:bg-transparent md:backdrop-blur-none px-4 pb-3 sm:px-6 sm:pb-4 md:px-10 md:pb-6 modal-header-safe-top border-b border-zinc-200/50 dark:border-white/5 md:border-b-0 flex justify-between items-start md:items-center gap-3 shrink-0">
+        <header className="sticky top-0 z-30 bg-zinc-50/90 dark:bg-[#070707]/90 backdrop-blur-sm md:bg-transparent md:backdrop-blur-none px-4 pb-3 sm:px-6 sm:pb-4 md:px-10 md:pb-6 modal-header-safe-top border-b border-zinc-200/50 dark:border-white/5 md:border-b-0 flex justify-between items-start md:items-center gap-3 shrink-0">
           <div className="flex flex-col min-w-0 flex-1">
             <h2
               id="modal-project-title"

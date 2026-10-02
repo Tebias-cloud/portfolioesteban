@@ -21,7 +21,13 @@ export const Navbar = () => {
   };
 
   const toggleTheme = useCallback(() => {
-    if (!buttonRef.current || !document.startViewTransition) {
+    const isTouchOrMobile =
+      typeof window !== "undefined" &&
+      (window.matchMedia("(pointer: coarse)").matches ||
+        window.innerWidth < 768 ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+
+    if (!buttonRef.current || !document.startViewTransition || isTouchOrMobile) {
       const newTheme = !isDark;
       setIsDark(newTheme);
       document.documentElement.classList.toggle("dark");

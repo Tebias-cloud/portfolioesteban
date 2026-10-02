@@ -19,12 +19,12 @@ Dominio oficial: [https://www.estebanvidal.dev/](https://www.estebanvidal.dev/)
 
 ## Arquitectura y Optimizaciones
 
-- **`src/pages/index.astro`:** Estructura base de la página con espaciado responsive y carga optimizada de efectos visuales (partículas y meteoros desactivados en móvil para optimizar el consumo de recursos).
+- **`src/pages/index.astro`:** Estructura base de la página con espaciado responsive adaptado a safe-area en móviles y efectos visuales adaptativos (partículas en versión ligera para móvil y meteoros reservados para escritorio).
 - **`src/components/`:** Componentes de interfaz:
-  - `Navbar.tsx`: Navegación con cambio de tema (claro/oscuro con View Transitions), selector de idioma (ES/EN) y ocultación automática cuando un modal está abierto.
+  - `Navbar.tsx`: Navegación con cambio de tema (transición circular con View Transitions en escritorio y alternancia directa y ligera en móvil/táctil o con prefers-reduced-motion), selector de idioma (ES/EN) y ocultación automática cuando un modal está abierto.
   - `HeroInfo.tsx`: Presentación principal con soporte para foto de perfil (`/public/profile.webp`), enlaces sociales y descarga de CV bilingüe.
   - `ProjectList.tsx` / `ProjectCard.tsx`: Catálogo de proyectos destacados con navegación por teclado accesible (`Enter`/`Space`), targets táctiles confortables y feedback discreto.
-  - `ProjectModal.tsx`: Modal montado vía portal en `document.body` para aislar el contexto de apilamiento, con focus trap, galería con swipe táctil y transición ligera.
+  - `ProjectModal.tsx`: Modal montado vía portal en `document.body` para aislar el contexto de apilamiento, con focus trap, galería con swipe táctil, transición ligera y textura ambiental sutil en móvil sin canvas adicional.
   - `ExperienceList.tsx`: Trayectoria profesional en desarrollo de software.
   - `ContactSection.tsx`: Sección de contacto con copia rápida de correo y accesos directos.
 - **`src/data/portfolio.ts`:** Fuente de datos bilingüe que separa la descripción funcional del enfoque de ingeniería e impacto de cada proyecto.

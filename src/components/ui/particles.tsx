@@ -36,6 +36,11 @@ interface ParticlesProps extends ComponentPropsWithoutRef<"div"> {
   paused?: boolean;
 }
 
+const checkIsMobile = () => {
+  if (typeof window === "undefined") return false;
+  return window.innerWidth < 768 || window.matchMedia("(pointer: coarse)").matches;
+};
+
 export const Particles: React.FC<ParticlesProps> = ({
   className = "",
   quantity = 60,
@@ -55,8 +60,6 @@ export const Particles: React.FC<ParticlesProps> = ({
   const circles = useRef<Circle[]>([]);
   const mouse = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
-  // Limitar dpr a un máximo de 2 para evitar sobrecarga en pantallas Retina / 3x
-  const dpr = typeof window !== "undefined" ? Math.min(window.devicePixelRatio || 1, 2) : 1;
   const rafID = useRef<number | null>(null);
   const resizeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -68,18 +71,23 @@ export const Particles: React.FC<ParticlesProps> = ({
     setMounted(true);
   }, []);
 
-  const circleParams = (): Circle => ({
-    x: Math.floor(Math.random() * canvasSize.current.w),
-    y: Math.floor(Math.random() * canvasSize.current.h),
-    translateX: 0,
-    translateY: 0,
-    size: Math.floor(Math.random() * 2) + size,
-    alpha: 0,
-    targetAlpha: parseFloat((Math.random() * 0.6 + 0.1).toFixed(1)),
-    dx: (Math.random() - 0.5) * 0.1,
-    dy: (Math.random() - 0.5) * 0.1,
-    magnetism: 0.1 + Math.random() * 4,
-  });
+  const circleParams = (): Circle => {
+    const isMobile = checkIsMobile();
+    // En mobile: movimiento sutil y muy lento (factor 0.03 vs 0.1)
+    const speedFactor = isMobile ? 0.03 : 0.1;
+    return {
+      x: Math.floor(Math.random() * canvasSize.current.w),
+      y: Math.floor(Math.random() * canvasSize.current.h),
+      translateX: 0,
+      translateY: 0,
+      size: Math.floor(Math.random() * 2) + size,
+      alpha: 0,
+      targetAlpha: parseFloat((Math.random() * 0.6 + 0.1).toFixed(1)),
+      dx: (Math.random() - 0.5) * speedFactor,
+      dy: (Math.random() - 0.5) * speedFactor,
+      magnetism: 0.1 + Math.random() * 4,
+    };
+  };
 
   const rgb = hexToRgb(color);
 
@@ -111,6 +119,12 @@ export const Particles: React.FC<ParticlesProps> = ({
 
   const resizeCanvas = () => {
     if (canvasContainerRef.current && canvasRef.current && context.current) {
+      const isMobile = checkIsMobile();
+      // DPR max 1.5 en mobile para no saturar GPUs móviles; max 2 en desktop
+      const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
+      // Cantidad reducida en mobile (16 partículas) vs desktop (por defecto 50/60)
+      const targetQuantity = isMobile ? 16 : quantity;
+
       canvasSize.current.w = canvasContainerRef.current.offsetWidth;
       canvasSize.current.h = canvasContainerRef.current.offsetHeight;
       canvasRef.current.width = canvasSize.current.w * dpr;
@@ -119,9 +133,8 @@ export const Particles: React.FC<ParticlesProps> = ({
       canvasRef.current.style.height = `${canvasSize.current.h}px`;
       context.current.setTransform(dpr, 0, 0, dpr, 0, 0);
 
-      // Creamos exactamente la cantidad indicada sin duplicar
       circles.current = [];
-      for (let i = 0; i < quantity; i++) {
+      for (let i = 0; i < targetQuantity; i++) {
         circles.current.push(circleParams());
       }
     }
@@ -133,8 +146,13 @@ export const Particles: React.FC<ParticlesProps> = ({
   };
 
   const animate = () => {
-    if (paused) return;
+    if (paused) {
+      rafID.current = null;
+      return;
+    }
     clearContext();
+    const isMobile = checkIsMobile();
+
     circles.current.forEach((circle: Circle, i: number) => {
       const edge = [
         circle.x + circle.translateX - circle.size,
@@ -152,8 +170,16 @@ export const Particles: React.FC<ParticlesProps> = ({
       }
       circle.x += circle.dx + vx;
       circle.y += circle.dy + vy;
-      circle.translateX += (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease;
-      circle.translateY += (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease;
+
+      // En mobile no hay interacción con mouse/touch
+      if (!isMobile) {
+        circle.translateX += (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease;
+        circle.translateY += (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease;
+      } else {
+        circle.translateX = 0;
+        circle.translateY = 0;
+      }
+
       drawCircle(circle);
       if (
         circle.x < -circle.size ||
@@ -183,7 +209,11 @@ export const Particles: React.FC<ParticlesProps> = ({
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!paused && !prefersReducedMotion) {
-      animate();
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current);
+        rafID.current = null;
+      }
+      rafID.current = window.requestAnimationFrame(animate);
     }
 
     const handleResize = () => {
@@ -195,25 +225,57 @@ export const Particles: React.FC<ParticlesProps> = ({
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        if (rafID.current != null) window.cancelAnimationFrame(rafID.current);
-      } else if (!paused && !prefersReducedMotion) {
+        if (rafID.current != null) {
+          window.cancelAnimationFrame(rafID.current);
+          rafID.current = null;
+        }
+      } else if (!paused && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        if (rafID.current != null) {
+          window.cancelAnimationFrame(rafID.current);
+          rafID.current = null;
+        }
+        rafID.current = window.requestAnimationFrame(animate);
+      }
+    };
+
+    const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const handleMotionChange = () => {
+      if (motionQuery.matches) {
+        if (rafID.current != null) {
+          window.cancelAnimationFrame(rafID.current);
+          rafID.current = null;
+        }
+        drawParticles();
+      } else if (!paused && !document.hidden) {
+        if (rafID.current != null) {
+          window.cancelAnimationFrame(rafID.current);
+          rafID.current = null;
+        }
         rafID.current = window.requestAnimationFrame(animate);
       }
     };
 
     window.addEventListener("resize", handleResize);
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    motionQuery.addEventListener?.("change", handleMotionChange);
 
     return () => {
-      if (rafID.current != null) window.cancelAnimationFrame(rafID.current);
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current);
+        rafID.current = null;
+      }
       if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      motionQuery.removeEventListener?.("change", handleMotionChange);
     };
   }, [color, paused]);
 
-  // Manejo de mousemove directamente con refs sin re-renderizar React
+  // Manejo de mousemove directamente con refs sin re-renderizar React (solo en desktop)
   useEffect(() => {
+    // En mobile o dispositivos táctiles NO se registra el listener mousemove
+    if (checkIsMobile()) return;
+
     const handleMouseMove = (event: MouseEvent) => {
       if (canvasRef.current) {
         const rect = canvasRef.current.getBoundingClientRect();

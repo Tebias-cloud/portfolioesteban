@@ -82,3 +82,11 @@ body.modal-open .site-navbar {
     padding-top: 2rem;
   }
 }
+
+/* Transición rápida para cambio de tema en móvil (~150ms) para que se sienta inmediato */
+@media (max-width: 767px) {
+  body,
+  .transition-\[color\,background-color\] {
+    transition-duration: 150ms !important;
+  }
+}
