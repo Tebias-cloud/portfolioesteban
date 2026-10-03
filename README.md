@@ -19,9 +19,9 @@ Dominio oficial: [https://www.estebanvidal.dev/](https://www.estebanvidal.dev/)
 
 ## Arquitectura y Optimizaciones
 
-- **`src/pages/index.astro`:** Estructura base de la página con espaciado responsive adaptado a safe-area en móviles y efectos visuales adaptativos (partículas en versión ligera para móvil y meteoros reservados para escritorio).
+- **`src/pages/index.astro`:** Estructura base de la página con espaciado responsive adaptado a safe-area en móviles, fondo ambiental optimizado mediante gradientes radiales CSS puros (evitando elementos con `filter: blur()` para reducir el coste de composición manteniendo el glow violeta/cian) y efectos visuales adaptativos (partículas optimizadas a ~30 FPS con compensación temporal en escritorio, versión ligera para móvil y meteoros reservados para escritorio).
 - **`src/components/`:** Componentes de interfaz:
-  - `Navbar.tsx`: Navegación con cambio de tema (transición circular con View Transitions en escritorio y alternancia directa y ligera en móvil/táctil o con prefers-reduced-motion), selector de idioma (ES/EN) y ocultación automática cuando un modal está abierto.
+  - `Navbar.tsx`: Navegación con cambio de tema (transición circular con View Transitions en escritorio, transición temporal ligera de colores de ~200ms mediante `theme-switching` en móvil/táctil y cambio directo sin animación con `prefers-reduced-motion`), selector de idioma (ES/EN) y ocultación automática cuando un modal está abierto.
   - `HeroInfo.tsx`: Presentación principal con soporte para foto de perfil (`/public/profile.webp`), enlaces sociales y descarga de CV bilingüe.
   - `ProjectList.tsx` / `ProjectCard.tsx`: Catálogo de proyectos destacados con navegación por teclado accesible (`Enter`/`Space`), targets táctiles confortables y feedback discreto.
   - `ProjectModal.tsx`: Modal montado vía portal en `document.body` para aislar el contexto de apilamiento, con focus trap, galería con swipe táctil, transición ligera y textura ambiental sutil en móvil sin canvas adicional.
