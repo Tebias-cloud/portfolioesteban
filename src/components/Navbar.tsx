@@ -12,8 +12,15 @@ export const Navbar = () => {
   const [isDark, setIsDark] = useState(true);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
+  const switchingTimeoutRef = useRef<number | null>(null);
+
   useEffect(() => {
     setIsDark(document.documentElement.classList.contains("dark"));
+    return () => {
+      if (switchingTimeoutRef.current) {
+        clearTimeout(switchingTimeoutRef.current);
+      }
+    };
   }, []);
 
   const toggleLang = () => {
@@ -21,13 +28,17 @@ export const Navbar = () => {
   };
 
   const toggleTheme = useCallback(() => {
+    const isReducedMotion =
+      typeof window !== "undefined" &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
     const isTouchOrMobile =
       typeof window !== "undefined" &&
       (window.matchMedia("(pointer: coarse)").matches ||
-        window.innerWidth < 768 ||
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        window.innerWidth < 768);
 
-    if (!buttonRef.current || !document.startViewTransition || isTouchOrMobile) {
+    // Con prefers-reduced-motion: toggle directo instantáneo sin animación
+    if (isReducedMotion) {
       const newTheme = !isDark;
       setIsDark(newTheme);
       document.documentElement.classList.toggle("dark");
@@ -35,6 +46,28 @@ export const Navbar = () => {
       return;
     }
 
+    // En mobile o dispositivos táctiles: crossfade ligero (~200ms) mediante clase temporal en <html>
+    // sin startViewTransition ni clipPath pesados
+    if (!buttonRef.current || !document.startViewTransition || isTouchOrMobile) {
+      if (switchingTimeoutRef.current) {
+        clearTimeout(switchingTimeoutRef.current);
+      }
+
+      document.documentElement.classList.add("theme-switching");
+
+      const newTheme = !isDark;
+      setIsDark(newTheme);
+      document.documentElement.classList.toggle("dark");
+      localStorage.setItem("theme", newTheme ? "dark" : "light");
+
+      switchingTimeoutRef.current = window.setTimeout(() => {
+        document.documentElement.classList.remove("theme-switching");
+        switchingTimeoutRef.current = null;
+      }, 220);
+      return;
+    }
+
+    // Desktop: View Transition circular nativa con clip-path
     const transition = document.startViewTransition(() => {
       flushSync(() => {
         const newTheme = !isDark;

@@ -94,9 +94,9 @@ export const ProjectCard: React.FC<ProjectCardProps> = React.memo(({
               {project.title}
             </h3>
             {project.highlights && (
-              <div className="flex items-center gap-1.5 mt-1.5 text-[11px] font-mono font-medium text-purple-600 dark:text-purple-400/90 tracking-wide">
-                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0" />
-                <span className="truncate">{project.highlights[lang]}</span>
+              <div className="flex items-start gap-1.5 mt-1.5 text-[11px] font-mono font-medium text-purple-600 dark:text-purple-400/90 tracking-wide">
+                <span className="w-1.5 h-1.5 rounded-full bg-purple-500 shrink-0 mt-1" />
+                <span className="whitespace-normal leading-snug">{project.highlights[lang]}</span>
               </div>
             )}
           </div>

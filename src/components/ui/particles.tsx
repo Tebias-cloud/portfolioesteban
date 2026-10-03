@@ -62,6 +62,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   const canvasSize = useRef<{ w: number; h: number }>({ w: 0, h: 0 });
   const rafID = useRef<number | null>(null);
   const resizeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastTime = useRef<number>(0);
 
   const isModalOpen = useStore($isModalOpen);
   const paused = propsPaused || isModalOpen;
@@ -145,13 +146,34 @@ export const Particles: React.FC<ParticlesProps> = ({
     return remapped > 0 ? remapped : 0;
   };
 
-  const animate = () => {
+  const animate = (now: number) => {
     if (paused) {
       rafID.current = null;
+      lastTime.current = 0;
       return;
     }
-    clearContext();
+
     const isMobile = checkIsMobile();
+
+    if (!lastTime.current) {
+      lastTime.current = now;
+    }
+
+    const delta = now - lastTime.current;
+
+    // En desktop limitamos a ~30 FPS para asegurar scroll 100% fluido sin tirones de GPU
+    if (!isMobile && delta < 32) {
+      rafID.current = window.requestAnimationFrame(animate);
+      return;
+    }
+
+    lastTime.current = now;
+
+    // Compensación temporal respecto a frame estándar de 60 FPS (~16.67ms)
+    // para mantener exactamente la misma velocidad visual
+    const timeFactor = isMobile ? 1 : Math.min(Math.max(delta / 16.67, 0.5), 3);
+
+    clearContext();
 
     circles.current.forEach((circle: Circle, i: number) => {
       const edge = [
@@ -163,18 +185,19 @@ export const Particles: React.FC<ParticlesProps> = ({
       const closestEdge = edge.reduce((a, b) => Math.min(a, b));
       const remapClosestEdge = parseFloat(remapValue(closestEdge, 0, 20, 0, 1).toFixed(2));
       if (remapClosestEdge > 1) {
-        circle.alpha += 0.02;
+        circle.alpha += 0.02 * timeFactor;
         if (circle.alpha > circle.targetAlpha) circle.alpha = circle.targetAlpha;
       } else {
         circle.alpha = circle.targetAlpha * remapClosestEdge;
       }
-      circle.x += circle.dx + vx;
-      circle.y += circle.dy + vy;
+      circle.x += (circle.dx + vx) * timeFactor;
+      circle.y += (circle.dy + vy) * timeFactor;
 
       // En mobile no hay interacción con mouse/touch
       if (!isMobile) {
-        circle.translateX += (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) / ease;
-        circle.translateY += (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) / ease;
+        const easeFactor = Math.min((1 / ease) * timeFactor, 1);
+        circle.translateX += (mouse.current.x / (staticity / circle.magnetism) - circle.translateX) * easeFactor;
+        circle.translateY += (mouse.current.y / (staticity / circle.magnetism) - circle.translateY) * easeFactor;
       } else {
         circle.translateX = 0;
         circle.translateY = 0;
@@ -204,16 +227,29 @@ export const Particles: React.FC<ParticlesProps> = ({
     }
     initCanvas();
 
+    const startAnimation = () => {
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current);
+        rafID.current = null;
+      }
+      lastTime.current = 0;
+      rafID.current = window.requestAnimationFrame(animate);
+    };
+
+    const stopAnimation = () => {
+      if (rafID.current != null) {
+        window.cancelAnimationFrame(rafID.current);
+        rafID.current = null;
+      }
+      lastTime.current = 0;
+    };
+
     const prefersReducedMotion =
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     if (!paused && !prefersReducedMotion) {
-      if (rafID.current != null) {
-        window.cancelAnimationFrame(rafID.current);
-        rafID.current = null;
-      }
-      rafID.current = window.requestAnimationFrame(animate);
+      startAnimation();
     }
 
     const handleResize = () => {
@@ -225,33 +261,19 @@ export const Particles: React.FC<ParticlesProps> = ({
 
     const handleVisibilityChange = () => {
       if (document.hidden) {
-        if (rafID.current != null) {
-          window.cancelAnimationFrame(rafID.current);
-          rafID.current = null;
-        }
+        stopAnimation();
       } else if (!paused && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-        if (rafID.current != null) {
-          window.cancelAnimationFrame(rafID.current);
-          rafID.current = null;
-        }
-        rafID.current = window.requestAnimationFrame(animate);
+        startAnimation();
       }
     };
 
     const motionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     const handleMotionChange = () => {
       if (motionQuery.matches) {
-        if (rafID.current != null) {
-          window.cancelAnimationFrame(rafID.current);
-          rafID.current = null;
-        }
+        stopAnimation();
         drawParticles();
       } else if (!paused && !document.hidden) {
-        if (rafID.current != null) {
-          window.cancelAnimationFrame(rafID.current);
-          rafID.current = null;
-        }
-        rafID.current = window.requestAnimationFrame(animate);
+        startAnimation();
       }
     };
 
@@ -260,10 +282,7 @@ export const Particles: React.FC<ParticlesProps> = ({
     motionQuery.addEventListener?.("change", handleMotionChange);
 
     return () => {
-      if (rafID.current != null) {
-        window.cancelAnimationFrame(rafID.current);
-        rafID.current = null;
-      }
+      stopAnimation();
       if (resizeTimeout.current) clearTimeout(resizeTimeout.current);
       window.removeEventListener("resize", handleResize);
       document.removeEventListener("visibilitychange", handleVisibilityChange);

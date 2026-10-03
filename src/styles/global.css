@@ -83,10 +83,34 @@ body.modal-open .site-navbar {
   }
 }
 
-/* Transición rápida para cambio de tema en móvil (~150ms) para que se sienta inmediato */
-@media (max-width: 767px) {
-  body,
-  .transition-\[color\,background-color\] {
-    transition-duration: 150ms !important;
+/* Transición temporal ligera para cambio de tema en móvil/touch (~200ms) */
+@media (prefers-reduced-motion: no-preference) {
+  html.theme-switching,
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition: color 200ms ease-out, background-color 200ms ease-out, border-color 200ms ease-out, fill 200ms ease-out, stroke 200ms ease-out !important;
+    transition-delay: 0s !important;
+  }
+}
+
+/* Glows de ambiente optimizados con gradientes radiales puros (sin filter: blur) */
+.bg-ambient-glow-light {
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.15) 0%, transparent 65%),
+    radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.15) 0%, transparent 65%);
+}
+
+.bg-ambient-glow-dark {
+  background-image:
+    radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.10) 0%, transparent 65%),
+    radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.10) 0%, transparent 65%);
+}
+
+@media (min-width: 768px) {
+  .bg-ambient-glow-dark {
+    background-image:
+      radial-gradient(circle at 10% 10%, rgba(168, 85, 247, 0.05) 0%, transparent 65%),
+      radial-gradient(circle at 90% 90%, rgba(6, 182, 212, 0.05) 0%, transparent 65%);
   }
 }

@@ -28,10 +28,9 @@ import { ContactSection } from '../components/ContactSection.tsx';
         <div class="hidden md:block absolute inset-0 pointer-events-none">
             <Meteors client:visible number={8} />
         </div>
-        <div class="absolute inset-0 z-0">
-            <div class="absolute -top-[20%] -left-[15%] w-[85vw] h-[85vw] md:w-[80%] md:h-[80%] md:-top-[25%] md:-left-[20%] rounded-full bg-purple-500/15 dark:bg-purple-500/10 md:dark:bg-purple-500/5 blur-3xl pointer-events-none"></div>
-            <div class="absolute -bottom-[20%] -right-[15%] w-[85vw] h-[85vw] md:w-[80%] md:h-[80%] md:-bottom-[25%] md:-right-[20%] rounded-full bg-cyan-500/15 dark:bg-cyan-500/10 md:dark:bg-cyan-500/5 blur-3xl pointer-events-none"></div>
-        </div>
+        {/* Glows de ambiente optimizados con gradientes radiales puros (sin filter: blur) */}
+        <div class="absolute inset-0 pointer-events-none bg-ambient-glow-light dark:opacity-0 transition-opacity duration-200"></div>
+        <div class="absolute inset-0 pointer-events-none bg-ambient-glow-dark opacity-0 dark:opacity-100 transition-opacity duration-200"></div>
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(228,228,231,0.8)_100%)] dark:bg-[radial-gradient(circle_at_center,transparent_0%,rgba(10,10,10,0.85)_100%)]"></div>
     </div>
 

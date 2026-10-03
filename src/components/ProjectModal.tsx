@@ -341,10 +341,10 @@ export const ProjectModal: React.FC<ProjectModalProps> = React.memo(({ project, 
                       onClick={() => handleSelectImg(idx)}
                       aria-label={`${project.title} - ${lang === "ES" ? `ver captura ${idx + 1}` : `view screenshot ${idx + 1}`}`}
                       aria-current={activeImg === idx ? "true" : undefined}
-                      className={`relative aspect-video rounded-xl overflow-hidden border-2 transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
+                      className={`relative aspect-video rounded-xl overflow-hidden border transition-all duration-200 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500 ${
                         activeImg === idx
-                          ? "border-purple-500 opacity-100 scale-[1.02]"
-                          : "border-zinc-200/80 dark:border-white/5 opacity-50 hover:opacity-100"
+                          ? "border-purple-500/60 opacity-100"
+                          : "border-zinc-200/80 dark:border-white/10 opacity-50 hover:opacity-100"
                       }`}
                     >
                       {imgErrors[idx] ? (
